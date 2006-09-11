@@ -144,7 +144,6 @@ public class InventoryClickListener implements Listener {
             itemDisplay.addScoreboardTag("fancyphysics_crafting");
             itemDisplay.setItemStack(item);
             itemDisplay.setBrightness(new Display.Brightness(15, 15));
-
             /*
              * Transform the display
              */
