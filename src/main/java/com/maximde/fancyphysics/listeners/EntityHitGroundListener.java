@@ -2,6 +2,7 @@ package com.maximde.fancyphysics.listeners;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import com.maximde.fancyphysics.components.ParticleDisplay;
+import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.EntityType;
@@ -20,6 +21,7 @@ public class EntityHitGroundListener implements Listener {
 
     @EventHandler
     public void onBlockFall(EntityChangeBlockEvent event) {
+        if(!Config.isBlockParticles()) return;
         if (event.getEntityType() == EntityType.FALLING_BLOCK) {
             event.setCancelled(true);
             FallingBlock fallingBlock = (FallingBlock) event.getEntity();

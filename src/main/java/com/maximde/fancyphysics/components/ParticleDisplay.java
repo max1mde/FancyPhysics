@@ -48,31 +48,35 @@ public class ParticleDisplay {
                     new Vector3f(startSize,startSize,startSize),
                     blockDisplay.getTransformation().getRightRotation()
             );
-            blockDisplay.setInterpolationDelay(-1);
-            blockDisplay.setInterpolationDuration(0);
-            blockDisplay.setTransformation(transformation);
-
-            float randomY = ThreadLocalRandom.current().nextFloat()  / 10;
-
-            Random random = new Random();
-            float randomZ = random.nextFloat();
-            float randomX = random.nextFloat();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-                Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * 10), -3F + randomY, (z - 0.4F) * (randomZ * 10));
-                Transformation transformationMove = new Transformation(
-                        translationMove,
-                        blockDisplay.getTransformation().getLeftRotation(),
-                        new Vector3f(1F / 100F,1F / 100F,1F / 100F),
-                        blockDisplay.getTransformation().getRightRotation()
-                );
-                blockDisplay.setInterpolationDuration(30);
-                blockDisplay.setInterpolationDelay(-1);
-                blockDisplay.setTransformation(transformationMove);
-                Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, 30L);
-            }, 2L);
+            animateDisplay(x, z, blockDisplay, transformation);
 
         });
 
+    }
+
+    private void animateDisplay(float x, float z, BlockDisplay blockDisplay, Transformation transformation) {
+        blockDisplay.setInterpolationDelay(-1);
+        blockDisplay.setInterpolationDuration(0);
+        blockDisplay.setTransformation(transformation);
+
+        float randomY = ThreadLocalRandom.current().nextFloat()  / 10;
+
+        Random random = new Random();
+        float randomZ = random.nextFloat();
+        float randomX = random.nextFloat();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+            Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * 10), -3F + randomY, (z - 0.4F) * (randomZ * 10));
+            Transformation transformationMove = new Transformation(
+                    translationMove,
+                    blockDisplay.getTransformation().getLeftRotation(),
+                    new Vector3f(1F / 100F,1F / 100F,1F / 100F),
+                    blockDisplay.getTransformation().getRightRotation()
+            );
+            blockDisplay.setInterpolationDuration(30);
+            blockDisplay.setInterpolationDelay(-1);
+            blockDisplay.setTransformation(transformationMove);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, 30L);
+        }, 2L);
     }
 
     private void spawnBlockDisplay(Block block, float x, float y, float z) {
@@ -92,28 +96,7 @@ public class ParticleDisplay {
                     new Vector3f(10.0F / 30,10.0F / (30 + randomSize),10.0F / 30),
                     blockDisplay.getTransformation().getRightRotation()
             );
-            blockDisplay.setInterpolationDelay(-1);
-            blockDisplay.setInterpolationDuration(0);
-            blockDisplay.setTransformation(transformation);
-
-            float randomY = ThreadLocalRandom.current().nextFloat()  / 10;
-
-            Random random = new Random();
-            float randomZ = random.nextFloat();
-            float randomX = random.nextFloat();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-                Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * 10), -3F + randomY, (z - 0.4F) * (randomZ * 10));
-                Transformation transformationMove = new Transformation(
-                        translationMove,
-                        blockDisplay.getTransformation().getLeftRotation(),
-                        new Vector3f(1F / 100F,1F / 100F,1F / 100F),
-                        blockDisplay.getTransformation().getRightRotation()
-                );
-                blockDisplay.setInterpolationDuration(30);
-                blockDisplay.setInterpolationDelay(-1);
-                blockDisplay.setTransformation(transformationMove);
-                Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, 30L);
-            }, 2L);
+            animateDisplay(x, z, blockDisplay, transformation);
 
         });
 

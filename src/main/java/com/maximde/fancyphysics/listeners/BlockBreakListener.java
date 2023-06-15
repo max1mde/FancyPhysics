@@ -2,6 +2,7 @@ package com.maximde.fancyphysics.listeners;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import com.maximde.fancyphysics.components.ParticleDisplay;
+import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,7 @@ public class BlockBreakListener implements Listener {
         var player = event.getPlayer();
         final var block = event.getBlock();
         if(event.isCancelled()) return;
+        if(!Config.isBlockParticles()) return;
         simulate3DParticles(block);
     }
 

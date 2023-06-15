@@ -2,6 +2,7 @@ package com.maximde.fancyphysics.listeners;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import com.maximde.fancyphysics.components.ParticleDisplay;
+import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,7 +23,7 @@ public class EntityDeathListener implements Listener {
         var entity = event.getEntity();
         final var height = entity.getHeight();
 
-
+        if(!Config.isEntityDeathParticles()) return;
         var material = switch (entity.getType()) {
             case MAGMA_CUBE -> Material.FIRE;
             case SLIME -> Material.SLIME_BLOCK;
