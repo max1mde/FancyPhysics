@@ -16,15 +16,15 @@ public class Config {
     private static boolean blockParticles;
 
     public static void setupConfig() {
-        if(!cfg.isSet("Config")) {
+        if(!cfg.isSet("Physics")) {
             cfg.set("Physics.RealisticExplosion", true);
             cfg.set("Physics.EntityDeathParticles", true);
             cfg.set("Physics.3DBlockParticles", true);
             saveConfig();
         }
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
-        realisticExplosion = cfg.getBoolean("Physics.EntityDeathParticles");
-        realisticExplosion = cfg.getBoolean("Physics.3DBlockParticles");
+        entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
+        blockParticles = cfg.getBoolean("Physics.3DBlockParticles");
     }
 
     public static void saveConfig() {
