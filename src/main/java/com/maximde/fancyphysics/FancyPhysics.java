@@ -1,11 +1,11 @@
 package com.maximde.fancyphysics;
 
-import com.maximde.fancyphysics.listeners.BlockBreakListener;
-import com.maximde.fancyphysics.listeners.EntityDeathListener;
-import com.maximde.fancyphysics.listeners.EntityExplodeListener;
-import com.maximde.fancyphysics.listeners.EntityHitGroundListener;
+import com.maximde.fancyphysics.listeners.*;
 import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public final class FancyPhysics extends JavaPlugin {
     @Override
@@ -15,5 +15,7 @@ public final class FancyPhysics extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityDeathListener(this), this);
         getServer().getPluginManager().registerEvents(new EntityExplodeListener(this), this);
         getServer().getPluginManager().registerEvents(new EntityHitGroundListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
     }
+
 }

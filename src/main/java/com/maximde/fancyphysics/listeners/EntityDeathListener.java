@@ -46,7 +46,7 @@ public class EntityDeathListener implements Listener {
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
                 for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
-                    new ParticleDisplay(location, material, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 10.0F / 50);
+                    new ParticleDisplay(location, material, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 10.0F / 40);
                 }
             }
         }

@@ -29,6 +29,7 @@ public class ParticleDisplay {
         spawnBlockDisplay(location, particleMaterial, x, y, z, startSize);
     }
 
+
     private void spawnBlockDisplay(Location location, Material particleMaterial, float x, float y, float z, float startSize) {
         var loc = new Location(location.getWorld(), (float)((int)location.getX()) + x, (float)((int)location.getY()) + y, (float)((int)location.getZ()) + z);
         float randomSize = ThreadLocalRandom.current().nextFloat() * 10;
