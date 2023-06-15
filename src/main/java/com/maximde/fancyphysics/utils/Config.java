@@ -35,7 +35,6 @@ public class Config {
         }
     }
 
-
     public static File getFile() {
         return file;
     }
