@@ -1,7 +1,9 @@
 package com.maximde.fancyphysics.listeners;
 
 import com.maximde.fancyphysics.FancyPhysics;
+import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -11,15 +13,19 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class PlayerInteractListener implements Listener {
     private FancyPhysics fancyPhysics;
+    public static List<Location> animatedLocations = new ArrayList<>();
     public PlayerInteractListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
@@ -29,11 +35,14 @@ public class PlayerInteractListener implements Listener {
     }
 
     private void animateTrapdor(Block clickedBlock, PlayerInteractEvent event) {
-
+        if(!Config.isTrapdoorPhysics()) return;
+        if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(clickedBlock == null) return;
         if(!clickedBlock.getType().name().contains("TRAPDOOR")) return;
+        if(animatedLocations.contains(clickedBlock.getLocation())) return;
         final BlockData blockData = clickedBlock.getBlockData();
         event.setCancelled(true);
+        animatedLocations.add(clickedBlock.getLocation());
         clickedBlock.setType(Material.AIR);
         clickedBlock.getLocation().getWorld().spawn(clickedBlock.getLocation(), BlockDisplay.class, blockDisplay -> {
 
@@ -48,7 +57,7 @@ public class PlayerInteractListener implements Listener {
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
             Transformation transformation = new Transformation(
-                    blockDisplay.getTransformation().getTranslation(),
+                    new Vector3f(+0.1F,0,0),
                     leftRotation,
                     new Vector3f(1,1,1),
                     blockDisplay.getTransformation().getRightRotation()
@@ -62,18 +71,20 @@ public class PlayerInteractListener implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
             clickedBlock.setType(Material.AIR);
             var leftRotation = new Quaternionf(0,0,1,0);
+            var transformation = new Vector3f(0.3F, 0, 0);
             if (previusBlockData instanceof TrapDoor slab) {
                 if(slab.isOpen()) {
                     leftRotation = new Quaternionf(0,0,-1,0);
+                    transformation = new Vector3f(0, 0.3F, 0);
                 }
             }
             Transformation transformationMove = new Transformation(
-                    blockDisplay.getTransformation().getTranslation(),
+                    transformation,
                     leftRotation,
                     new Vector3f(1,1,1),
                     blockDisplay.getTransformation().getRightRotation()
             );
-            blockDisplay.setInterpolationDuration(20);
+            blockDisplay.setInterpolationDuration(19);
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
@@ -85,7 +96,8 @@ public class PlayerInteractListener implements Listener {
                 }
                 block.setBlockData(blockData);
                 blockDisplay.remove();
-            }, 10L);
+                animatedLocations.remove(block.getLocation());
+            }, 9L);
             }, 2L);
     }
 }
