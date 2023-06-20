@@ -23,7 +23,7 @@ public class EntityDeathListener implements Listener {
         var entity = event.getEntity();
         final var height = entity.getHeight();
 
-        if(!Config.isEntityDeathParticles()) return;
+        if(!this.fancyPhysics.config.isEntityDeathParticles()) return;
         var material = switch (entity.getType()) {
             case MAGMA_CUBE -> Material.FIRE;
             case SLIME -> Material.SLIME_BLOCK;

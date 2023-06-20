@@ -6,17 +6,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class Config {
+    private File file = new File("plugins/FancyPhysics", "config.yml");
+    private YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
+    private boolean realisticExplosion;
+    private boolean entityDeathParticles;
+    private boolean blockParticles;
+    private boolean trapdoorPhysics;
 
-    private static File file = new File("plugins/FancyPhysics", "config.yml");
-
-    private static YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
-
-    private static boolean realisticExplosion;
-    private static boolean entityDeathParticles;
-    private static boolean blockParticles;
-    private static boolean trapdoorPhysics;
-
-    public static void setupConfig() {
+    public Config() {
         if(!cfg.isSet("Physics")) {
             cfg.set("Physics.RealisticExplosion", true);
             cfg.set("Physics.EntityDeathParticles", true);
@@ -30,7 +27,7 @@ public class Config {
         trapdoorPhysics = cfg.getBoolean("Physics.TrapdoorPhysics");
     }
 
-    public static void saveConfig() {
+    public void saveConfig() {
         try {
             cfg.save(file);
         } catch (IOException e) {
@@ -38,27 +35,27 @@ public class Config {
         }
     }
 
-    public static File getFile() {
+    public File getFile() {
         return file;
     }
 
 
-    public static YamlConfiguration getConfig() {
+    public YamlConfiguration getConfig() {
         return cfg;
     }
 
-    public static boolean isRealisticExplosion() {
+    public boolean isRealisticExplosion() {
         return realisticExplosion;
     }
 
-    public static boolean isEntityDeathParticles() {
+    public boolean isEntityDeathParticles() {
         return entityDeathParticles;
     }
 
-    public static boolean isBlockParticles() {
+    public boolean isBlockParticles() {
         return blockParticles;
     }
-    public static boolean isTrapdoorPhysics() {
+    public boolean isTrapdoorPhysics() {
         return trapdoorPhysics;
     }
 }

@@ -24,8 +24,8 @@ import java.util.List;
 
 
 public class PlayerInteractListener implements Listener {
-    private FancyPhysics fancyPhysics;
     public static List<Location> animatedLocations = new ArrayList<>();
+    private FancyPhysics fancyPhysics;
     public PlayerInteractListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
@@ -35,7 +35,7 @@ public class PlayerInteractListener implements Listener {
     }
 
     private void animateTrapdor(Block clickedBlock, PlayerInteractEvent event) {
-        if(!Config.isTrapdoorPhysics()) return;
+        if(!this.fancyPhysics.config.isTrapdoorPhysics()) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(clickedBlock == null) return;
         if(!clickedBlock.getType().name().contains("TRAPDOOR")) return;

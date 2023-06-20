@@ -21,7 +21,7 @@ public class EntityHitGroundListener implements Listener {
 
     @EventHandler
     public void onBlockFall(EntityChangeBlockEvent event) {
-        if(!Config.isBlockParticles()) return;
+        if(!this.fancyPhysics.config.isBlockParticles()) return;
         if (event.getEntityType() == EntityType.FALLING_BLOCK) {
             event.setCancelled(true);
             FallingBlock fallingBlock = (FallingBlock) event.getEntity();

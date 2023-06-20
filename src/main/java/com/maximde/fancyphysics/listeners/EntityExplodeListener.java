@@ -2,23 +2,23 @@ package com.maximde.fancyphysics.listeners;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import com.maximde.fancyphysics.utils.Config;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class EntityExplodeListener implements Listener {
 
+    private FancyPhysics fancyPhysics;
     public EntityExplodeListener(FancyPhysics fancyPhysics) {
+        this.fancyPhysics = fancyPhysics;
     }
 
     @EventHandler
@@ -27,7 +27,7 @@ public class EntityExplodeListener implements Listener {
     }
 
     private void realisticExplosion(EntityExplodeEvent event) {
-        if(!Config.isRealisticExplosion()) return;
+        if(!this.fancyPhysics.config.isRealisticExplosion()) return;
         for (Block b : event.blockList()) {
             float x = -(float)(ThreadLocalRandom.current().nextDouble() / 10) + (float) (Math.random() / 10);
             float y = -0.1F + (float) (ThreadLocalRandom.current().nextDouble() + 0.5D);

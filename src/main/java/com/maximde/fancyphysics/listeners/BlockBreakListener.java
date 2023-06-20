@@ -17,9 +17,9 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         var player = event.getPlayer();
-        final var block = event.getBlock();
+        var block = event.getBlock();
         if(event.isCancelled()) return;
-        if(!Config.isBlockParticles()) return;
+        if(!fancyPhysics.config.isBlockParticles()) return;
         simulate3DParticles(block);
     }
 
