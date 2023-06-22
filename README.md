@@ -11,7 +11,7 @@
 - Restart your server
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916662038538/Neues_Projekt_100.png?width=250&height=125)
-```
+```yml
 Physics:
   RealisticExplosion: true
   EntityDeathParticles: true
