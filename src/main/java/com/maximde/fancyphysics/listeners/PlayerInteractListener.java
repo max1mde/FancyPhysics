@@ -36,9 +36,6 @@ public class PlayerInteractListener implements Listener {
     }
 
     private void animateTrapdor(Block clickedBlock, PlayerInteractEvent event) {
-        if(event.getItem().getType() == Material.BARRIER) {
-            new ParticleDisplay(event.getPlayer().getLocation(), Material.STONE, 0,0,0, this.fancyPhysics, 0.5F);
-        }
         if(!this.fancyPhysics.config.isTrapdoorPhysics()) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(clickedBlock == null) return;
