@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.joml.Vector3f;
 
@@ -63,23 +64,25 @@ public class ParticleDisplay {
         blockDisplay.setInterpolationDuration(0);
         blockDisplay.setTransformation(transformation);
 
-        float randomY = ThreadLocalRandom.current().nextFloat()  / 10;
+        float randomY = ThreadLocalRandom.current().nextFloat()  / 5;
 
         Random random = new Random();
         float randomZ = random.nextFloat();
         float randomX = random.nextFloat();
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-            Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * 10), -3F + randomY, (z - 0.4F) * (randomZ * 10));
+            Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * 9), -3.3F + randomY, (z - 0.4F) * (randomZ * 9));
             Transformation transformationMove = new Transformation(
                     translationMove,
                     blockDisplay.getTransformation().getLeftRotation(),
                     new Vector3f(1F / 100F,1F / 100F,1F / 100F),
                     blockDisplay.getTransformation().getRightRotation()
             );
-            blockDisplay.setInterpolationDuration(30);
+            blockDisplay.setInterpolationDuration(35);
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, 30L);
+
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, 35L);
         }, 2L);
     }
 

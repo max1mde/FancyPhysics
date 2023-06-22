@@ -2,9 +2,7 @@ package com.maximde.fancyphysics.listeners;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import com.maximde.fancyphysics.components.ParticleDisplay;
-import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.*;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
@@ -22,13 +20,14 @@ public class EntityHitGroundListener implements Listener {
     @EventHandler
     public void onBlockFall(EntityChangeBlockEvent event) {
         if(!this.fancyPhysics.config.isBlockParticles()) return;
+        if(event.getBlock().getType() != Material.AIR) return;
         if (event.getEntityType() == EntityType.FALLING_BLOCK) {
-            event.setCancelled(true);
             FallingBlock fallingBlock = (FallingBlock) event.getEntity();
+            event.setCancelled(true);
             Material material = fallingBlock.getMaterial();
-            Location loc = event.getEntity().getLocation();
+            final var loc = event.getBlock().getLocation();
             loc.getWorld().playSound(loc, Sound.ENTITY_ITEM_PICKUP, 1.0f, 1.0f);
-            simulate3DParticles(fallingBlock.getLocation(), material);
+            simulate3DParticles(loc, material);
         }
     }
 
