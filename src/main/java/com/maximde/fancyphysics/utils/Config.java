@@ -15,13 +15,15 @@ public class Config {
     private boolean blockParticles;
     private boolean trapdoorPhysics;
     private boolean damageParticles;
+    private boolean particleRotation;
 
     private final String[] settingsPhysics = {
             "RealisticExplosion",
             "EntityDeathParticles",
             "3DBlockParticles",
             "TrapdoorPhysics",
-            "DamageParticles"};
+            "DamageParticles",
+            "ParticleRotation"};
 
     public Config() {
         for(String s : settingsPhysics) {
@@ -34,6 +36,7 @@ public class Config {
         blockParticles = cfg.getBoolean("Physics.3DBlockParticles");
         trapdoorPhysics = cfg.getBoolean("Physics.TrapdoorPhysics");
         damageParticles = cfg.getBoolean("Physics.DamageParticles");
+        particleRotation = cfg.getBoolean("Physics.ParticleRotation");
     }
 
     public void saveConfig() {
@@ -64,5 +67,8 @@ public class Config {
     }
     public boolean isDamageParticles() {
         return damageParticles;
+    }
+    public boolean isParticleRotation() {
+        return particleRotation;
     }
 }

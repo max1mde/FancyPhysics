@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.util.Transformation;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.Random;
@@ -58,6 +59,7 @@ public class ParticleDisplay {
             blockDisplay.setInvulnerable(true);
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
+            blockDisplay.setViewRange(0);
 
             Transformation transformation = new Transformation(
                     blockDisplay.getTransformation().getTranslation(),
@@ -80,16 +82,25 @@ public class ParticleDisplay {
         float randomZ = random.nextFloat();
         float randomX = random.nextFloat();
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-            Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * (9 * this.speed)), -3.3F + randomY, (z - 0.4F) * (randomZ * (9 * this.speed)));
+            var translationMove = new Vector3f((x - 0.4F) * (randomX * (9 * this.speed)), -3.3F + randomY, (z - 0.4F) * (randomZ * (9 * this.speed)));
+
+            var rotationLeft = blockDisplay.getTransformation().getLeftRotation();
+            var rotationRight = blockDisplay.getTransformation().getLeftRotation();
+            if(this.fancyPhysics.config.isParticleRotation()) {
+                rotationLeft = new Quaternionf(x * randomZ, x * randomZ, x * randomZ, 0);
+                rotationRight = new Quaternionf(x * randomZ, x * randomZ, x * randomZ, 0);
+            }
+
             Transformation transformationMove = new Transformation(
                     translationMove,
-                    blockDisplay.getTransformation().getLeftRotation(),
-                    new Vector3f(1F / 100F,1F / 100F,1F / 100F),
-                    blockDisplay.getTransformation().getRightRotation()
+                    rotationLeft,
+                    new Vector3f(1F / 100F * x,1F / 100F * x,1F / 100F * x),
+                    rotationRight
             );
             blockDisplay.setInterpolationDuration(35);
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
+            blockDisplay.setViewRange(5);
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, 35L);
         }, 2L);
