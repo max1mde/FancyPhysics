@@ -12,6 +12,7 @@ public class Config {
     private boolean entityDeathParticles;
     private boolean blockParticles;
     private boolean trapdoorPhysics;
+    private boolean damageParticles;
 
     public Config() {
         if(!cfg.isSet("Physics")) {
@@ -19,12 +20,14 @@ public class Config {
             cfg.set("Physics.EntityDeathParticles", true);
             cfg.set("Physics.3DBlockParticles", true);
             cfg.set("Physics.TrapdoorPhysics", true);
+            cfg.set("Physics.DamageParticles", true);
             saveConfig();
         }
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
         entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
         blockParticles = cfg.getBoolean("Physics.3DBlockParticles");
         trapdoorPhysics = cfg.getBoolean("Physics.TrapdoorPhysics");
+        damageParticles = cfg.getBoolean("Physics.DamageParticles");
     }
 
     public void saveConfig() {
@@ -57,5 +60,8 @@ public class Config {
     }
     public boolean isTrapdoorPhysics() {
         return trapdoorPhysics;
+    }
+    public boolean isDamageParticles() {
+        return damageParticles;
     }
 }

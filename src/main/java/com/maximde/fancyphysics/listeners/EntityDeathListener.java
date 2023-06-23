@@ -20,34 +20,25 @@ public class EntityDeathListener implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
+        if(!this.fancyPhysics.config.isEntityDeathParticles()) return;
+
+
         var entity = event.getEntity();
         final var height = entity.getHeight();
-
-        if(!this.fancyPhysics.config.isEntityDeathParticles()) return;
         var material = switch (entity.getType()) {
             case MAGMA_CUBE -> Material.FIRE;
             case SLIME -> Material.SLIME_BLOCK;
             case ALLAY -> Material.DIAMOND_BLOCK;
             case ENDERMAN -> Material.BLACK_CONCRETE;
             case BLAZE -> Material.YELLOW_CONCRETE;
-            default -> Material.RED_CONCRETE;
+            default -> Material.RED_MUSHROOM_BLOCK;
         };
         if (height > 0) {
             int roundedHeight = (int) Math.ceil(height);
             Block block = entity.getLocation().getBlock();
             for (int i = 0; i < roundedHeight; i++) {
-                simulate3DParticles(block.getLocation(), material);
+                this.fancyPhysics.utils.simulateBloodParticles(block.getLocation(), material);
                 block = block.getRelative(0, 1, 0);
-            }
-        }
-    }
-
-    private void simulate3DParticles(Location location, Material material) {
-        for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
-            for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
-                for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
-                    new ParticleDisplay(location, material, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 10.0F / 40);
-                }
             }
         }
     }

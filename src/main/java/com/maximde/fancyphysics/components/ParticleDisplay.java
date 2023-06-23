@@ -19,6 +19,7 @@ public class ParticleDisplay {
 
     private BlockDisplay blockDisplay;
     private FancyPhysics fancyPhysics;
+    private float speed = 1;
 
     public ParticleDisplay(Block block, float x, float y, float z, FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
@@ -30,6 +31,11 @@ public class ParticleDisplay {
         spawnBlockDisplay(location, particleMaterial, x, y, z, startSize);
     }
 
+    public ParticleDisplay(Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed) {
+        this.fancyPhysics = fancyPhysics;
+        this.speed = speed;
+        spawnBlockDisplay(location, particleMaterial, x, y, z, startSize);
+    }
 
     private void spawnBlockDisplay(Location location, Material particleMaterial, float x, float y, float z, float startSize) {
         var loc = new Location(location.getWorld(), (float)((int)location.getX()) + x, (float)((int)location.getY()) + y, (float)((int)location.getZ()) + z);
@@ -67,7 +73,7 @@ public class ParticleDisplay {
         float randomZ = random.nextFloat();
         float randomX = random.nextFloat();
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-            Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * 9), -3.3F + randomY, (z - 0.4F) * (randomZ * 9));
+            Vector3f translationMove = new Vector3f((x - 0.4F) * (randomX * (9 * this.speed)), -3.3F + randomY, (z - 0.4F) * (randomZ * (9 * this.speed)));
             Transformation transformationMove = new Transformation(
                     translationMove,
                     blockDisplay.getTransformation().getLeftRotation(),
