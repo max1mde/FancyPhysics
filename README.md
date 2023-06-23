@@ -1,6 +1,4 @@
-<a href="https://www.spigotmc.org/resources/110500/">
-  <img src="https://img.shields.io/badge/Minecraft%20version-1.20_--_1.20.1-brightgreen.svg" />
-</a>
+[![](https://img.shields.io/badge/Minecraft%20version-1.20_--_1.20.1-brightgreen.svg)](https://www.spigotmc.org/resources/110500/)
 <a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833">
   <img src="https://img.shields.io/bstats/players/18833" />
 </a>
