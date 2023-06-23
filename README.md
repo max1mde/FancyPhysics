@@ -3,7 +3,7 @@
 <a href="https://www.spigotmc.org/resources/110500/"><img src="https://img.shields.io/spiget/downloads/110500?label=Spigot%20downloads" alt="Spigot downloads"></a>
 <a href="https://www.spigotmc.org/resources/110500/"><img src="https://img.shields.io/spiget/rating/110500?label=Spigot%20rating" alt="Spigot rating"></a>
 <a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833"><img src="https://img.shields.io/bstats/players/18833" alt="bStats"></a>
-<a href="https://github.com/MaximFiedler/FancyPhysics/blob/master/LICENSE"><img src="https://img.shields.io/github/license/FancyPhysics/FancyPhysics.svg" alt="License"></a>  
+<a href="https://github.com/MaximFiedler/FancyPhysics/blob/master/LICENSE"><img src="https://img.shields.io/github/license/MaximFiedler/FancyPhysics.svg" alt="License"></a>  
 </p>
 
 
