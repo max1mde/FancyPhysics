@@ -1,6 +1,7 @@
 ![Players](https://img.shields.io/bstats/players/18833)
 ![Servers](https://img.shields.io/bstats/servers/18833)
-![version](https://img.shields.io/badge/Minecraft_version-1.20_-_1.20.1)
+![Minecraft version](https://img.shields.io/badge/supports%20minecraft%20versions-1.20--1.20.1-brightgreen.svg)
+![license MIT](https://img.shields.io/badge/MIT-lightgrey.svg)
 
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915026260038/323395728d1b2021a47c225be37ec656e13b1111_1.png?width=937&height=262)
