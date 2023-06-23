@@ -1,4 +1,4 @@
-<a href="www.spigotmc.org/resources/110500/">
+<a href="https://www.spigotmc.org/resources/110500/">
   <img src="https://img.shields.io/badge/Minecraft%20version-1.20_--_1.20.1-brightgreen.svg" />
 </a>
 <a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833">
