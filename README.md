@@ -28,10 +28,10 @@ Physics:
 
 ![image](https://i.imgur.com/jV8fxyf.gif)
 
-# Stats
+![https://bstats.org/plugin/bukkit/Fancy%20Physics/18833](https://media.discordapp.net/attachments/1052241511795937381/1121745682458484826/Neues_Projekt_-_2023-06-15T233852.757_2.png?width=250&height=125)
 ![Servers](https://img.shields.io/bstats/servers/18833)
 ![Players](https://img.shields.io/bstats/players/18833)
-https://bstats.org/plugin/bukkit/Fancy%20Physics/18833
+
 
 SpigotMC:
 www.spigotmc.org/resources/110500/
