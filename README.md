@@ -2,7 +2,7 @@
 ![Players](https://img.shields.io/bstats/players/18833)
 ![license GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-lightgrey.svg)
   <a href="https://github.com/MaximFiedler/FancyPhysics/blob/master/LICENSE">
-<img src="https://img.shields.io/badge/license-GPL--3.0-lightgrey.svg" width="400"/>
+<img src="https://img.shields.io/badge/license-GPL--3.0-lightgrey.svg" />
     </a>
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915026260038/323395728d1b2021a47c225be37ec656e13b1111_1.png?width=937&height=262)
