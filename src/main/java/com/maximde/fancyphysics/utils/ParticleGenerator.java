@@ -1,16 +1,15 @@
 package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.components.ParticleDisplay;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-public class Utils {
+public class ParticleGenerator {
 
     private FancyPhysics fancyPhysics;
 
-    public Utils(FancyPhysics fancyPhysics) {
+    public ParticleGenerator(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
 
@@ -23,7 +22,6 @@ public class Utils {
             }
         }
     }
-
     public void simulateSplashBloodParticles(Location location, Material material) {
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {

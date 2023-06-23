@@ -1,8 +1,6 @@
-package com.maximde.fancyphysics.listeners;
+package com.maximde.fancyphysics.listeners.player;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.utils.Config;
-import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -14,6 +12,6 @@ public class BlockPlaceListener implements Listener {
     }
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if(this.fancyPhysics.config.isTrapdoorPhysics() && PlayerInteractListener.animatedLocations.contains(event.getBlock().getLocation())) event.setCancelled(true);
+        if(this.fancyPhysics.config.isTrapdoorPhysics() && InteractListener.animatedLocations.contains(event.getBlock().getLocation())) event.setCancelled(true);
     }
 }

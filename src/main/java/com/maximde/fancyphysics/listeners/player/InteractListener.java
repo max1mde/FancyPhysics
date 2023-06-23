@@ -1,8 +1,6 @@
-package com.maximde.fancyphysics.listeners;
+package com.maximde.fancyphysics.listeners.player;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.components.ParticleDisplay;
-import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,7 +9,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.Display;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -24,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlayerInteractListener implements Listener {
+public class InteractListener implements Listener {
     public static List<Location> animatedLocations = new ArrayList<>();
     private FancyPhysics fancyPhysics;
-    public PlayerInteractListener(FancyPhysics fancyPhysics) {
+    public InteractListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
     @EventHandler
@@ -46,7 +43,6 @@ public class PlayerInteractListener implements Listener {
         animatedLocations.add(clickedBlock.getLocation());
         clickedBlock.setType(Material.AIR);
         clickedBlock.getLocation().getWorld().spawn(clickedBlock.getLocation(), BlockDisplay.class, blockDisplay -> {
-
             var leftRotation = new Quaternionf(0,0,0.3,0);
             if (blockData instanceof TrapDoor slab) {
                 if(slab.isOpen()) {
@@ -68,7 +64,6 @@ public class PlayerInteractListener implements Listener {
     }
 
     private void openTrapdorAnimation(BlockDisplay blockDisplay, BlockData previusBlockData, Block clickedBlock) {
-
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
             clickedBlock.setType(Material.AIR);
             var leftRotation = new Quaternionf(0,0,1,0);
@@ -88,6 +83,8 @@ public class PlayerInteractListener implements Listener {
             blockDisplay.setInterpolationDuration(19);
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
+
+
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
                 var block = blockDisplay.getLocation().getBlock();
                 var blockData = previusBlockData;

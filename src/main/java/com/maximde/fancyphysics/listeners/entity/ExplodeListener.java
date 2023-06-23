@@ -1,7 +1,6 @@
-package com.maximde.fancyphysics.listeners;
+package com.maximde.fancyphysics.listeners.entity;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.utils.Config;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
@@ -14,10 +13,10 @@ import org.bukkit.util.Vector;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class EntityExplodeListener implements Listener {
+public class ExplodeListener implements Listener {
 
     private FancyPhysics fancyPhysics;
-    public EntityExplodeListener(FancyPhysics fancyPhysics) {
+    public ExplodeListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
 

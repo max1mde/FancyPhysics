@@ -1,7 +1,9 @@
 package com.maximde.fancyphysics.utils;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,15 +16,19 @@ public class Config {
     private boolean trapdoorPhysics;
     private boolean damageParticles;
 
+    private final String[] settingsPhysics = {
+            "RealisticExplosion",
+            "EntityDeathParticles",
+            "3DBlockParticles",
+            "TrapdoorPhysics",
+            "DamageParticles"};
+
     public Config() {
-        if(!cfg.isSet("Physics")) {
-            cfg.set("Physics.RealisticExplosion", true);
-            cfg.set("Physics.EntityDeathParticles", true);
-            cfg.set("Physics.3DBlockParticles", true);
-            cfg.set("Physics.TrapdoorPhysics", true);
-            cfg.set("Physics.DamageParticles", true);
-            saveConfig();
+        for(String s : settingsPhysics) {
+            if(cfg.isSet("Physics."+s)) continue;
+            cfg.set("Physics." + s, true);
         }
+        saveConfig();
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
         entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
         blockParticles = cfg.getBoolean("Physics.3DBlockParticles");
@@ -41,20 +47,15 @@ public class Config {
     public File getFile() {
         return file;
     }
-
-
     public YamlConfiguration getConfig() {
         return cfg;
     }
-
     public boolean isRealisticExplosion() {
         return realisticExplosion;
     }
-
     public boolean isEntityDeathParticles() {
         return entityDeathParticles;
     }
-
     public boolean isBlockParticles() {
         return blockParticles;
     }

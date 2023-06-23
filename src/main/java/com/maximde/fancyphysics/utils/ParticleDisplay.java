@@ -1,4 +1,4 @@
-package com.maximde.fancyphysics.components;
+package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.Bukkit;
@@ -8,7 +8,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.joml.Vector3f;
 

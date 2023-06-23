@@ -1,7 +1,7 @@
-package com.maximde.fancyphysics.listeners;
+package com.maximde.fancyphysics.listeners.entity;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.components.ParticleDisplay;
+import com.maximde.fancyphysics.utils.ParticleDisplay;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
@@ -9,11 +9,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 
-public class EntityHitGroundListener implements Listener {
+public class HitGroundListener implements Listener {
 
     private FancyPhysics fancyPhysics;
 
-    public EntityHitGroundListener(FancyPhysics fancyPhysics) {
+    public HitGroundListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
 
