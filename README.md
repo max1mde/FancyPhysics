@@ -1,10 +1,6 @@
 [![](https://img.shields.io/badge/Minecraft%20version-1.20_--_1.20.1-brightgreen.svg)](https://www.spigotmc.org/resources/110500/)
-<a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833">
-  <img src="https://img.shields.io/bstats/players/18833" />
-</a>
-<a href="https://github.com/MaximFiedler/FancyPhysics/blob/master/LICENSE">
-  <img src="https://img.shields.io/badge/license-GPL--3.0-lightgrey.svg" />
-</a>
+[![](https://img.shields.io/bstats/players/18833)](https://bstats.org/plugin/bukkit/Fancy%20Physics/18833)
+[![](https://img.shields.io/badge/license-GPL--3.0-lightgrey.svg)](https://github.com/MaximFiedler/FancyPhysics/blob/master/LICENSE)
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915026260038/323395728d1b2021a47c225be37ec656e13b1111_1.png?width=937&height=262)
 
