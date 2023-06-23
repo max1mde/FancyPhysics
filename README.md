@@ -35,6 +35,6 @@ Physics:
 
 ![stats](https://media.discordapp.net/attachments/1052241511795937381/1121746751855001650/Neues_Projekt_-_2023-06-15T233852.757_3.png?width=250&height=125)
 
-<a href="https://media.discordapp.net/attachments/1052241511795937381/1121746751855001650/Neues_Projekt_-_2023-06-15T233852.757_3.png?width=250&height=125">
+<a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833">
   <img src="https://bstats.org/signatures/bukkit/Fancy%20Physics.svg" alt="bStats" width="500">
 </a>
