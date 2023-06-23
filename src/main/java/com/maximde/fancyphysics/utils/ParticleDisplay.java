@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -51,7 +52,8 @@ public class ParticleDisplay {
         final BlockData blockData = material.createBlockData();
 
         loc.getWorld().spawn(loc, BlockDisplay.class, blockDisplay -> {
-
+            if(this.fancyPhysics.blockDisplayList.size() > this.fancyPhysics.config.getMaxParticleCount()) return;
+            this.fancyPhysics.blockDisplayList.add(blockDisplay);
             Vector3f size = new Vector3f(this.startSize,this.startSize,this.startSize);
             if(this.startSize == 0) size = new Vector3f(10.0F / 30,10.0F / (30 + randomSize),10.0F / 30);
 
@@ -102,7 +104,10 @@ public class ParticleDisplay {
             blockDisplay.setTransformation(transformationMove);
             blockDisplay.setViewRange(5);
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, 35L);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+                this.fancyPhysics.blockDisplayList.remove(this.blockDisplay);
+                this.blockDisplay.remove();
+            }, 35L);
         }, 2L);
     }
 

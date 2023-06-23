@@ -31,7 +31,6 @@ public class InteractListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         animateTrapdor(event.getClickedBlock(), event);
     }
-
     private void animateTrapdor(Block clickedBlock, PlayerInteractEvent event) {
         if(!this.fancyPhysics.config.isTrapdoorPhysics()) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
@@ -49,7 +48,6 @@ public class InteractListener implements Listener {
                     leftRotation = new Quaternionf(0,0,0,0);
                 }
             }
-
             blockDisplay.setInvulnerable(true);
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
@@ -84,7 +82,6 @@ public class InteractListener implements Listener {
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
 
-
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
                 var block = blockDisplay.getLocation().getBlock();
                 var blockData = previusBlockData;
@@ -96,6 +93,6 @@ public class InteractListener implements Listener {
                 blockDisplay.remove();
                 animatedLocations.remove(block.getLocation());
             }, 9L);
-            }, 2L);
+        }, 2L);
     }
 }

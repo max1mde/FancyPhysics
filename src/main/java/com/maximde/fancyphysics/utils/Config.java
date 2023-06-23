@@ -16,6 +16,7 @@ public class Config {
     private boolean trapdoorPhysics;
     private boolean damageParticles;
     private boolean particleRotation;
+    private int maxParticleCount;
 
     private final String[] settingsPhysics = {
             "RealisticExplosion",
@@ -30,6 +31,7 @@ public class Config {
             if(cfg.isSet("Physics."+s)) continue;
             cfg.set("Physics." + s, true);
         }
+        if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 200);
         saveConfig();
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
         entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
@@ -37,6 +39,7 @@ public class Config {
         trapdoorPhysics = cfg.getBoolean("Physics.TrapdoorPhysics");
         damageParticles = cfg.getBoolean("Physics.DamageParticles");
         particleRotation = cfg.getBoolean("Physics.ParticleRotation");
+        maxParticleCount = cfg.getInt("Physics.MaxParticleCount");
     }
 
     public void saveConfig() {
@@ -70,5 +73,8 @@ public class Config {
     }
     public boolean isParticleRotation() {
         return particleRotation;
+    }
+    public int getMaxParticleCount() {
+        return maxParticleCount;
     }
 }
