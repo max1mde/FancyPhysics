@@ -35,7 +35,3 @@ Physics:
 
 ![stats](https://media.discordapp.net/attachments/1052241511795937381/1121746751855001650/Neues_Projekt_-_2023-06-15T233852.757_3.png?width=250&height=125)
 ![bstats](https://bstats.org/signatures/bukkit/Fancy%20Physics.svg)
-
-
-SpigotMC:
-www.spigotmc.org/resources/110500/
