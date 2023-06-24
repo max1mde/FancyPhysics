@@ -33,6 +33,7 @@ public class ParticleGenerator {
     }
 
     public void simulateBlockParticles(Block block) {
+        if(!fancyPhysics.config.isBlockParticles()) return;
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
                 for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
@@ -40,5 +41,34 @@ public class ParticleGenerator {
                 }
             }
         }
+    }
+
+    public void simulateBlockParticles(Location location, Material material) {
+        if(!fancyPhysics.config.isBlockParticles()) return;
+        for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
+            for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
+                for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
+                    new ParticleDisplay(location, material, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 0);
+                }
+            }
+        }
+    }
+    public void simulateBlockParticles(Location location, Material material, float startSize, float speed) {
+        if(!fancyPhysics.config.isBlockParticles()) return;
+        for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
+            for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
+                for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
+                    new ParticleDisplay(location, material, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, startSize, speed);
+                }
+            }
+        }
+    }
+
+    public Material getParticleMaterial(Material type) {
+        return switch (type) {
+            case GRASS_BLOCK -> Material.DIRT;
+            case VINE -> Material.AIR;
+            default -> type;
+        };
     }
 }

@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
@@ -25,7 +26,7 @@ public class ParticleDisplay {
 
     public ParticleDisplay(Block block, float x, float y, float z, FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
-        this.particleMaterial = getParticleMaterial(block.getType());
+        this.particleMaterial = this.fancyPhysics.particleGenerator.getParticleMaterial(block.getType());
         spawnBlockDisplay(block.getLocation(), x, y, z);
     }
 
@@ -48,11 +49,13 @@ public class ParticleDisplay {
         var loc = new Location(location.getWorld(), (float)((int)location.getX()) + x, (float)((int)location.getY()) + y, (float)((int)location.getZ()) + z);
         float randomSize = ThreadLocalRandom.current().nextFloat() * 10;
         var material = this.particleMaterial;
-        if(material == null) material = getParticleMaterial(location.getBlock().getType());
+        if(material == null) material = this.fancyPhysics.particleGenerator.getParticleMaterial(location.getBlock().getType());
         final BlockData blockData = material.createBlockData();
-
+        if(this.fancyPhysics.blockDisplayList.size() > this.fancyPhysics.config.getMaxParticleCount()) return;
+        final var entiysInChunk = location.getChunk().getEntities().length;
+        if(entiysInChunk > 1000 && this.fancyPhysics.config.isPerformanceMode()) return;
+        if(this.fancyPhysics.config.isPerformanceMode() && (entiysInChunk % 2 == 0) && entiysInChunk > 500) return; //remove some of the particles but not all
         loc.getWorld().spawn(loc, BlockDisplay.class, blockDisplay -> {
-            if(this.fancyPhysics.blockDisplayList.size() > this.fancyPhysics.config.getMaxParticleCount()) return;
             this.fancyPhysics.blockDisplayList.add(blockDisplay);
             Vector3f size = new Vector3f(this.startSize,this.startSize,this.startSize);
             if(this.startSize == 0) size = new Vector3f(10.0F / 30,10.0F / (30 + randomSize),10.0F / 30);
@@ -111,13 +114,7 @@ public class ParticleDisplay {
         }, 2L);
     }
 
-    private Material getParticleMaterial(Material type) {
-        return switch (type) {
-            case GRASS_BLOCK -> Material.DIRT;
-            case VINE -> Material.AIR;
-            default -> type;
-        };
-    }
+
 
     public BlockDisplay getBlockDisplay() {
         return blockDisplay;

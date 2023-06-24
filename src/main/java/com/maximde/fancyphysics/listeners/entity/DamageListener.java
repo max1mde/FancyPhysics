@@ -1,11 +1,17 @@
 package com.maximde.fancyphysics.listeners.entity;
 
 import com.maximde.fancyphysics.FancyPhysics;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DamageListener implements Listener {
     private FancyPhysics fancyPhysics;
@@ -14,10 +20,15 @@ public class DamageListener implements Listener {
         this.fancyPhysics = fancyPhysics;
     }
 
+
+
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if(!this.fancyPhysics.config.isDamageParticles()) return;
         var entity = event.getEntity();
+
+        if(!(entity instanceof LivingEntity)) return;
+
         var height = entity.getHeight();
         if (height < 0) return;
         int roundedHeight = (int) Math.ceil(height);

@@ -16,6 +16,8 @@ public class Config {
     private boolean trapdoorPhysics;
     private boolean damageParticles;
     private boolean particleRotation;
+    private boolean performanceMode;
+    private boolean realisticTrees;
     private int maxParticleCount;
 
     private final String[] settingsPhysics = {
@@ -24,14 +26,17 @@ public class Config {
             "3DBlockParticles",
             "TrapdoorPhysics",
             "DamageParticles",
-            "ParticleRotation"};
+            "ParticleRotation",
+            "PerformanceMode",
+            "RealisticTrees"};
+
 
     public Config() {
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
             cfg.set("Physics." + s, true);
         }
-        if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 200);
+        if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 5000);
         saveConfig();
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
         entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
@@ -40,6 +45,7 @@ public class Config {
         damageParticles = cfg.getBoolean("Physics.DamageParticles");
         particleRotation = cfg.getBoolean("Physics.ParticleRotation");
         maxParticleCount = cfg.getInt("Physics.MaxParticleCount");
+        realisticTrees = cfg.getBoolean("Physics.RealisticTrees");
     }
 
     public void saveConfig() {
@@ -76,5 +82,11 @@ public class Config {
     }
     public int getMaxParticleCount() {
         return maxParticleCount;
+    }
+    public boolean isPerformanceMode() {
+        return performanceMode;
+    }
+    public boolean isRealisticTrees() {
+        return realisticTrees;
     }
 }
