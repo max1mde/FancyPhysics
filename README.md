@@ -29,12 +29,13 @@ Physics:
   RealisticExplosion: true
   EntityDeathParticles: true
   3DBlockParticles: true
-  TrapdoorPhysics: true
   DamageParticles: true
   ParticleRotation: true
   PerformanceMode: true
   RealisticTrees: true
+  DropSaplings: true
   MaxParticleCount: 5000
+  TrapdoorPhysics: false
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915328237599/Neues_Projekt_-_2023-06-15T233717.092.png?width=250&height=125)
