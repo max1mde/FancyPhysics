@@ -19,16 +19,17 @@ public class Config {
     private boolean performanceMode;
     private boolean realisticTrees;
     private int maxParticleCount;
+    private boolean dropSaplings;
 
     private final String[] settingsPhysics = {
             "RealisticExplosion",
             "EntityDeathParticles",
             "3DBlockParticles",
-            "TrapdoorPhysics",
             "DamageParticles",
             "ParticleRotation",
             "PerformanceMode",
-            "RealisticTrees"};
+            "RealisticTrees",
+            "DropSaplings"};
 
 
     public Config() {
@@ -37,6 +38,7 @@ public class Config {
             cfg.set("Physics." + s, true);
         }
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 5000);
+        if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         saveConfig();
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
         entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
@@ -46,6 +48,7 @@ public class Config {
         particleRotation = cfg.getBoolean("Physics.ParticleRotation");
         maxParticleCount = cfg.getInt("Physics.MaxParticleCount");
         realisticTrees = cfg.getBoolean("Physics.RealisticTrees");
+        dropSaplings = cfg.getBoolean("Physics.DropSaplings");
     }
 
     public void saveConfig() {
@@ -88,5 +91,8 @@ public class Config {
     }
     public boolean isRealisticTrees() {
         return realisticTrees;
+    }
+    public boolean isDropSaplings() {
+        return dropSaplings;
     }
 }

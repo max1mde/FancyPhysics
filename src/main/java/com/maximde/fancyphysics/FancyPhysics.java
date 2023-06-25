@@ -31,6 +31,13 @@ public final class FancyPhysics extends JavaPlugin {
         registerListeners();
     }
 
+    @Override
+    public void onDisable() {
+        for(BlockDisplay blockDisplay : blockDisplayList) {
+            blockDisplay.remove();
+        }
+    }
+
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
         getServer().getPluginManager().registerEvents(new DeathListener(this), this);

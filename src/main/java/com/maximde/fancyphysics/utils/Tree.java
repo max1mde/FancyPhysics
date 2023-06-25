@@ -59,7 +59,16 @@ public class Tree {
                     blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
                     Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
                         blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
-                        blockDisplay.getLocation().getWorld().dropItem(blockDisplay.getLocation().add(0, transformationY + 2, transformationY), new ItemStack(blockData.getMaterial()));
+                        if(this.FANCY_PHYSICS.config.isDropSaplings()) {
+                            var b = blockDisplay.getLocation().add(0, transformationY + 2, transformationY).getBlock();
+                            if(b.getType() == Material.AIR) {
+                                b.setType(blockData.getMaterial());
+                                b.breakNaturally();
+                            }
+                        } else {
+                            blockDisplay.getLocation().getWorld().dropItem(blockDisplay.getLocation().add(0, transformationY + 2, transformationY), new ItemStack(blockData.getMaterial()));
+                        }
+
                         blockDisplay.remove();
                     }, 2L);
                 }, 18L);
