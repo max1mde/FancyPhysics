@@ -77,6 +77,7 @@ public class Tree {
     }
 
     public void breakInstant() {
+        if(!isNatural) return;
         for (Block b : this.STEM)
             b.breakNaturally();
         for (Block b : this.LEAVES)
@@ -84,6 +85,7 @@ public class Tree {
     }
 
     public void breakInstantWithParticles() {
+        if(!isNatural) return;
         for (Block b : this.STEM) {
             this.FANCY_PHYSICS.particleGenerator.simulateBlockParticles(b);
             b.breakNaturally();
@@ -95,6 +97,7 @@ public class Tree {
     }
 
     public void breakWithFallAnimation() {
+        if(!isNatural) return;
         for (Block b : this.STEM) {
             spawnDisplay(b);
         }
@@ -117,6 +120,14 @@ public class Tree {
                 return Material.BIRCH_LEAVES;
             case SPRUCE_LOG:
                 return Material.SPRUCE_LEAVES;
+            case CHERRY_LOG:
+                return Material.CHERRY_LEAVES;
+            case MANGROVE_LOG:
+                return Material.MANGROVE_LEAVES;
+            case WARPED_STEM:
+                return Material.WARPED_WART_BLOCK;
+            case CRIMSON_STEM:
+                return Material.NETHER_WART_BLOCK;
         }
         return Material.AIR;
     }
@@ -125,7 +136,7 @@ public class Tree {
         if (Math.abs(block.getX() - this.ORIGIN.getX()) > 3 || Math.abs(block.getZ() - this.ORIGIN.getZ()) > 3)
             return;
         if (block.getType() == this.WOOD_MATERIAL) {
-            if (this.STEM.size() < 90) {
+            if (this.STEM.size() < 100) {
                 if (this.STEM.contains(block))
                     return;
                 this.STEM.add(block);

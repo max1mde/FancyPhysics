@@ -38,6 +38,10 @@ public class BlockBreakListener implements Listener {
             case DARK_OAK_LOG:
             case ACACIA_LOG:
             case JUNGLE_LOG:
+            case CRIMSON_STEM:
+            case WARPED_STEM:
+            case MANGROVE_LOG:
+            case CHERRY_LOG:
                 return true;
         }
         return false;
