@@ -1,9 +1,8 @@
 package com.maximde.fancyphysics.utils;
 
-import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -49,6 +48,7 @@ public class Config {
         maxParticleCount = cfg.getInt("Physics.MaxParticleCount");
         realisticTrees = cfg.getBoolean("Physics.RealisticTrees");
         dropSaplings = cfg.getBoolean("Physics.DropSaplings");
+        performanceMode = cfg.getBoolean("Physics.PerformanceMode");
     }
 
     public void saveConfig() {

@@ -42,21 +42,9 @@ public class InteractListener implements Listener {
         animatedLocations.add(clickedBlock.getLocation());
         clickedBlock.setType(Material.AIR);
         clickedBlock.getLocation().getWorld().spawn(clickedBlock.getLocation(), BlockDisplay.class, blockDisplay -> {
-            var leftRotation = new Quaternionf(0,0,0.3,0);
-            if (blockData instanceof TrapDoor slab) {
-                if(slab.isOpen()) {
-                    leftRotation = new Quaternionf(0,0,0,0);
-                }
-            }
             blockDisplay.setInvulnerable(true);
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
-            Transformation transformation = new Transformation(
-                    new Vector3f(+0.1F,0,0),
-                    leftRotation,
-                    new Vector3f(1,1,1),
-                    blockDisplay.getTransformation().getRightRotation()
-            );
             openTrapdorAnimation(blockDisplay, blockData, clickedBlock);
         });
     }

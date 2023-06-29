@@ -30,6 +30,7 @@ public class ExplodeListener implements Listener {
 
     private void realisticExplosion(EntityExplodeEvent event) {
         if(!this.fancyPhysics.config.isRealisticExplosion()) return;
+        if(event.isCancelled()) return;
         event.setYield(40);
         if(fancyPhysics.config.isPerformanceMode() && event.getLocation().getChunk().getEntities().length > 2000) {
             return;

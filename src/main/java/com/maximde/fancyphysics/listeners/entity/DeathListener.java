@@ -1,19 +1,12 @@
 package com.maximde.fancyphysics.listeners.entity;
 
-import com.google.common.base.Predicates;
 import com.maximde.fancyphysics.FancyPhysics;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class DeathListener implements Listener {
 
