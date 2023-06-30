@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
@@ -23,6 +24,7 @@ public class ParticleDisplay {
     private float speed = 1;
     private float startSize = 0F;
     private Material particleMaterial;
+    private int lightLevel = -1;
 
     public ParticleDisplay(Block block, float x, float y, float z, FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
@@ -42,6 +44,15 @@ public class ParticleDisplay {
         this.speed = speed;
         this.startSize = startSize;
         this.particleMaterial = particleMaterial;
+        spawnBlockDisplay(location, x, y, z);
+    }
+
+    public ParticleDisplay(Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed, int lightLevel) {
+        this.fancyPhysics = fancyPhysics;
+        this.speed = speed;
+        this.startSize = startSize;
+        this.particleMaterial = particleMaterial;
+        this.lightLevel = lightLevel;
         spawnBlockDisplay(location, x, y, z);
     }
 
@@ -65,6 +76,9 @@ public class ParticleDisplay {
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
             blockDisplay.setViewRange(0);
+            if(this.lightLevel > -1) {
+                blockDisplay.setBrightness(new Display.Brightness(this.lightLevel, this.lightLevel));
+            }
 
             Transformation transformation = new Transformation(
                     blockDisplay.getTransformation().getTranslation(),

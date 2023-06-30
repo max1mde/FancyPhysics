@@ -29,8 +29,21 @@ public class DamageListener implements Listener {
         if (height < 0) return;
         int roundedHeight = (int) Math.ceil(height);
         Block block = entity.getLocation().getBlock();
+
+        var material = switch (entity.getType()) {
+            case ENDER_DRAGON -> Material.AIR;
+            case WITHER, WITHER_SKELETON -> Material.BLACK_CONCRETE;
+            case BLAZE -> Material.YELLOW_CONCRETE;
+            default -> Material.RED_CONCRETE;
+        };
+
+        var lightLevel = switch (entity.getType()) {
+            case BLAZE -> 15;
+            default -> -1;
+        };
+
         for (int i = 0; i < roundedHeight; i++) {
-            this.fancyPhysics.particleGenerator.simulateSplashBloodParticles(block.getLocation(), Material.RED_CONCRETE);
+            this.fancyPhysics.particleGenerator.simulateSplashBloodParticles(block.getLocation(), material, lightLevel);
             block = block.getRelative(0, 1, 0);
         }
     }
