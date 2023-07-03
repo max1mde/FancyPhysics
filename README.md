@@ -14,9 +14,12 @@
 </p>
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119003156915945502/Neues_Projekt_-_2023-06-15T233852.757.png?width=250&height=125)
-- 3D Block particles
-- 3D Entity death particles
+- Block particles
+- Entity death particles
+- Damage particles
+- Realistic tree destroy animation
 - Realistic explosions
+- Trapdoor animation (Experimental)
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002917005959300/Neues_Projekt_99.png?width=250&height=125)
 - Download plugin
