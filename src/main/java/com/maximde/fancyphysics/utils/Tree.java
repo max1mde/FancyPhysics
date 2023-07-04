@@ -2,6 +2,7 @@ package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -36,6 +37,10 @@ public class Tree {
     private void spawnDisplay(Block block) {
         final var location = block.getLocation();
         final BlockData blockData = block.getType().createBlockData();
+
+        /*
+         * Spawn block display
+         */
         location.getWorld().spawn(location, BlockDisplay.class, blockDisplay -> {
             this.FANCY_PHYSICS.blockDisplayList.add(blockDisplay);
             blockDisplay.setBlock(blockData);
@@ -44,6 +49,9 @@ public class Tree {
             var transformationY = - 1 + (this.ORIGIN.getY() - (block.getY() + 0.7F)) + 1;
             var transformationZ = (this.ORIGIN.getY() - block.getY()) + (this.ORIGIN.getY() - block.getY()) / 0.7F;
 
+            /*
+            Transform display
+             */
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
                 Transformation transformation = new Transformation(
                         new Vector3f(0, transformationY + (this.ORIGIN.getY() - (block.getY() + 0.7F)) / 2,transformationZ),//translation
@@ -54,26 +62,35 @@ public class Tree {
                 blockDisplay.setInterpolationDuration(40);
                 blockDisplay.setInterpolationDelay(-1);
                 blockDisplay.setTransformation(transformation);
+
+                /*
+                Break tree
+                 */
                 Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
                     final var loc = blockDisplay.getLocation().add(0.5,(this.ORIGIN.getY() - (block.getY() + 0.7F)) + 1, transformationY);
                     blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
-                        blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
-                        if(this.FANCY_PHYSICS.config.isDropSaplings()) {
-                            var b = blockDisplay.getLocation().add(0, transformationY + 2, transformationY).getBlock();
-                            if(b.getType() == Material.AIR) {
-                                b.setType(blockData.getMaterial());
-                                b.breakNaturally();
-                            }
-                        } else {
-                            blockDisplay.getLocation().getWorld().dropItem(blockDisplay.getLocation().add(0, transformationY + 2, transformationY), new ItemStack(blockData.getMaterial()));
-                        }
-
-                        blockDisplay.remove();
-                    }, 2L);
+                    removeTree(blockDisplay, transformationY, loc, blockData);
                 }, 18L);
+
             }, 2L);
         });
+
+    }
+
+    private void removeTree(BlockDisplay blockDisplay, float transformationY, Location loc, BlockData blockData) {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
+            blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
+            if(this.FANCY_PHYSICS.config.isDropSaplings()) {
+                var b = blockDisplay.getLocation().add(0, transformationY + 2, transformationY).getBlock();
+                if(b.getType() == Material.AIR) {
+                    b.setType(blockData.getMaterial());
+                    b.breakNaturally();
+                }
+            } else {
+                blockDisplay.getLocation().getWorld().dropItem(blockDisplay.getLocation().add(0, transformationY + 2, transformationY), new ItemStack(blockData.getMaterial()));
+            }
+            blockDisplay.remove();
+        }, 2L);
     }
 
     public void breakInstant() {
@@ -107,29 +124,19 @@ public class Tree {
     }
 
     private Material getLeaveType(Material wood) {
-        switch (wood) {
-            case OAK_LOG:
-                return Material.OAK_LEAVES;
-            case DARK_OAK_LOG:
-                return Material.DARK_OAK_LEAVES;
-            case JUNGLE_LOG:
-                return Material.JUNGLE_LEAVES;
-            case ACACIA_LOG:
-                return Material.ACACIA_LEAVES;
-            case BIRCH_LOG:
-                return Material.BIRCH_LEAVES;
-            case SPRUCE_LOG:
-                return Material.SPRUCE_LEAVES;
-            case CHERRY_LOG:
-                return Material.CHERRY_LEAVES;
-            case MANGROVE_LOG:
-                return Material.MANGROVE_LEAVES;
-            case WARPED_STEM:
-                return Material.WARPED_WART_BLOCK;
-            case CRIMSON_STEM:
-                return Material.NETHER_WART_BLOCK;
-        }
-        return Material.AIR;
+        return switch (wood) {
+            case OAK_LOG -> Material.OAK_LEAVES;
+            case DARK_OAK_LOG -> Material.DARK_OAK_LEAVES;
+            case JUNGLE_LOG -> Material.JUNGLE_LEAVES;
+            case ACACIA_LOG -> Material.ACACIA_LEAVES;
+            case BIRCH_LOG -> Material.BIRCH_LEAVES;
+            case SPRUCE_LOG -> Material.SPRUCE_LEAVES;
+            case CHERRY_LOG -> Material.CHERRY_LEAVES;
+            case MANGROVE_LOG -> Material.MANGROVE_LEAVES;
+            case WARPED_STEM -> Material.WARPED_WART_BLOCK;
+            case CRIMSON_STEM -> Material.NETHER_WART_BLOCK;
+            default -> Material.AIR;
+        };
     }
 
     private void scanTree(Block block) {
@@ -160,6 +167,7 @@ public class Tree {
         Block north = block.getRelative(BlockFace.NORTH);
         Block east = block.getRelative(BlockFace.EAST);
         Block west = block.getRelative(BlockFace.WEST);
+
         if (up.getType() == this.WOOD_MATERIAL || up.getType() == this.LEAVE_MATERIAL)
             scanTree(up);
         if (down.getType() == this.LEAVE_MATERIAL || (down.getType() == this.WOOD_MATERIAL && down.getY() >= this.ORIGIN.getY()))

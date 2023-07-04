@@ -31,6 +31,7 @@ public class InteractListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         animateTrapdor(event.getClickedBlock(), event);
     }
+
     private void animateTrapdor(Block clickedBlock, PlayerInteractEvent event) {
         if(!this.fancyPhysics.config.isTrapdoorPhysics()) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;

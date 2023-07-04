@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class BlockBreakListener implements Listener {
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
     public BlockBreakListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
@@ -28,21 +28,11 @@ public class BlockBreakListener implements Listener {
             tree.breakWithFallAnimation();
         }
     }
-
     private boolean isWood(Material pMaterial) {
-        switch (pMaterial) {
-            case BIRCH_LOG:
-            case OAK_LOG:
-            case SPRUCE_LOG:
-            case DARK_OAK_LOG:
-            case ACACIA_LOG:
-            case JUNGLE_LOG:
-            case CRIMSON_STEM:
-            case WARPED_STEM:
-            case MANGROVE_LOG:
-            case CHERRY_LOG:
-                return true;
-        }
-        return false;
+        return switch (pMaterial) {
+            case BIRCH_LOG, OAK_LOG, SPRUCE_LOG, DARK_OAK_LOG, ACACIA_LOG, JUNGLE_LOG, CRIMSON_STEM, WARPED_STEM, MANGROVE_LOG, CHERRY_LOG ->
+                    true;
+            default -> false;
+        };
     }
 }

@@ -8,8 +8,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
-import org.bukkit.entity.EntityType;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -18,7 +16,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ParticleDisplay {
-
     private BlockDisplay blockDisplay;
     private FancyPhysics fancyPhysics;
     private float speed = 1;
@@ -120,15 +117,14 @@ public class ParticleDisplay {
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
             blockDisplay.setViewRange(5);
-
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-                this.fancyPhysics.blockDisplayList.remove(this.blockDisplay);
-                this.blockDisplay.remove();
-            }, 35L);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, this::removeDisplay, 35L);
         }, 2L);
     }
 
-
+    private void removeDisplay() {
+        this.fancyPhysics.blockDisplayList.remove(this.blockDisplay);
+        this.blockDisplay.remove();
+    }
 
     public BlockDisplay getBlockDisplay() {
         return blockDisplay;

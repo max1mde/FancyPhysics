@@ -2,4 +2,4 @@ name: FancyPhysics
 version: '${version}'
 main: com.maximde.fancyphysics.FancyPhysics
 api-version: '1.20'
-author: Maxim
+author: MaximFiedler

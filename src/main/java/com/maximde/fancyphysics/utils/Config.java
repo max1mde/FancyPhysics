@@ -7,18 +7,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class Config {
-    private File file = new File("plugins/FancyPhysics", "config.yml");
-    private YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
-    private boolean realisticExplosion;
-    private boolean entityDeathParticles;
-    private boolean blockParticles;
-    private boolean trapdoorPhysics;
-    private boolean damageParticles;
-    private boolean particleRotation;
-    private boolean performanceMode;
-    private boolean realisticTrees;
-    private int maxParticleCount;
-    private boolean dropSaplings;
+    private final File file = new File("plugins/FancyPhysics", "config.yml");
+    private final YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
+    private final boolean realisticExplosion;
+    private final boolean entityDeathParticles;
+    private final boolean blockParticles;
+    private final boolean trapdoorPhysics;
+    private final boolean damageParticles;
+    private final boolean particleRotation;
+    private final boolean performanceMode;
+    private final boolean realisticTrees;
+    private final int maxParticleCount;
+    private final boolean dropSaplings;
 
     private final String[] settingsPhysics = {
             "RealisticExplosion",
@@ -30,7 +30,6 @@ public class Config {
             "RealisticTrees",
             "DropSaplings"};
 
-
     public Config() {
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
@@ -39,6 +38,7 @@ public class Config {
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 5000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         saveConfig();
+
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
         entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
         blockParticles = cfg.getBoolean("Physics.3DBlockParticles");
