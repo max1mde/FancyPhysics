@@ -1,7 +1,10 @@
 package com.maximde.fancyphysics.listeners.player;
 
 import com.maximde.fancyphysics.FancyPhysics;
+import com.maximde.fancyphysics.api.ParticleSpawnEvent;
+import com.maximde.fancyphysics.api.TreeBreakEvent;
 import com.maximde.fancyphysics.utils.Tree;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
@@ -25,6 +28,9 @@ public class BlockBreakListener implements Listener {
         if (isWood(event.getBlock().getType()) && this.fancyPhysics.config.isRealisticTrees() &&
                 event.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR && isWood(event.getBlock().getRelative(BlockFace.UP).getType())) {
             Tree tree = new Tree(event.getBlock(), this.fancyPhysics);
+            TreeBreakEvent treeBreakEvent = new TreeBreakEvent(tree);
+            Bukkit.getServer().getPluginManager().callEvent(treeBreakEvent);
+            if (treeBreakEvent.isCancelled()) return;
             tree.breakWithFallAnimation();
         }
     }

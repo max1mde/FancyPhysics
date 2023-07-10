@@ -1,6 +1,7 @@
 package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
+import com.maximde.fancyphysics.api.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -63,9 +64,19 @@ public class ParticleDisplay {
         final var entiysInChunk = location.getChunk().getEntities().length;
         if(entiysInChunk > 1000 && this.fancyPhysics.config.isPerformanceMode()) return;
         if(this.fancyPhysics.config.isPerformanceMode() && (entiysInChunk % 2 == 0) && entiysInChunk > 500) return; //remove some of the particles but not all
+
+
+
         loc.getWorld().spawn(loc, BlockDisplay.class, blockDisplay -> {
             Vector3f size = new Vector3f(this.startSize,this.startSize,this.startSize);
             if(this.startSize == 0) size = new Vector3f(10.0F / 30,10.0F / (30 + randomSize),10.0F / 30);
+
+            ParticleSpawnEvent event = new ParticleSpawnEvent(blockDisplay.getLocation(), blockDisplay);
+            Bukkit.getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                blockDisplay.remove();
+                return;
+            }
 
             this.blockDisplay = blockDisplay;
             this.fancyPhysics.blockDisplayList.add(this.blockDisplay);

@@ -1,5 +1,6 @@
 package com.maximde.fancyphysics;
 
+import com.maximde.fancyphysics.api.API;
 import com.maximde.fancyphysics.listeners.entity.DamageListener;
 import com.maximde.fancyphysics.listeners.entity.DeathListener;
 import com.maximde.fancyphysics.listeners.entity.ExplodeListener;
@@ -21,9 +22,11 @@ public final class FancyPhysics extends JavaPlugin {
     public Config config;
     public ParticleGenerator particleGenerator;
     public List<BlockDisplay> blockDisplayList = new ArrayList<>();
+    public static API api;
 
     @Override
     public void onEnable() {
+        api = new API(this);
         this.config = new Config();
         this.particleGenerator = new ParticleGenerator(this);
         new Metrics(this, 18833);
@@ -45,5 +48,9 @@ public final class FancyPhysics extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InteractListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(this), this);
         getServer().getPluginManager().registerEvents(new DamageListener(this), this);
+    }
+
+    public static API getAPI() {
+        return api;
     }
 }
