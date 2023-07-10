@@ -31,5 +31,17 @@ Maven
 	    <artifactId>FancyPhysics</artifactId>
 	    <version>2.0.2</version>
 	</dependency>
- 
+
 -----
+
+# Examples
+
+### Events
+```java
+    @EventHandler
+    public void onParticleSpawnEvent(ParticleSpawnEvent event) {
+        // Changes the particle texture to a diamond block
+        BlockDisplay display = event.getParticleDisplayList();
+        display.setBlock(Material.DIAMOND_BLOCK.createBlockData());
+    }
+```
