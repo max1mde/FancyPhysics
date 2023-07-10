@@ -78,10 +78,22 @@ ParticleEffectEvent
         // Do something with the list
         List<BlockDisplay> displayList = event.getParticleDisplayList();
 
-        // You can cancel every fancy physics event
         if(event.getLocation().getWorld().getName().equals("your_custom_world")) {
+            // You can cancel every fancy physics event
             event.setCancelled(true);
         }
+    }
+```
+TreeBreakEvent
+```java
+    @EventHandler
+    public void onTreeBreak(TreeBreakEvent event) {
+        // Cancel the normal animation
+        event.setCancelled(true);
+        Tree tree = event.getTree();
+        
+        // Play the instant break animation instead of the falling down animation
+        tree.breakInstantWithParticles();
     }
 ```
 --------------------------------------------------------------------
