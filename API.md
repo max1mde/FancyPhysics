@@ -38,27 +38,27 @@ Maven
 --------------------------------------------------------------------
 FancyPhysics instance
 ```java
-	API fancyPhysicsAPI = FancyPhysics.getAPI();
+API fancyPhysicsAPI = FancyPhysics.getAPI();
 ```
 Particles
 ```java
-        fancyPhysicsAPI.getParticleGenerator().simulateBlockParticles(location, material);
-        fancyPhysicsAPI.getParticleGenerator().simulateBloodParticles(location, material);
-        fancyPhysicsAPI.getParticleGenerator().simulateSplashBloodParticles(location, material);
+fancyPhysicsAPI.getParticleGenerator().simulateBlockParticles(location, material);
+fancyPhysicsAPI.getParticleGenerator().simulateBloodParticles(location, material);
+fancyPhysicsAPI.getParticleGenerator().simulateSplashBloodParticles(location, material);
 ```
 Config
 ```java
-        if(fancyPhysicsAPI.getConfig().isRealisticExplosion()) {
-            // Do something
-        }
+if(fancyPhysicsAPI.getConfig().isRealisticExplosion()) {
+	// Do something
+}
 ```
 Particle list
 ```java
-        // For example remove all currently existing particles
-        for(BlockDisplay blockDisplay : fancyPhysicsAPI.getBlockDisplayList()) {
-            blockDisplay.remove();
-        }
-        fancyPhysicsAPI.getBlockDisplayList().clear();
+// For example remove all currently existing particles
+for(BlockDisplay blockDisplay : fancyPhysicsAPI.getBlockDisplayList()) {
+	blockDisplay.remove();
+}
+fancyPhysicsAPI.getBlockDisplayList().clear();
 ```
 --------------------------------------------------------------------
 ### Events
