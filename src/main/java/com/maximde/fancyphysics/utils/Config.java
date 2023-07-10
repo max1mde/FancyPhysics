@@ -35,7 +35,7 @@ public class Config {
             if(cfg.isSet("Physics."+s)) continue;
             cfg.set("Physics." + s, true);
         }
-        if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 5000);
+        if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         saveConfig();
 

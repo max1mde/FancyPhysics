@@ -100,6 +100,7 @@ public class Tree {
             } else {
                 blockDisplay.getLocation().getWorld().dropItem(blockDisplay.getLocation().add(0, transformationY + 2, transformationY), new ItemStack(blockData.getMaterial()));
             }
+            this.FANCY_PHYSICS.blockDisplayList.remove(blockDisplay);
             blockDisplay.remove();
         }, 4L);
     }
