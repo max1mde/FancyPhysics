@@ -34,6 +34,16 @@ public class Tree {
         this.isNatural = (this.STEM.size() > 3 && this.LEAVES.size() > 10);
     }
 
+    public void breakWithFallAnimation() {
+        if(!isNatural) return;
+        for (Block b : this.STEM) {
+            spawnDisplay(b);
+        }
+        for (Block b : this.LEAVES) {
+            spawnDisplay(b);
+        }
+    }
+
     private void spawnDisplay(Block block) {
         final var location = block.getLocation();
         final BlockData blockData = block.getType().createBlockData();
@@ -54,7 +64,7 @@ public class Tree {
              */
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
                 Transformation transformation = new Transformation(
-                        new Vector3f(0, transformationY + (this.ORIGIN.getY() - (block.getY() + 0.7F)) / 2,transformationZ),//translation
+                        new Vector3f(0, transformationY + (this.ORIGIN.getY() - (block.getY() + 0.7F)) / 2, transformationZ),//translation
                         new Quaternionf(-1.1F,0,0,0.5),   //left rotation
                         new Vector3f(1, 1,1),    //scale
                         blockDisplay.getTransformation().getRightRotation()  //right rotation
@@ -68,18 +78,19 @@ public class Tree {
                  */
                 Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
                     final var loc = blockDisplay.getLocation().add(0.5,(this.ORIGIN.getY() - (block.getY() + 0.7F)) + 1, transformationY);
-                    blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
+                    if(false) { //TODO add option to config
+                        blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
+                    } else {
+                        this.FANCY_PHYSICS.particleGenerator.simulateBlockParticles(blockDisplay.getLocation().add(0,(this.ORIGIN.getY() - (block.getY() + 0.7F)) + 1.5F, transformationY -0.5F), blockData.getMaterial());
+                    }
                     removeTree(blockDisplay, transformationY, loc, blockData);
                 }, 18L);
-
             }, 2L);
         });
-
     }
 
     private void removeTree(BlockDisplay blockDisplay, float transformationY, Location loc, BlockData blockData) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.FANCY_PHYSICS, () -> {
-            blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
             if(this.FANCY_PHYSICS.config.isDropSaplings()) {
                 var b = blockDisplay.getLocation().add(0, transformationY + 2, transformationY).getBlock();
                 if(b.getType() == Material.AIR) {
@@ -90,7 +101,7 @@ public class Tree {
                 blockDisplay.getLocation().getWorld().dropItem(blockDisplay.getLocation().add(0, transformationY + 2, transformationY), new ItemStack(blockData.getMaterial()));
             }
             blockDisplay.remove();
-        }, 2L);
+        }, 4L);
     }
 
     public void breakInstant() {
@@ -113,15 +124,6 @@ public class Tree {
         }
     }
 
-    public void breakWithFallAnimation() {
-        if(!isNatural) return;
-        for (Block b : this.STEM) {
-            spawnDisplay(b);
-        }
-        for (Block b : this.LEAVES) {
-            spawnDisplay(b);
-        }
-    }
 
     private Material getLeaveType(Material wood) {
         return switch (wood) {
