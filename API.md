@@ -15,7 +15,7 @@ Gradle
 	}
 
 	dependencies {
-	        implementation 'com.github.MaximFiedler:FancyPhysics:Tag'
+	        implementation 'com.github.MaximFiedler:FancyPhysics:2.0.2'
 	}
 Maven
 
