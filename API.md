@@ -37,11 +37,25 @@ Maven
 # Examples
 
 ### Events
+ParticleSpawnEvent
 ```java
     @EventHandler
     public void onParticleSpawnEvent(ParticleSpawnEvent event) {
         // Changes the particle texture to a diamond block
-        BlockDisplay display = event.getParticleDisplayList();
+        BlockDisplay display = event.getParticleDisplay();
         display.setBlock(Material.DIAMOND_BLOCK.createBlockData());
+    }
+```
+ParticleEffectEvent
+```java
+    @EventHandler
+    public void onParticleEffect(ParticleEffectEvent event) {
+        // Do something with the list
+        List<BlockDisplay> displayList = event.getParticleDisplayList();
+
+        // You can cancel every fancy physics event
+        if(event.getLocation().getWorld().getName().equals("your_custom_world")) {
+            event.setCancelled(true);
+        }
     }
 ```
