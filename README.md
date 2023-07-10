@@ -6,6 +6,7 @@
 <p align="center">
   <a href="https://github.com/MaximFiedler/FancyPhysics/blob/master/LICENSE"><img src="https://img.shields.io/github/license/MaximFiedler/FancyPhysics.svg" alt="License"></a>  
 <a href="https://github.com/MaximFiedler/FancyPhysics/releases"><img src="https://img.shields.io/github/v/tag/MaximFiedler/FancyPhysics.svg" alt="Version"></a>  
+<a href="https://jitpack.io/#MaximFiedler/FancyPhysics"><img src="https://jitpack.io/v/MaximFiedler/FancyPhysics.svg" alt="jitpack"></a>  
 </p>
 
 
