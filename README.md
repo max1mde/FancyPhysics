@@ -23,7 +23,6 @@
 - Trapdoor animation (Experimental)
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1127982083894157322/statsfancyphysics_1.png?width=250&height=125)
-[![](https://jitpack.io/v/MaximFiedler/FancyPhysics.svg)](https://jitpack.io/#MaximFiedler/FancyPhysics)
 <br>
 Spawn your own particles or cancel/modify existing particles using events in your plugin
 <br>
