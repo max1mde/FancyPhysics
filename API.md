@@ -10,13 +10,13 @@ Implementation
 
 Gradle
 
-    repositories {
-		  maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
 
-	  dependencies {
-	    implementation 'com.github.MaximFiedler:FancyPhysics:2.0.2'
-	  }
+	dependencies {
+	        implementation 'com.github.MaximFiedler:FancyPhysics:Tag'
+	}
 Maven
 
 	<repositories>
@@ -31,6 +31,5 @@ Maven
 	    <artifactId>FancyPhysics</artifactId>
 	    <version>2.0.2</version>
 	</dependency>
-
-Usage
+ 
 -----
