@@ -21,7 +21,8 @@
 - Realistic explosions
 - Trapdoor animation (Experimental)
 
-![image](https://media.discordapp.net/attachments/1052241511795937381/1127980175229988864/statsfancyphysics.png?width=250&height=125)<br>
+![image](https://media.discordapp.net/attachments/1052241511795937381/1127980175229988864/statsfancyphysics.png?width=250&height=125)
+<br>
 Spawn your own particles or cancel/modify existing particles using events in your plugin
 <br>
 [Read the API documentation](https://github.com/MaximFiedler/FancyPhysics/blob/master/API.md)
