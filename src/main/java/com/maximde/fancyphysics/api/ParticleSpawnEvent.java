@@ -14,19 +14,19 @@ public class ParticleSpawnEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
     private final Location location;
-    private final BlockDisplay particleDisplayList;
+    private final BlockDisplay particleDisplay;
 
-    public ParticleSpawnEvent(Location location, BlockDisplay particleDisplayList) {
+    public ParticleSpawnEvent(Location location, BlockDisplay particleDisplay) {
         this.location = location;
-        this.particleDisplayList = particleDisplayList;
+        this.particleDisplay = particleDisplay;
     }
 
     public Location getLocation() {
         return this.location;
     }
 
-    public BlockDisplay getParticleDisplayList() {
-        return this.particleDisplayList;
+    public BlockDisplay getParticleDisplay() {
+        return this.particleDisplay;
     }
 
     @Override
