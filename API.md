@@ -15,7 +15,7 @@ Gradle
 	}
 
 	dependencies {
-	        implementation 'com.github.MaximFiedler:FancyPhysics:2.0.2'
+	        implementation 'com.github.MaximFiedler:FancyPhysics:2.0.3'
 	}
 Maven
 
@@ -29,7 +29,7 @@ Maven
  	<dependency>
 	    <groupId>com.github.MaximFiedler</groupId>
 	    <artifactId>FancyPhysics</artifactId>
-	    <version>2.0.2</version>
+	    <version>2.0.3</version>
 	</dependency>
 
 -----
