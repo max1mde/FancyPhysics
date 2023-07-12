@@ -2,7 +2,6 @@ package com.maximde.fancyphysics.listeners.entity;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -24,18 +23,14 @@ public class DamageListener implements Listener {
     private void createDamageParticles(EntityDamageEvent event) {
         if(!this.fancyPhysics.config.isDamageParticles()) return;
         if(event.isCancelled()) return;
+        if(!(event.getEntity() instanceof LivingEntity)) return;
+        if (event.getEntity().getHeight() < 0) return;
+
         var entity = event.getEntity();
-        if(!(entity instanceof LivingEntity)) return;
-        Block block = entity.getLocation().getBlock();
-
+        var block = entity.getLocation().getBlock();
         var height = entity.getHeight();
-        if (height < 0) return;
-
         int roundedHeight = (int) Math.ceil(height);
-
-
         var material = getParticleMaterial(entity.getType());
-
         var lightLevel = -1;
         if(entity.getType() == EntityType.BLAZE) lightLevel = 15;
 
@@ -53,4 +48,5 @@ public class DamageListener implements Listener {
             default -> Material.RED_CONCRETE;
         };
     }
+
 }

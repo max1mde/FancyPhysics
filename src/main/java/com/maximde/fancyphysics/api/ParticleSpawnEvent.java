@@ -47,4 +47,5 @@ public class ParticleSpawnEvent extends Event implements Cancellable {
     public static HandlerList getHandlerList() {
         return handlers;
     }
+
 }

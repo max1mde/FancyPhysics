@@ -16,17 +16,17 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class InteractListener implements Listener {
     public static List<Location> animatedLocations = new ArrayList<>();
     private FancyPhysics fancyPhysics;
+
     public InteractListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
+
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         animateTrapdor(event.getClickedBlock(), event);
@@ -84,4 +84,5 @@ public class InteractListener implements Listener {
             }, 9L);
         }, 2L);
     }
+
 }

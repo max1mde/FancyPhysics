@@ -12,7 +12,6 @@ import org.bukkit.entity.Display;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -64,8 +63,6 @@ public class ParticleDisplay {
         final var entiysInChunk = location.getChunk().getEntities().length;
         if(entiysInChunk > 1000 && this.fancyPhysics.config.isPerformanceMode()) return;
         if(this.fancyPhysics.config.isPerformanceMode() && (entiysInChunk % 2 == 0) && entiysInChunk > 500) return; //remove some of the particles but not all
-
-
 
         loc.getWorld().spawn(loc, BlockDisplay.class, blockDisplay -> {
             Vector3f size = new Vector3f(this.startSize,this.startSize,this.startSize);
@@ -140,4 +137,5 @@ public class ParticleDisplay {
     public BlockDisplay getBlockDisplay() {
         return blockDisplay;
     }
+
 }

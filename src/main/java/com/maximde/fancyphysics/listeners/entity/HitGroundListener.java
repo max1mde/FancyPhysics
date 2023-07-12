@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 
 public class HitGroundListener implements Listener {
-
     private final FancyPhysics fancyPhysics;
 
     public HitGroundListener(FancyPhysics fancyPhysics) {

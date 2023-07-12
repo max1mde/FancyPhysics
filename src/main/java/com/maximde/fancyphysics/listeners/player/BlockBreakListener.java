@@ -1,7 +1,6 @@
 package com.maximde.fancyphysics.listeners.player;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.api.ParticleSpawnEvent;
 import com.maximde.fancyphysics.api.TreeBreakEvent;
 import com.maximde.fancyphysics.utils.Tree;
 import org.bukkit.Bukkit;
@@ -16,6 +15,7 @@ public class BlockBreakListener implements Listener {
     public BlockBreakListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
+
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         var block = event.getBlock();
@@ -34,6 +34,7 @@ public class BlockBreakListener implements Listener {
             tree.breakWithFallAnimation();
         }
     }
+
     private boolean isWood(Material pMaterial) {
         return switch (pMaterial) {
             case BIRCH_LOG, OAK_LOG, SPRUCE_LOG, DARK_OAK_LOG, ACACIA_LOG, JUNGLE_LOG, CRIMSON_STEM, WARPED_STEM, MANGROVE_LOG, CHERRY_LOG ->
@@ -41,4 +42,5 @@ public class BlockBreakListener implements Listener {
             default -> false;
         };
     }
+
 }

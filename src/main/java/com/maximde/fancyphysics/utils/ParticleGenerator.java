@@ -7,18 +7,14 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.BlockDisplay;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParticleGenerator {
-
     private FancyPhysics fancyPhysics;
-
     public ParticleGenerator(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
-
 
     public void simulateBloodParticles(Location location, Material material) {
         simulateBloodParticles(location, material, -1);
@@ -95,4 +91,5 @@ public class ParticleGenerator {
         }
         displayList.clear();
     }
+
 }

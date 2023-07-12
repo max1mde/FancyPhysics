@@ -10,9 +10,11 @@ public class BlockPlaceListener implements Listener {
     public BlockPlaceListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
+
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if(event.isCancelled()) return;
         if(this.fancyPhysics.config.isTrapdoorPhysics() && InteractListener.animatedLocations.contains(event.getBlock().getLocation())) event.setCancelled(true);
     }
+
 }

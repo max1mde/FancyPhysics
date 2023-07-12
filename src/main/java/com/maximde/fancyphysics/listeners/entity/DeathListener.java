@@ -8,9 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-
 public class DeathListener implements Listener {
-
     private final FancyPhysics fancyPhysics;
 
     public DeathListener(FancyPhysics fancyPhysics) {
@@ -58,4 +56,5 @@ public class DeathListener implements Listener {
             default -> Material.RED_CONCRETE;
         };
     }
+
 }

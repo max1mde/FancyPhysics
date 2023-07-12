@@ -53,4 +53,5 @@ public final class FancyPhysics extends JavaPlugin {
     public static API getAPI() {
         return api;
     }
+
 }
