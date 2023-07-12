@@ -1,7 +1,7 @@
 package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.api.ParticleSpawnEvent;
+import com.maximde.fancyphysics.api.events.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

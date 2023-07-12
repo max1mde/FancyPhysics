@@ -1,4 +1,4 @@
-package com.maximde.fancyphysics.api;
+package com.maximde.fancyphysics.api.events;
 
 import com.maximde.fancyphysics.utils.Tree;
 import org.bukkit.event.Cancellable;

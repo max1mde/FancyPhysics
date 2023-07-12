@@ -1,4 +1,4 @@
-package com.maximde.fancyphysics.api;
+package com.maximde.fancyphysics.api.events;
 
 import org.bukkit.Location;
 import org.bukkit.entity.BlockDisplay;
@@ -6,29 +6,27 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import java.util.List;
-
 /**
- * Gets called when a block particle or blood particle simulation
- * in the particle generator is used.
+ * Gets called when creating a ParticleDisplay
+ * When using the ParticleGenerator for example it will be called for every particle of one effect
  */
-public class ParticleEffectEvent extends Event implements Cancellable {
+public class ParticleSpawnEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
     private final Location location;
-    private final List<BlockDisplay> particleDisplayList;
+    private final BlockDisplay particleDisplay;
 
-    public ParticleEffectEvent(Location location, List<BlockDisplay> particleDisplayList) {
+    public ParticleSpawnEvent(Location location, BlockDisplay particleDisplay) {
         this.location = location;
-        this.particleDisplayList = particleDisplayList;
+        this.particleDisplay = particleDisplay;
     }
 
     public Location getLocation() {
         return this.location;
     }
 
-    public List<BlockDisplay> getParticleDisplayList() {
-        return this.particleDisplayList;
+    public BlockDisplay getParticleDisplay() {
+        return this.particleDisplay;
     }
 
     @Override

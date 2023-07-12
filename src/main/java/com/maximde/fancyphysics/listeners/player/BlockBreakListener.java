@@ -1,7 +1,7 @@
 package com.maximde.fancyphysics.listeners.player;
 
 import com.maximde.fancyphysics.FancyPhysics;
-import com.maximde.fancyphysics.api.TreeBreakEvent;
+import com.maximde.fancyphysics.api.events.TreeBreakEvent;
 import com.maximde.fancyphysics.utils.Tree;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
