@@ -28,7 +28,7 @@
 <br>
 Spawn your own particles or cancel/modify existing particles using events in your plugin
 <br>
-[Read the API documentation](https://github.com/MaximFiedler/FancyPhysics/blob/master/API.md)
+[Read the documentation](https://github.com/MaximFiedler/FancyPhysics/blob/master/API.md)
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002917005959300/Neues_Projekt_99.png?width=250&height=125)
 - Download plugin
