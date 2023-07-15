@@ -21,7 +21,7 @@ import java.util.List;
 
 public class InteractListener implements Listener {
     public static List<Location> animatedLocations = new ArrayList<>();
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
 
     public InteractListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
@@ -29,10 +29,10 @@ public class InteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        animateTrapdor(event.getClickedBlock(), event);
+        animateTrapdoor(event.getClickedBlock(), event);
     }
 
-    private void animateTrapdor(Block clickedBlock, PlayerInteractEvent event) {
+    private void animateTrapdoor(Block clickedBlock, PlayerInteractEvent event) {
         if(!this.fancyPhysics.config.isTrapdoorPhysics()) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(clickedBlock == null) return;
@@ -46,11 +46,11 @@ public class InteractListener implements Listener {
             blockDisplay.setInvulnerable(true);
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
-            openTrapdorAnimation(blockDisplay, blockData, clickedBlock);
+            openTrapdoorAnimation(blockDisplay, blockData, clickedBlock);
         });
     }
 
-    private void openTrapdorAnimation(BlockDisplay blockDisplay, BlockData previusBlockData, Block clickedBlock) {
+    private void openTrapdoorAnimation(BlockDisplay blockDisplay, BlockData previusBlockData, Block clickedBlock) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
             clickedBlock.setType(Material.AIR);
             var leftRotation = new Quaternionf(0,0,1,0);
@@ -73,12 +73,11 @@ public class InteractListener implements Listener {
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
                 var block = blockDisplay.getLocation().getBlock();
-                var blockData = previusBlockData;
-                if (blockData instanceof TrapDoor slab) {
+                if (previusBlockData instanceof TrapDoor slab) {
                     slab.setOpen(!(slab.isOpen()));
                     slab.setFacing(BlockFace.EAST);
                 }
-                block.setBlockData(blockData);
+                block.setBlockData(previusBlockData);
                 blockDisplay.remove();
                 animatedLocations.remove(block.getLocation());
             }, 9L);

@@ -84,6 +84,7 @@ public class Tree {
                     }
                     removeTree(blockDisplay, transformationY, loc, blockData);
                 }, 18L);
+
             }, 2L);
         });
     }

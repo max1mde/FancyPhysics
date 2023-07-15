@@ -5,7 +5,6 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
 import java.util.List;
 
 /**

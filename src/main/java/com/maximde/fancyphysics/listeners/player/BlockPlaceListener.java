@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockPlaceListener implements Listener {
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
     public BlockPlaceListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }

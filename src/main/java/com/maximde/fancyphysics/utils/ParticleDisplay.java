@@ -17,10 +17,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ParticleDisplay {
     private BlockDisplay blockDisplay;
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
     private float speed = 1;
     private float startSize = 0F;
-    private Material particleMaterial;
+    private final Material particleMaterial;
     private int lightLevel = -1;
 
     public ParticleDisplay(Block block, float x, float y, float z, FancyPhysics fancyPhysics) {

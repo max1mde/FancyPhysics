@@ -9,9 +9,10 @@ import com.maximde.fancyphysics.listeners.player.BlockBreakListener;
 import com.maximde.fancyphysics.listeners.player.BlockPlaceListener;
 import com.maximde.fancyphysics.listeners.player.InteractListener;
 import com.maximde.fancyphysics.utils.Config;
-import com.maximde.fancyphysics.utils.Metrics;
+import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -41,13 +42,17 @@ public final class FancyPhysics extends JavaPlugin {
     }
 
     private void registerListeners() {
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
-        getServer().getPluginManager().registerEvents(new DeathListener(this), this);
-        getServer().getPluginManager().registerEvents(new ExplodeListener(this), this);
-        getServer().getPluginManager().registerEvents(new HitGroundListener(this), this);
-        getServer().getPluginManager().registerEvents(new InteractListener(this), this);
-        getServer().getPluginManager().registerEvents(new BlockPlaceListener(this), this);
-        getServer().getPluginManager().registerEvents(new DamageListener(this), this);
+        registerListener(new BlockBreakListener(this));
+        registerListener(new DeathListener(this));
+        registerListener(new ExplodeListener(this));
+        registerListener(new HitGroundListener(this));
+        registerListener(new InteractListener(this));
+        registerListener(new BlockPlaceListener(this));
+        registerListener(new DamageListener(this));
+    }
+
+    private void registerListener(Object listener) {
+        getServer().getPluginManager().registerEvents((Listener) listener, this);
     }
 
     public static API getAPI() {

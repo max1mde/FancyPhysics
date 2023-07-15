@@ -18,21 +18,22 @@ public class Config {
     private final int maxParticleCount;
     private final boolean dropSaplings;
 
-    private final String[] settingsPhysics = {
-            "RealisticExplosion",
-            "EntityDeathParticles",
-            "3DBlockParticles",
-            "DamageParticles",
-            "ParticleRotation",
-            "PerformanceMode",
-            "RealisticTrees",
-            "DropSaplings"};
-
     public Config() {
+        String[] settingsPhysics = {
+                "RealisticExplosion",
+                "EntityDeathParticles",
+                "3DBlockParticles",
+                "DamageParticles",
+                "ParticleRotation",
+                "PerformanceMode",
+                "RealisticTrees",
+                "DropSaplings"};
+
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
             cfg.set("Physics." + s, true);
         }
+
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         saveConfig();
@@ -57,41 +58,52 @@ public class Config {
         }
     }
 
-    public File getFile() {
-        return file;
-    }
-    public YamlConfiguration getConfig() {
-        return cfg;
-    }
     public boolean isRealisticExplosion() {
         return realisticExplosion;
     }
+
     public boolean isEntityDeathParticles() {
         return entityDeathParticles;
     }
+
     public boolean isBlockParticles() {
         return blockParticles;
     }
+
     public boolean isTrapdoorPhysics() {
         return trapdoorPhysics;
     }
+
     public boolean isDamageParticles() {
         return damageParticles;
     }
+
     public boolean isParticleRotation() {
         return particleRotation;
     }
+
     public int getMaxParticleCount() {
         return maxParticleCount;
     }
+
     public boolean isPerformanceMode() {
         return performanceMode;
     }
+
     public boolean isRealisticTrees() {
         return realisticTrees;
     }
+
     public boolean isDropSaplings() {
         return dropSaplings;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public YamlConfiguration getConfig() {
+        return cfg;
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class API {
 
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
 
     public API(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;

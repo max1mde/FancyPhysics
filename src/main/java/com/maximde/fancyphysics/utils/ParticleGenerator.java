@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParticleGenerator {
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
     public ParticleGenerator(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
