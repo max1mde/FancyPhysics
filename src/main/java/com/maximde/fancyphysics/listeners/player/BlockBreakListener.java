@@ -18,13 +18,15 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        var block = event.getBlock();
         if(event.isCancelled()) return;
-        timber(event);
-        this.fancyPhysics.particleGenerator.simulateBlockParticles(block);
+        manageTreePhysics(event);
+        this.fancyPhysics.particleGenerator.simulateBlockParticles(event.getBlock());
     }
 
-    private void timber(BlockBreakEvent event) {
+    /**
+     * Creates a new Tree object and plays a break animation
+     */
+    private void manageTreePhysics(BlockBreakEvent event) {
         if (isWood(event.getBlock().getType()) && this.fancyPhysics.config.isRealisticTrees() &&
                 event.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR && isWood(event.getBlock().getRelative(BlockFace.UP).getType())) {
             Tree tree = new Tree(event.getBlock(), this.fancyPhysics);

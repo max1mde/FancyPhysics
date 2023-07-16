@@ -29,10 +29,16 @@ public class InteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        animateTrapdoor(event.getClickedBlock(), event);
+        spawnTrapdoorDisplay(event.getClickedBlock(), event);
     }
 
-    private void animateTrapdoor(Block clickedBlock, PlayerInteractEvent event) {
+    /**
+     * Spawns a display for animating the trapdoor on open/close
+     *
+     * @param clickedBlock The clicked block.
+     * @param event        The PlayerInteractEvent.
+     */
+    private void spawnTrapdoorDisplay(Block clickedBlock, PlayerInteractEvent event) {
         if(!this.fancyPhysics.config.isTrapdoorPhysics()) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(clickedBlock == null) return;
@@ -42,20 +48,28 @@ public class InteractListener implements Listener {
         event.setCancelled(true);
         animatedLocations.add(clickedBlock.getLocation());
         clickedBlock.setType(Material.AIR);
+
         clickedBlock.getLocation().getWorld().spawn(clickedBlock.getLocation(), BlockDisplay.class, blockDisplay -> {
             blockDisplay.setInvulnerable(true);
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
-            openTrapdoorAnimation(blockDisplay, blockData, clickedBlock);
+            runTrapdoorAnimation(blockDisplay, blockData, clickedBlock);
         });
     }
 
-    private void openTrapdoorAnimation(BlockDisplay blockDisplay, BlockData previusBlockData, Block clickedBlock) {
+    /**
+     * Performs the animation for opening/closing the trapdoor.
+     *
+     * @param blockDisplay     The BlockDisplay entity representing the trapdoor.
+     * @param previousBlockData The previous BlockData of the trapdoor.
+     * @param clickedBlock     The clicked block.
+     */
+    private void runTrapdoorAnimation(BlockDisplay blockDisplay, BlockData previousBlockData, Block clickedBlock) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
             clickedBlock.setType(Material.AIR);
             var leftRotation = new Quaternionf(0,0,1,0);
             var transformation = new Vector3f(0.3F, 0, 0);
-            if (previusBlockData instanceof TrapDoor slab) {
+            if (previousBlockData instanceof TrapDoor slab) {
                 if(slab.isOpen()) {
                     leftRotation = new Quaternionf(0,0,-1,0);
                     transformation = new Vector3f(0, 0.3F, 0);
@@ -71,17 +85,24 @@ public class InteractListener implements Listener {
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-                var block = blockDisplay.getLocation().getBlock();
-                if (previusBlockData instanceof TrapDoor slab) {
-                    slab.setOpen(!(slab.isOpen()));
-                    slab.setFacing(BlockFace.EAST);
-                }
-                block.setBlockData(previusBlockData);
-                blockDisplay.remove();
-                animatedLocations.remove(block.getLocation());
-            }, 9L);
+            removeTrapdoor(blockDisplay, previousBlockData);
         }, 2L);
+    }
+
+    /**
+     * Removes the trapdoor after 9 ticks
+     */
+    private void removeTrapdoor(BlockDisplay blockDisplay, BlockData previousBlockData) {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+            var block = blockDisplay.getLocation().getBlock();
+            if (previousBlockData instanceof TrapDoor slab) {
+                slab.setOpen(!(slab.isOpen()));
+                slab.setFacing(BlockFace.EAST);
+            }
+            block.setBlockData(previousBlockData);
+            blockDisplay.remove();
+            animatedLocations.remove(block.getLocation());
+        }, 9L);
     }
 
 }

@@ -23,12 +23,32 @@ public class ParticleDisplay {
     private final Material particleMaterial;
     private int lightLevel = -1;
 
+    /**
+     * Constructs a ParticleDisplay object with the given block, offsets, and FancyPhysics instance.
+     *
+     * @param block         The block from which the particle display originates.
+     * @param x             The x-axis offset of the particle display.
+     * @param y             The y-axis offset of the particle display.
+     * @param z             The z-axis offset of the particle display.
+     * @param fancyPhysics  The FancyPhysics instance.
+     */
     public ParticleDisplay(Block block, float x, float y, float z, FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
         this.particleMaterial = this.fancyPhysics.particleGenerator.getParticleMaterial(block.getType());
         spawnBlockDisplay(block.getLocation(), x, y, z);
     }
 
+    /**
+     * Constructs a ParticleDisplay object with the given location, particle material, offsets, and FancyPhysics instance.
+     *
+     * @param location          The location from which the particle display originates.
+     * @param particleMaterial  The material of the particle display.
+     * @param x                 The x-axis offset of the particle display.
+     * @param y                 The y-axis offset of the particle display.
+     * @param z                 The z-axis offset of the particle display.
+     * @param fancyPhysics      The FancyPhysics instance.
+     * @param startSize         The starting size of the particle display.
+     */
     public ParticleDisplay(Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize) {
         this.fancyPhysics = fancyPhysics;
         this.startSize = startSize;
@@ -36,6 +56,18 @@ public class ParticleDisplay {
         spawnBlockDisplay(location, x, y, z);
     }
 
+    /**
+     * Constructs a ParticleDisplay object with the given location, particle material, offsets, speed, and FancyPhysics instance.
+     *
+     * @param location          The location from which the particle display originates.
+     * @param particleMaterial  The material of the particle display.
+     * @param x                 The x-axis offset of the particle display.
+     * @param y                 The y-axis offset of the particle display.
+     * @param z                 The z-axis offset of the particle display.
+     * @param fancyPhysics      The FancyPhysics instance.
+     * @param startSize         The starting size of the particle display.
+     * @param speed             The speed of the particle display.
+     */
     public ParticleDisplay(Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed) {
         this.fancyPhysics = fancyPhysics;
         this.speed = speed;
@@ -44,6 +76,19 @@ public class ParticleDisplay {
         spawnBlockDisplay(location, x, y, z);
     }
 
+    /**
+     * Constructs a ParticleDisplay object with the given location, particle material, offsets, speed, light level, and FancyPhysics instance.
+     *
+     * @param location          The location from which the particle display originates.
+     * @param particleMaterial  The material of the particle display.
+     * @param x                 The x-axis offset of the particle display.
+     * @param y                 The y-axis offset of the particle display.
+     * @param z                 The z-axis offset of the particle display.
+     * @param fancyPhysics      The FancyPhysics instance.
+     * @param startSize         The starting size of the particle display.
+     * @param speed             The speed of the particle display.
+     * @param lightLevel        The light level of the particle display.
+     */
     public ParticleDisplay(Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed, int lightLevel) {
         this.fancyPhysics = fancyPhysics;
         this.speed = speed;
@@ -53,6 +98,14 @@ public class ParticleDisplay {
         spawnBlockDisplay(location, x, y, z);
     }
 
+    /**
+     * Spawns the block display at the given location with the specified offsets.
+     *
+     * @param location  The location at which to spawn the block display.
+     * @param x         The x-axis offset of the block display.
+     * @param y         The y-axis offset of the block display.
+     * @param z         The z-axis offset of the block display.
+     */
     private void spawnBlockDisplay(Location location, float x, float y, float z) {
         var loc = new Location(location.getWorld(), (float)((int)location.getX()) + x, (float)((int)location.getY()) + y, (float)((int)location.getZ()) + z);
         float randomSize = ThreadLocalRandom.current().nextFloat() * 10;
@@ -95,6 +148,14 @@ public class ParticleDisplay {
         });
     }
 
+    /**
+     * Animates the display by moving it and updating its rotation (simulating physics).
+     *
+     * @param x             The x-axis offset of the display.
+     * @param z             The z-axis offset of the display.
+     * @param blockDisplay  The block display to animate.
+     * @param transformation The transformation of the block display.
+     */
     private void animateDisplay(float x, float z, BlockDisplay blockDisplay, Transformation transformation) {
         blockDisplay.setInterpolationDelay(-1);
         blockDisplay.setInterpolationDuration(0);
@@ -129,11 +190,19 @@ public class ParticleDisplay {
         }, 2L);
     }
 
+    /**
+     * Removes the block display from the FancyPhysics block display list and removes it from the world.
+     */
     private void removeDisplay() {
         this.fancyPhysics.blockDisplayList.remove(this.blockDisplay);
         this.blockDisplay.remove();
     }
 
+    /**
+     * Returns the block display associated with this ParticleDisplay.
+     *
+     * @return The block display.
+     */
     public BlockDisplay getBlockDisplay() {
         return blockDisplay;
     }

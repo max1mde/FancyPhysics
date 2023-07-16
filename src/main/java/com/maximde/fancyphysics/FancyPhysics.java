@@ -22,6 +22,9 @@ public final class FancyPhysics extends JavaPlugin {
 
     public Config config;
     public ParticleGenerator particleGenerator;
+    /**
+     * Contains all block display entity's spawned by this plugin
+     */
     public List<BlockDisplay> blockDisplayList = new ArrayList<>();
     public static API api;
 
