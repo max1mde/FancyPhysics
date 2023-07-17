@@ -46,7 +46,8 @@ Physics:
   PerformanceMode: true
   RealisticTrees: true
   DropSaplings: true
-  MaxParticleCount: 5000
+  SprintDoorBreak: true
+  MaxParticleCount: 4000
   TrapdoorPhysics: false
 ```
 
