@@ -29,7 +29,7 @@ public class Config {
                 "PerformanceMode",
                 "RealisticTrees",
                 "DropSaplings",
-                "SpringDoorBreak"};
+                "SprintDoorBreak"};
 
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
@@ -50,7 +50,7 @@ public class Config {
         realisticTrees = cfg.getBoolean("Physics.RealisticTrees");
         dropSaplings = cfg.getBoolean("Physics.DropSaplings");
         performanceMode = cfg.getBoolean("Physics.PerformanceMode");
-        sprintDoorBreak = cfg.getBoolean("Physics.SpringDoorBreak");
+        sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
     }
 
     public void saveConfig() {
