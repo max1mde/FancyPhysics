@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
@@ -56,7 +57,7 @@ public class Tree {
      */
     public void breakWithFallAnimation() {
         if(!isNatural) return;
-        for (Block b : this.stem) spawnDisplay(b);
+        for (Block b : this.stem)  spawnDisplay(b);
         for (Block b : this.leaves) spawnDisplay(b);
     }
 
@@ -70,7 +71,7 @@ public class Tree {
         location.getWorld().spawn(location, BlockDisplay.class, blockDisplay -> {
             this.fancyPhysics.blockDisplayList.add(blockDisplay);
             blockDisplay.setBlock(blockData);
-            block.setType(Material.AIR);
+            if(block != origin) block.setType(Material.AIR);
 
             var transformationY = - 1 + (this.origin.getY() - (block.getY() + 0.7F)) + 1;
             var transformationZ = (this.origin.getY() - block.getY()) + (this.origin.getY() - block.getY()) / 0.7F;
