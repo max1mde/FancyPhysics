@@ -17,6 +17,7 @@ public class Config {
     private final boolean realisticTrees;
     private final int maxParticleCount;
     private final boolean dropSaplings;
+    private final boolean sprintDoorBreak;
 
     public Config() {
         String[] settingsPhysics = {
@@ -27,7 +28,8 @@ public class Config {
                 "ParticleRotation",
                 "PerformanceMode",
                 "RealisticTrees",
-                "DropSaplings"};
+                "DropSaplings",
+                "SpringDoorBreak"};
 
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
@@ -48,6 +50,7 @@ public class Config {
         realisticTrees = cfg.getBoolean("Physics.RealisticTrees");
         dropSaplings = cfg.getBoolean("Physics.DropSaplings");
         performanceMode = cfg.getBoolean("Physics.PerformanceMode");
+        sprintDoorBreak = cfg.getBoolean("Physics.SpringDoorBreak");
     }
 
     public void saveConfig() {
@@ -96,6 +99,10 @@ public class Config {
 
     public boolean isDropSaplings() {
         return dropSaplings;
+    }
+
+    public boolean isSprintDoorBreak() {
+        return sprintDoorBreak;
     }
 
     public File getFile() {

@@ -8,6 +8,7 @@ import com.maximde.fancyphysics.listeners.entity.HitGroundListener;
 import com.maximde.fancyphysics.listeners.player.BlockBreakListener;
 import com.maximde.fancyphysics.listeners.player.BlockPlaceListener;
 import com.maximde.fancyphysics.listeners.player.InteractListener;
+import com.maximde.fancyphysics.listeners.player.MoveListener;
 import com.maximde.fancyphysics.utils.Config;
 import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
@@ -52,6 +53,7 @@ public final class FancyPhysics extends JavaPlugin {
         registerListener(new InteractListener(this));
         registerListener(new BlockPlaceListener(this));
         registerListener(new DamageListener(this));
+        registerListener(new MoveListener(this));
     }
 
     private void registerListener(Object listener) {
