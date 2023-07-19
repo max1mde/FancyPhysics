@@ -73,17 +73,17 @@ public class Tree {
             blockDisplay.setBlock(blockData);
             if(block != origin) block.setType(Material.AIR);
 
-            var transformationY = - 1 + (this.origin.getY() - (block.getY() + 0.7F)) + 1;
-            var transformationZ = (this.origin.getY() - block.getY()) + (this.origin.getY() - block.getY()) / 0.7F;
+            var transformationY = - 1 + (this.origin.getY() - (block.getY()));
+            var transformationZ = (this.origin.getY() - block.getY()) + (this.origin.getY() - block.getY()) / 0.9F;
 
             /*
             Transform display (Falling animation)
              */
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
                 Transformation transformation = new Transformation(
-                        new Vector3f(0, transformationY + (this.origin.getY() - (block.getY() + 0.7F)) / 2, transformationZ),//translation
-                        new Quaternionf(-1.1F,0,0,0.5),   //left rotation
-                        new Vector3f(1, 1,1),    //scale
+                        new Vector3f(0, transformationY + (this.origin.getY() - (block.getY() + 0.6F)) / 2, transformationZ),//translation
+                        new Quaternionf(-1.0F,0,0,0.1),   //left rotation
+                        new Vector3f(1F, 1F,1F),    //scale
                         blockDisplay.getTransformation().getRightRotation()  //right rotation
                 );
                 blockDisplay.setInterpolationDuration(40);
