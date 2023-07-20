@@ -34,7 +34,7 @@ public class ParticleDisplay {
      */
     public ParticleDisplay(Block block, float x, float y, float z, FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
-        this.particleMaterial = this.fancyPhysics.particleGenerator.getParticleMaterial(block.getType());
+        this.particleMaterial = this.fancyPhysics.getParticleGenerator().getParticleMaterial(block.getType());
         spawnBlockDisplay(block.getLocation(), x, y, z);
     }
 
@@ -110,12 +110,12 @@ public class ParticleDisplay {
         var loc = new Location(location.getWorld(), (float)((int)location.getX()) + x, (float)((int)location.getY()) + y, (float)((int)location.getZ()) + z);
         float randomSize = ThreadLocalRandom.current().nextFloat() * 10;
         var material = this.particleMaterial;
-        if(material == null) material = this.fancyPhysics.particleGenerator.getParticleMaterial(location.getBlock().getType());
+        if(material == null) material = this.fancyPhysics.getParticleGenerator().getParticleMaterial(location.getBlock().getType());
         final BlockData blockData = material.createBlockData();
-        if(this.fancyPhysics.blockDisplayList.size() > this.fancyPhysics.config.getMaxParticleCount()) return;
+        if(this.fancyPhysics.blockDisplayList.size() > this.fancyPhysics.getPluginConfig().getMaxParticleCount()) return;
         final var entiysInChunk = location.getChunk().getEntities().length;
-        if(entiysInChunk > 1000 && this.fancyPhysics.config.isPerformanceMode()) return;
-        if(this.fancyPhysics.config.isPerformanceMode() && (entiysInChunk % 2 == 0) && entiysInChunk > 500) return; //remove some of the particles but not all
+        if(entiysInChunk > 1000 && this.fancyPhysics.getPluginConfig().isPerformanceMode()) return;
+        if(this.fancyPhysics.getPluginConfig().isPerformanceMode() && (entiysInChunk % 2 == 0) && entiysInChunk > 500) return; //remove some of the particles but not all
 
         loc.getWorld().spawn(loc, BlockDisplay.class, blockDisplay -> {
             Vector3f size = new Vector3f(this.startSize,this.startSize,this.startSize);
@@ -171,7 +171,7 @@ public class ParticleDisplay {
 
             var rotationLeft = blockDisplay.getTransformation().getLeftRotation();
             var rotationRight = blockDisplay.getTransformation().getLeftRotation();
-            if(this.fancyPhysics.config.isParticleRotation()) {
+            if(this.fancyPhysics.getPluginConfig().isParticleRotation()) {
                 rotationLeft = new Quaternionf(x * randomZ, x * randomZ, x * randomZ, 0);
                 rotationRight = new Quaternionf(x * randomZ, x * randomZ, x * randomZ, 0);
             }

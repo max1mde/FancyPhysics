@@ -39,7 +39,7 @@ public class InteractListener implements Listener {
      * @param event        The PlayerInteractEvent.
      */
     private void spawnTrapdoorDisplay(Block clickedBlock, PlayerInteractEvent event) {
-        if(!this.fancyPhysics.config.isTrapdoorPhysics()) return;
+        if(!this.fancyPhysics.getPluginConfig().isTrapdoorPhysics()) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(clickedBlock == null) return;
         if(!clickedBlock.getType().name().contains("TRAPDOOR")) return;

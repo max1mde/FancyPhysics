@@ -25,9 +25,9 @@ public class ExplodeListener implements Listener {
     }
 
     private void createRealisticExplosion(EntityExplodeEvent event) {
-        if(!this.fancyPhysics.config.isRealisticExplosion()) return;
+        if(!this.fancyPhysics.getPluginConfig().isRealisticExplosion()) return;
         if(event.isCancelled()) return;
-        if(fancyPhysics.config.isPerformanceMode() && event.getLocation().getChunk().getEntities().length > 2000) return;
+        if(fancyPhysics.getPluginConfig().isPerformanceMode() && event.getLocation().getChunk().getEntities().length > 2000) return;
         event.setYield(40);
         for (Block block : event.blockList()) {
             var x = -(float)(ThreadLocalRandom.current().nextDouble() / 10) + (float) (Math.random() / 10);
@@ -40,7 +40,7 @@ public class ExplodeListener implements Listener {
                 block.setType(Material.AIR);
                 continue;
             }
-            if(fancyPhysics.config.isPerformanceMode() && event.getLocation().getChunk().getEntities().length > 500) {
+            if(fancyPhysics.getPluginConfig().isPerformanceMode() && event.getLocation().getChunk().getEntities().length > 500) {
                 block.getLocation().getWorld().dropItem(block.getLocation(), new ItemStack(block.getType()));
                 block.setType(Material.AIR);
                 return;

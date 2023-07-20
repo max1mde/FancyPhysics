@@ -21,13 +21,13 @@ import java.util.List;
 
 public final class FancyPhysics extends JavaPlugin {
 
-    public Config config;
-    public ParticleGenerator particleGenerator;
+    private Config config;
+    private ParticleGenerator particleGenerator;
     /**
      * Contains all block display entity's spawned by this plugin
      */
     public List<BlockDisplay> blockDisplayList = new ArrayList<>();
-    public static API api;
+    private static API api;
 
     @Override
     public void onEnable() {
@@ -62,6 +62,15 @@ public final class FancyPhysics extends JavaPlugin {
 
     public static API getAPI() {
         return api;
+    }
+
+
+    public Config getPluginConfig() {
+        return config;
+    }
+
+    public ParticleGenerator getParticleGenerator() {
+        return particleGenerator;
     }
 
 }

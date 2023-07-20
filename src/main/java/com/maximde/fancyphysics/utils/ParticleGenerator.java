@@ -106,7 +106,7 @@ public class ParticleGenerator {
      * @param speed       The speed of the block particles.
      */
     public void simulateBlockParticles(Location location, Material material, float startSize, float speed) {
-        if(!fancyPhysics.config.isBlockParticles()) return;
+        if(!fancyPhysics.getPluginConfig().isBlockParticles()) return;
         List<BlockDisplay> displayList = new ArrayList<>();
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {

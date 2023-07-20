@@ -21,7 +21,7 @@ public class DamageListener implements Listener {
     }
 
     private void createDamageParticles(EntityDamageEvent event) {
-        if(!this.fancyPhysics.config.isDamageParticles()) return;
+        if(!this.fancyPhysics.getPluginConfig().isDamageParticles()) return;
         if(event.isCancelled()) return;
         if(!(event.getEntity() instanceof LivingEntity)) return;
         if (event.getEntity().getHeight() < 0) return;
@@ -35,7 +35,7 @@ public class DamageListener implements Listener {
         if(entity.getType() == EntityType.BLAZE) lightLevel = 15;
 
         for (int i = 0; i < roundedHeight; i++) {
-            this.fancyPhysics.particleGenerator.simulateSplashBloodParticles(block.getLocation(), material, lightLevel);
+            this.fancyPhysics.getParticleGenerator().simulateSplashBloodParticles(block.getLocation(), material, lightLevel);
             block = block.getRelative(0, 1, 0);
         }
     }

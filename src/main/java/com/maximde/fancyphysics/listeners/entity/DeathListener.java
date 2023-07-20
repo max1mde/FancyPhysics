@@ -21,12 +21,11 @@ public class DeathListener implements Listener {
     }
 
     private void createDeathParticles(EntityDeathEvent event) {
-        if(!this.fancyPhysics.config.isEntityDeathParticles()) return;
+        if(!this.fancyPhysics.getPluginConfig().isEntityDeathParticles()) return;
+        if (event.getEntity().getHeight() < 1) return;
+
         var entity = event.getEntity();
-
         final var height = entity.getHeight();
-        if (height < 1) return;
-
         var material = getParticleMaterial(entity.getType());
 
         var lightLevel = -1;
@@ -36,7 +35,7 @@ public class DeathListener implements Listener {
         Block block = entity.getLocation().getBlock();
 
         for (int i = 0; i < roundedHeight; i++) {
-            this.fancyPhysics.particleGenerator.simulateBloodParticles(block.getLocation(), material, lightLevel);
+            this.fancyPhysics.getParticleGenerator().simulateBloodParticles(block.getLocation(), material, lightLevel);
             block = block.getRelative(0, 1, 0);
         }
     }

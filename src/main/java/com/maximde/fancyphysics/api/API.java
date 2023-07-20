@@ -16,14 +16,14 @@ public class API {
     }
 
     public Config getConfig() {
-        return fancyPhysics.config;
+        return fancyPhysics.getPluginConfig();
     }
 
     /**
      * @return the particle generator for generating block or blood particles
      */
     public ParticleGenerator getParticleGenerator() {
-        return fancyPhysics.particleGenerator;
+        return fancyPhysics.getParticleGenerator();
     }
 
     /**

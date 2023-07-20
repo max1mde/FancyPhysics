@@ -21,15 +21,15 @@ public class HitGroundListener implements Listener {
     }
 
     private void createParticles(EntityChangeBlockEvent event) {
-        if(!this.fancyPhysics.config.isBlockParticles()) return;
+        if(!this.fancyPhysics.getPluginConfig().isBlockParticles()) return;
         if(event.getBlock().getType() != Material.AIR) return;
         if (event.getEntityType() != EntityType.FALLING_BLOCK) return;
         var fallingBlock = (FallingBlock) event.getEntity();
         event.setCancelled(true);
-        var material = fallingBlock.getMaterial();
+        var material = fallingBlock.getBlockData().getMaterial();
         final var loc = event.getBlock().getLocation();
         loc.getWorld().playSound(loc, Sound.ENTITY_ITEM_PICKUP, 1.0f, 1.0f);
-        this.fancyPhysics.particleGenerator.simulateBlockParticles(loc, this.fancyPhysics.particleGenerator.getParticleMaterial(material));
+        this.fancyPhysics.getParticleGenerator().simulateBlockParticles(loc, this.fancyPhysics.getParticleGenerator().getParticleMaterial(material));
     }
 
 }

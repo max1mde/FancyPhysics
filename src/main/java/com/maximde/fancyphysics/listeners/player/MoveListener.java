@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class MoveListener implements Listener {
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
 
     public MoveListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
@@ -24,7 +24,7 @@ public class MoveListener implements Listener {
     }
 
     private void doorBreakManager(PlayerMoveEvent event) {
-        if(!this.fancyPhysics.config.isSprintDoorBreak()) return;
+        if(!this.fancyPhysics.getPluginConfig().isSprintDoorBreak()) return;
         Player player = event.getPlayer();
         if(!player.isSprinting()) return;
         Block block = player.getTargetBlock(null, 1);
@@ -33,7 +33,7 @@ public class MoveListener implements Listener {
             Block doorBlock = isDoor(block.getType()) ? block : block.getRelative(BlockFace.UP);
             Block aboveBlock = doorBlock.getRelative(BlockFace.UP);
             doorBlock.getLocation().getWorld().spawnParticle(Particle.EXPLOSION_LARGE, doorBlock.getLocation(), 4);
-            this.fancyPhysics.particleGenerator.simulateSplashBloodParticles(doorBlock.getLocation(), doorBlock.getType());
+            this.fancyPhysics.getParticleGenerator().simulateSplashBloodParticles(doorBlock.getLocation(), doorBlock.getType());
             doorBlock.breakNaturally();
         }
     }
