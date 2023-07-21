@@ -39,6 +39,7 @@ public class FPCommand implements CommandExecutor {
             sendInfoMessage(sender);
             return false;
         }
+
         if(args[0].equalsIgnoreCase("settings")) {
             for(String key : fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false)) {
                 if(args[1].equalsIgnoreCase(key)) {
@@ -63,12 +64,10 @@ public class FPCommand implements CommandExecutor {
                     break;
                 }
             }
-
         }
 
         return false;
     }
-
 
     private String getValueType(Object value) {
         return value != null ? value.getClass().getSimpleName() : "Unknown";
@@ -83,4 +82,5 @@ public class FPCommand implements CommandExecutor {
         }
         sender.sendMessage(ChatColor.DARK_PURPLE + "===== ALL COMMANDS =====");
     }
+
 }

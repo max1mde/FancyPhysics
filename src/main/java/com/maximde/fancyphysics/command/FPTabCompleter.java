@@ -58,7 +58,7 @@ public class FPTabCompleter implements TabCompleter {
             }
             StringUtil.copyPartialMatches(args[2], commands, completions);
         }
-
         return completions;
     }
+
 }
