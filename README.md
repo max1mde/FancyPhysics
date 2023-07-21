@@ -25,6 +25,8 @@
 - Trapdoor animation (Experimental)
 
 # Commands
+### Permission:
+`fancyphysics.commands`
 ```
 /fancyphysics reload
 /fancyphysics realisticexplosion enable/disable
