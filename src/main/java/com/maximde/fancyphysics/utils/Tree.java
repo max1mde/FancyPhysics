@@ -2,14 +2,12 @@ package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
@@ -69,7 +67,7 @@ public class Tree {
          * Spawn block display
          */
         location.getWorld().spawn(location, BlockDisplay.class, blockDisplay -> {
-            this.fancyPhysics.blockDisplayList.add(blockDisplay);
+            this.fancyPhysics.displayList.add(blockDisplay);
             blockDisplay.setBlock(blockData);
             if(block != origin) block.setType(Material.AIR);
 
@@ -125,7 +123,7 @@ public class Tree {
             } else {
                 blockDisplay.getLocation().getWorld().dropItem(blockDisplay.getLocation().add(0, transformationY + 2, transformationY), new ItemStack(blockData.getMaterial()));
             }
-            this.fancyPhysics.blockDisplayList.remove(blockDisplay);
+            this.fancyPhysics.displayList.remove(blockDisplay);
             blockDisplay.remove();
         }, 4L);
     }

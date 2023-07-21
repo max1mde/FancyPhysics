@@ -112,7 +112,7 @@ public class ParticleDisplay {
         var material = this.particleMaterial;
         if(material == null) material = this.fancyPhysics.getParticleGenerator().getParticleMaterial(location.getBlock().getType());
         final BlockData blockData = material.createBlockData();
-        if(this.fancyPhysics.blockDisplayList.size() > this.fancyPhysics.getPluginConfig().getMaxParticleCount()) return;
+        if(this.fancyPhysics.displayList.size() > this.fancyPhysics.getPluginConfig().getMaxParticleCount()) return;
         final var entiysInChunk = location.getChunk().getEntities().length;
         if(entiysInChunk > 1000 && this.fancyPhysics.getPluginConfig().isPerformanceMode()) return;
         if(this.fancyPhysics.getPluginConfig().isPerformanceMode() && (entiysInChunk % 2 == 0) && entiysInChunk > 500) return; //remove some of the particles but not all
@@ -129,7 +129,7 @@ public class ParticleDisplay {
             }
 
             this.blockDisplay = blockDisplay;
-            this.fancyPhysics.blockDisplayList.add(this.blockDisplay);
+            this.fancyPhysics.displayList.add(this.blockDisplay);
             blockDisplay.setInvulnerable(true);
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
@@ -194,7 +194,7 @@ public class ParticleDisplay {
      * Removes the block display from the FancyPhysics block display list and removes it from the world.
      */
     private void removeDisplay() {
-        this.fancyPhysics.blockDisplayList.remove(this.blockDisplay);
+        this.fancyPhysics.displayList.remove(this.blockDisplay);
         this.blockDisplay.remove();
     }
 

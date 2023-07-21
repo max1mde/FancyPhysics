@@ -7,28 +7,30 @@ import com.maximde.fancyphysics.listeners.entity.DamageListener;
 import com.maximde.fancyphysics.listeners.entity.DeathListener;
 import com.maximde.fancyphysics.listeners.entity.ExplodeListener;
 import com.maximde.fancyphysics.listeners.entity.HitGroundListener;
-import com.maximde.fancyphysics.listeners.player.BlockBreakListener;
-import com.maximde.fancyphysics.listeners.player.BlockPlaceListener;
-import com.maximde.fancyphysics.listeners.player.InteractListener;
-import com.maximde.fancyphysics.listeners.player.MoveListener;
+import com.maximde.fancyphysics.listeners.player.*;
 import com.maximde.fancyphysics.utils.Config;
 import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
+import org.bukkit.block.Block;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Display;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public final class FancyPhysics extends JavaPlugin {
 
     private Config config;
     private ParticleGenerator particleGenerator;
     /**
-     * Contains all block display entity's spawned by this plugin
+     * Contains all display entity's spawned by this plugin
      */
-    public List<BlockDisplay> blockDisplayList = new ArrayList<>();
+    public List<Display> displayList = new ArrayList<>();
+    public HashMap<UUID, Block> craftingTableMap = new HashMap<>();
     private static API api;
 
     @Override
@@ -44,9 +46,11 @@ public final class FancyPhysics extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for(BlockDisplay blockDisplay : blockDisplayList) {
+        for(Display blockDisplay : displayList) {
             blockDisplay.remove();
         }
+        this.displayList.clear();
+        this.craftingTableMap.clear();
     }
 
     private void registerListeners() {
@@ -58,6 +62,8 @@ public final class FancyPhysics extends JavaPlugin {
         registerListener(new BlockPlaceListener(this));
         registerListener(new DamageListener(this));
         registerListener(new MoveListener(this));
+        registerListener(new InventoryClickListener(this));
+        registerListener(new PlayerQuitListener(this));
     }
 
     private void registerListener(Object listener) {

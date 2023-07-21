@@ -29,7 +29,17 @@ public class InteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
+        craftingVisualizer(event);
         spawnTrapdoorDisplay(event.getClickedBlock(), event);
+    }
+
+    private void craftingVisualizer(PlayerInteractEvent event) {
+        //TODO config check
+        if(event.getClickedBlock() == null) return;
+        if(event.getClickedBlock().getType() != Material.CRAFTING_TABLE) return;
+        if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if(fancyPhysics.craftingTableMap.containsValue(event.getClickedBlock())) return;
+        fancyPhysics.craftingTableMap.put(event.getPlayer().getUniqueId(), event.getClickedBlock());
     }
 
     /**

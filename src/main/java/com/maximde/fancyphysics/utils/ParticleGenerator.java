@@ -145,7 +145,7 @@ public class ParticleGenerator {
         if (event.isCancelled()) {
             for(BlockDisplay display : displayList) {
                 display.remove();
-                fancyPhysics.blockDisplayList.remove(display);
+                fancyPhysics.displayList.remove(display);
             }
         }
         displayList.clear();

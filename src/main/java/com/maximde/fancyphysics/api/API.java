@@ -4,6 +4,7 @@ import com.maximde.fancyphysics.FancyPhysics;
 import com.maximde.fancyphysics.utils.Config;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Display;
 
 import java.util.List;
 
@@ -27,10 +28,10 @@ public class API {
     }
 
     /**
-     * @return all active blockdisplay entitys spawned by the plugin
+     * @return all active display entitys spawned by the plugin
      */
-    public List<BlockDisplay> getBlockDisplayList() {
-        return fancyPhysics.blockDisplayList;
+    public List<Display> getBlockDisplayList() {
+        return fancyPhysics.displayList;
     }
 
 }
