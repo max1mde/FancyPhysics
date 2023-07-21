@@ -24,7 +24,7 @@
 - Realistic explosions
 - Trapdoor animation (Experimental)
 
-# Commands
+![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916070629567/Neues_Projekt_-_2023-06-15T233623.864.png?width=250&height=125)
 ### Permission:
 `fancyphysics.commands`
 ```
