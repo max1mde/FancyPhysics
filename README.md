@@ -24,6 +24,22 @@
 - Realistic explosions
 - Trapdoor animation (Experimental)
 
+# Commands
+```
+/fancyphysics reload
+/fancyphysics realisticexplosion enable/disable
+/fancyphysics entitydeathparticles enable/disable
+/fancyphysics 3dblockparticles enable/disable
+/fancyphysics damageparticles enable/disable
+/fancyphysics particlerotation enable/disable
+/fancyphysics performancemode enable/disable
+/fancyphysics realistictrees enable/disable
+/fancyphysics dropsaplings enable/disable
+/fancyphysics maxparticlecount <value>
+/fancyphysics trapdoorphysics enable/disable
+/fancyphysics sprintdoorbreak enable/disable
+```
+
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1127982083894157322/statsfancyphysics_1.png?width=250&height=125)
 <br>
 Spawn your own particles or cancel/modify existing particles using events in your plugin
