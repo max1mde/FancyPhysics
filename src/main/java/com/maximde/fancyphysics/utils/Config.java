@@ -6,18 +6,18 @@ import java.io.IOException;
 
 public class Config {
     private final File file = new File("plugins/FancyPhysics", "config.yml");
-    private final YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
-    private final boolean realisticExplosion;
-    private final boolean entityDeathParticles;
-    private final boolean blockParticles;
-    private final boolean trapdoorPhysics;
-    private final boolean damageParticles;
-    private final boolean particleRotation;
-    private final boolean performanceMode;
-    private final boolean realisticTrees;
-    private final int maxParticleCount;
-    private final boolean dropSaplings;
-    private final boolean sprintDoorBreak;
+    private YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
+    private boolean realisticExplosion;
+    private boolean entityDeathParticles;
+    private boolean blockParticles;
+    private boolean trapdoorPhysics;
+    private boolean damageParticles;
+    private boolean particleRotation;
+    private boolean performanceMode;
+    private boolean realisticTrees;
+    private int maxParticleCount;
+    private boolean dropSaplings;
+    private boolean sprintDoorBreak;
 
     public Config() {
         String[] settingsPhysics = {
@@ -28,8 +28,7 @@ public class Config {
                 "ParticleRotation",
                 "PerformanceMode",
                 "RealisticTrees",
-                "DropSaplings",
-                "SprintDoorBreak"};
+                "DropSaplings"};
 
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
@@ -38,8 +37,13 @@ public class Config {
 
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
+        if(!cfg.isSet("Physics.SprintDoorBreak")) cfg.set("Physics.SprintDoorBreak", false);
         saveConfig();
 
+        initValues();
+    }
+
+    private void initValues() {
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
         entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
         blockParticles = cfg.getBoolean("Physics.3DBlockParticles");
@@ -51,6 +55,11 @@ public class Config {
         dropSaplings = cfg.getBoolean("Physics.DropSaplings");
         performanceMode = cfg.getBoolean("Physics.PerformanceMode");
         sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
+    }
+
+    public void reload() {
+        this.cfg = new YamlConfiguration().loadConfiguration(file);
+        initValues();
     }
 
     public void saveConfig() {
@@ -111,6 +120,14 @@ public class Config {
 
     public YamlConfiguration getConfig() {
         return cfg;
+    }
+
+    public void setValue(String path, Object value) {
+        this.cfg.set(path, value);
+    }
+
+    public Object getValue(String path) {
+        return this.cfg.get(path);
     }
 
 }

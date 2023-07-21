@@ -3,3 +3,6 @@ version: '${version}'
 main: com.maximde.fancyphysics.FancyPhysics
 api-version: '1.20'
 author: MaximFiedler
+
+commands:
+  fancyphysics:

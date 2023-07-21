@@ -1,6 +1,8 @@
 package com.maximde.fancyphysics;
 
 import com.maximde.fancyphysics.api.API;
+import com.maximde.fancyphysics.command.FPCommand;
+import com.maximde.fancyphysics.command.FPTabCompleter;
 import com.maximde.fancyphysics.listeners.entity.DamageListener;
 import com.maximde.fancyphysics.listeners.entity.DeathListener;
 import com.maximde.fancyphysics.listeners.entity.ExplodeListener;
@@ -36,6 +38,8 @@ public final class FancyPhysics extends JavaPlugin {
         this.particleGenerator = new ParticleGenerator(this);
         new Metrics(this, 18833);
         registerListeners();
+        getCommand("fancyphysics").setExecutor(new FPCommand(this));
+        getCommand("fancyphysics").setTabCompleter(new FPTabCompleter(this));
     }
 
     @Override
