@@ -24,20 +24,22 @@
 - Realistic explosions
 - Trapdoor animation (Experimental)
 
-# Commands
+![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916070629567/Neues_Projekt_-_2023-06-15T233623.864.png?width=250&height=125)
+### Permission:
+`fancyphysics.commands`
 ```
 /fancyphysics reload
-/fancyphysics realisticexplosion enable/disable
-/fancyphysics entitydeathparticles enable/disable
-/fancyphysics 3dblockparticles enable/disable
-/fancyphysics damageparticles enable/disable
-/fancyphysics particlerotation enable/disable
-/fancyphysics performancemode enable/disable
-/fancyphysics realistictrees enable/disable
-/fancyphysics dropsaplings enable/disable
-/fancyphysics maxparticlecount <value>
-/fancyphysics trapdoorphysics enable/disable
-/fancyphysics sprintdoorbreak enable/disable
+/fancyphysics settings realisticexplosion enable/disable
+/fancyphysics settings entitydeathparticles enable/disable
+/fancyphysics settings 3dblockparticles enable/disable
+/fancyphysics settings damageparticles enable/disable
+/fancyphysics settings particlerotation enable/disable
+/fancyphysics settings performancemode enable/disable
+/fancyphysics settings realistictrees enable/disable
+/fancyphysics settings dropsaplings enable/disable
+/fancyphysics settings maxparticlecount <value>
+/fancyphysics settings trapdoorphysics enable/disable
+/fancyphysics settings sprintdoorbreak enable/disable
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1127982083894157322/statsfancyphysics_1.png?width=250&height=125)
