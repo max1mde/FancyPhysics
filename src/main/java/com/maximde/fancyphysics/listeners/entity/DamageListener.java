@@ -23,6 +23,8 @@ public class DamageListener implements Listener {
     private void createDamageParticles(EntityDamageEvent event) {
         if(!this.fancyPhysics.getPluginConfig().isDamageParticles()) return;
         if(event.isCancelled()) return;
+        if(event.getDamage() <= 0.4) return;
+        if(event.getCause() == EntityDamageEvent.DamageCause.FALL && !event.getEntity().getWorld().isGameRule("fallDamage")) return;
         if(!(event.getEntity() instanceof LivingEntity)) return;
         if (event.getEntity().getHeight() < 0) return;
 
