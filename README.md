@@ -19,6 +19,7 @@
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119003156915945502/Neues_Projekt_-_2023-06-15T233852.757.png?width=250&height=125)
 - Block particles
+- Visual crafting
 - Entity death particles
 - Damage particles
 - Realistic tree destroy animation
@@ -69,9 +70,10 @@ Physics:
   PerformanceMode: true
   RealisticTrees: true
   DropSaplings: true
-  SprintDoorBreak: true
+  VisualCrafting: true
   MaxParticleCount: 4000
   TrapdoorPhysics: false
+  SprintDoorBreak: false
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915328237599/Neues_Projekt_-_2023-06-15T233717.092.png?width=250&height=125)
