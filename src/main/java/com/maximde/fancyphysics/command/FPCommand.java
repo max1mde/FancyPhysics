@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import java.text.ParseException;
 
 public class FPCommand implements CommandExecutor {
-    private FancyPhysics fancyPhysics;
+    private final FancyPhysics fancyPhysics;
     public FPCommand(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
     }
@@ -17,6 +17,9 @@ public class FPCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
 
+        /*
+         * Check player permissions
+         */
         if(sender instanceof Player player) {
             if(!player.hasPermission("fancyphysics.commands") && !player.hasPermission("fancyphysics.admin")) {
                 player.sendMessage(ChatColor.RED + "No permission!");
@@ -24,6 +27,9 @@ public class FPCommand implements CommandExecutor {
             }
         }
 
+        /*
+         * If no argument was given send all possible commands + arguments & return
+         */
         if(args.length == 0) {
             sendInfoMessage(sender);
             return false;
@@ -35,6 +41,10 @@ public class FPCommand implements CommandExecutor {
             return false;
         }
 
+        /*
+         *  If there are less than 3 arguments send all possible commands + arguments & return
+         *  because only for the reload command are less than 3 arguments needed
+         */
         if(args.length < 3) {
             sendInfoMessage(sender);
             return false;
@@ -42,27 +52,30 @@ public class FPCommand implements CommandExecutor {
 
         if(args[0].equalsIgnoreCase("settings")) {
             for(String key : fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false)) {
-                if(args[1].equalsIgnoreCase(key)) {
-                    if(args[2].equalsIgnoreCase("enable")) args[2] = "true";
-                    if(args[2].equalsIgnoreCase("disable")) args[2] = "false";
-                    var value = fancyPhysics.getPluginConfig().getValue("Physics."+key);
-                    try {
-                        switch (getValueType(value)) {
-                            default -> fancyPhysics.getPluginConfig().setValue("Physics."+key, args[2]);
-                            case "Integer" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Integer.parseInt(args[2]));
-                            case "Boolean" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Boolean.parseBoolean(args[2]));
-                            case "Float" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Float.parseFloat(args[2]));
-                            case "Double" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Double.parseDouble(args[2]));
-                            case "Long" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Long.parseLong(args[2]));
-                        };
-                        fancyPhysics.getPluginConfig().saveConfig();
-                        fancyPhysics.getPluginConfig().reload();
-                        sender.sendMessage(ChatColor.GREEN + "Changed " + key + " to " + args[2]);
-                    } catch (Exception e) {
-                        sender.sendMessage(ChatColor.RED + args[1] + " is not a valid " + getValueType(value));
-                    }
-                    break;
+                if(!args[1].equalsIgnoreCase(key)) continue;
+                /*
+                    Convert nice readable strings to booleans
+                 */
+                if(args[2].equalsIgnoreCase("enable")) args[2] = "true";
+                if(args[2].equalsIgnoreCase("disable")) args[2] = "false";
+
+                var value = fancyPhysics.getPluginConfig().getValue("Physics."+key);
+                try {
+                    switch (getValueType(value)) {
+                        default -> fancyPhysics.getPluginConfig().setValue("Physics."+key, args[2]);
+                        case "Integer" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Integer.parseInt(args[2]));
+                        case "Boolean" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Boolean.parseBoolean(args[2]));
+                        case "Float" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Float.parseFloat(args[2]));
+                        case "Double" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Double.parseDouble(args[2]));
+                        case "Long" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Long.parseLong(args[2]));
+                    };
+                    fancyPhysics.getPluginConfig().saveConfig();
+                    fancyPhysics.getPluginConfig().reload();
+                    sender.sendMessage(ChatColor.GREEN + "Changed " + key + " to " + args[2]);
+                } catch (Exception e) {
+                    sender.sendMessage(ChatColor.RED + args[1] + " is not a valid " + getValueType(value));
                 }
+                break;
             }
         }
 

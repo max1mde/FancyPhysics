@@ -21,6 +21,9 @@ public class FPTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
 
+        /*
+         * Check player permissions
+         */
         if(sender instanceof Player player) {
             if(!player.hasPermission("fancyphysics.commands") && !player.hasPermission("fancyphysics.admin")) {
                 return new ArrayList<>();
@@ -36,6 +39,9 @@ public class FPTabCompleter implements TabCompleter {
             StringUtil.copyPartialMatches(args[0], commands, completions);
         }
 
+        /*
+         * Add all keys from the config
+         */
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("settings")) {
                 commands.addAll(fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false));
@@ -43,11 +49,19 @@ public class FPTabCompleter implements TabCompleter {
             StringUtil.copyPartialMatches(args[1], commands, completions);
         }
 
+        /*
+         * Add the current value from the config of the selected key (if it's a boolean true and false) to the command list
+         */
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("settings")) {
                 String key = args[1];
                 if (fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false).contains(key)) {
                     final var val = fancyPhysics.getPluginConfig().getConfig().get("Physics." + key).toString().toLowerCase();
+
+                    /*
+                        Convert boolean to nice readable strings
+                        and add the unmodified given value if it's not a boolean
+                     */
                     if(val.equals("true") || val.equals("false")) {
                         commands.add("enable");
                         commands.add("disable");
