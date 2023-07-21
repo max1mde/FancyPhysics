@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
@@ -19,6 +20,13 @@ public class FPTabCompleter implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+
+        if(sender instanceof Player player) {
+            if(!player.hasPermission("fancyphysics.commands") || player.hasPermission("fancyphysics.admin")) {
+                return new ArrayList<>();
+            }
+        }
+
         List<String> completions = new ArrayList<>();
         List<String> commands = new ArrayList<>();
 

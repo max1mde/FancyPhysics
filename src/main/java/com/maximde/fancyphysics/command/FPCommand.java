@@ -4,6 +4,7 @@ import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.text.ParseException;
 
@@ -15,6 +16,13 @@ public class FPCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+
+        if(sender instanceof Player player) {
+            if(!player.hasPermission("fancyphysics.commands") || player.hasPermission("fancyphysics.admin")) {
+                player.sendMessage(ChatColor.RED + "No permission!");
+                return false;
+            }
+        }
 
         if(args.length == 0) {
             sendInfoMessage(sender);
