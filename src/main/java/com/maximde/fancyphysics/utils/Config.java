@@ -18,6 +18,8 @@ public class Config {
     private int maxParticleCount;
     private boolean dropSaplings;
     private boolean sprintDoorBreak;
+    private boolean visualCrafting;
+
 
     public Config() {
         String[] settingsPhysics = {
@@ -28,7 +30,8 @@ public class Config {
                 "ParticleRotation",
                 "PerformanceMode",
                 "RealisticTrees",
-                "DropSaplings"};
+                "DropSaplings",
+                "VisualCrafting"};
 
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
@@ -55,6 +58,7 @@ public class Config {
         dropSaplings = cfg.getBoolean("Physics.DropSaplings");
         performanceMode = cfg.getBoolean("Physics.PerformanceMode");
         sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
+        visualCrafting = cfg.getBoolean("Physics.VisualCrafting");
     }
 
     public void reload() {
@@ -68,6 +72,10 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isVisualCrafting() {
+        return visualCrafting;
     }
 
     public boolean isRealisticExplosion() {

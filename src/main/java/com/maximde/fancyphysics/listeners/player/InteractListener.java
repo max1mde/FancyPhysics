@@ -34,7 +34,7 @@ public class InteractListener implements Listener {
     }
 
     private void craftingVisualizer(PlayerInteractEvent event) {
-        //TODO config check
+        if(!fancyPhysics.getPluginConfig().isVisualCrafting()) return;
         if(event.getClickedBlock() == null) return;
         if(event.getClickedBlock().getType() != Material.CRAFTING_TABLE) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;

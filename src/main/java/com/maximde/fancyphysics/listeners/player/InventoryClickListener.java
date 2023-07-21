@@ -64,7 +64,7 @@ public class InventoryClickListener implements Listener {
     }
 
     private void craftingVisualizer(InventoryClickEvent event, ArrayList<ItemStack> previousItems) {
-        //TODO config check
+        if(!fancyPhysics.getPluginConfig().isVisualCrafting()) return;
         if(!(event.getWhoClicked() instanceof Player player)) return;
         if(event.getInventory().getType() != InventoryType.WORKBENCH) return;
 
