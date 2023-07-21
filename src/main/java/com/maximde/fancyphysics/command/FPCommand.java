@@ -18,7 +18,7 @@ public class FPCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
 
         if(sender instanceof Player player) {
-            if(!player.hasPermission("fancyphysics.commands") || player.hasPermission("fancyphysics.admin")) {
+            if(!player.hasPermission("fancyphysics.commands") && !player.hasPermission("fancyphysics.admin")) {
                 player.sendMessage(ChatColor.RED + "No permission!");
                 return false;
             }

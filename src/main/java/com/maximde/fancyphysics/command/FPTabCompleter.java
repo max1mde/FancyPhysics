@@ -22,7 +22,7 @@ public class FPTabCompleter implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
 
         if(sender instanceof Player player) {
-            if(!player.hasPermission("fancyphysics.commands") || player.hasPermission("fancyphysics.admin")) {
+            if(!player.hasPermission("fancyphysics.commands") && !player.hasPermission("fancyphysics.admin")) {
                 return new ArrayList<>();
             }
         }
