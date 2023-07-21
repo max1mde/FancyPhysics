@@ -25,8 +25,6 @@
 - Trapdoor animation (Experimental)
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916070629567/Neues_Projekt_-_2023-06-15T233623.864.png?width=250&height=125)
-### Permission:
-`fancyphysics.commands`
 ```
 /fancyphysics reload
 /fancyphysics settings realisticexplosion enable/disable
@@ -40,6 +38,12 @@
 /fancyphysics settings maxparticlecount <value>
 /fancyphysics settings trapdoorphysics enable/disable
 /fancyphysics settings sprintdoorbreak enable/disable
+```
+
+![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916326490262/Neues_Projekt_-_2023-06-15T233602.684.png?width=250&height=125)
+```
+fancyphysics.admin
+fancyphysics.commands
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1127982083894157322/statsfancyphysics_1.png?width=250&height=125)
