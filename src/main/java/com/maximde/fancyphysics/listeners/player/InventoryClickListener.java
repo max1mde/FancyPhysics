@@ -2,7 +2,6 @@ package com.maximde.fancyphysics.listeners.player;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,20 +14,17 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.CraftingInventory;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 
 public class InventoryClickListener implements Listener {
     private final FancyPhysics fancyPhysics;
-    private HashMap<UUID, List<Display>> displayList = new HashMap<>();
+    private HashMap<UUID, List<ItemDisplay>> displayList = new HashMap<>();
 
     public InventoryClickListener(FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
@@ -36,18 +32,21 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        final var previousItems = new ArrayList<>(List.of(event.getInventory().getContents()));
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-            craftingVisualizer(event, previousItems);
-        }, 1L);
+        try {
+            final var previousItems = new ArrayList<>(List.of(event.getInventory().getContents()));
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+                craftingVisualizer(event, previousItems);
+            }, 1L);
+        } catch (Exception ignore) {}
     }
 
     /**
-        Remove all displays on close
+     Remove all displays on close
      */
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         var player = event.getPlayer();
+
         /*
          * Check if player was crafting
          */
@@ -76,10 +75,7 @@ public class InventoryClickListener implements Listener {
     }
 
     private void updateCraftingField(Block craftingTable, CraftingInventory inventory, InventoryClickEvent event, Player player, ArrayList<ItemStack> previousItems) {
-        if(displayList.get(player.getUniqueId()) != null) {
-            for(Display display : displayList.get(player.getUniqueId())) display.remove();
-            displayList.remove(player.getUniqueId());
-        }
+        ArrayList<ItemDisplay> currentSpawnedDisplays = new ArrayList<>();
 
         for(int i = 1; i < inventory.getSize(); i++) {
 
@@ -95,7 +91,6 @@ public class InventoryClickListener implements Listener {
                 default -> 0;
             };
 
-
             var firstSlotTransformation =
                     new Transformation(
                             new Vector3f((float) i / 5 - (height * 3) - 0.4F,1.01F,height - 0.205F),
@@ -103,11 +98,26 @@ public class InventoryClickListener implements Listener {
                             new Vector3f(0.08F,0.08F,0.08F),
                             new Quaternionf(0,0,0,1)
                     );
-            spawnItemDisplay(craftingTable.getLocation(), firstSlotTransformation, inventory.getItem(i), player, instantSwitch);
+            currentSpawnedDisplays.add(spawnItemDisplay(craftingTable.getLocation(), firstSlotTransformation, inventory.getItem(i), player, instantSwitch));
         }
+
+
+        if (displayList.get(player.getUniqueId()) != null) {
+            Iterator<ItemDisplay> displayIterator = displayList.get(player.getUniqueId()).iterator();
+            while (displayIterator.hasNext()) {
+                ItemDisplay display = displayIterator.next();
+                if (!currentSpawnedDisplays.contains(display)) {
+                    display.remove();
+                    displayIterator.remove();
+                    fancyPhysics.displayList.remove(display);
+                }
+            }
+        }
+
+        currentSpawnedDisplays.clear();
     }
 
-    private void spawnItemDisplay(Location location, Transformation transformation, ItemStack itemStack, Player player, boolean instantSwitch) {
+    private ItemDisplay spawnItemDisplay(Location location, Transformation transformation, ItemStack itemStack, Player player, boolean instantSwitch) {
         final var finalLocation = location.clone().add(0.5, 0, 0.5);
 
         /*
@@ -140,13 +150,13 @@ public class InventoryClickListener implements Listener {
                 itemDisplay.setInterpolationDelay(-1);
                 itemDisplay.setTransformation(transformation);
             }
-
         });
         var list = displayList.get(player.getUniqueId());
         if(list == null) list = new ArrayList<>();
         list.add(entity);
         displayList.put(player.getUniqueId(), list);
         fancyPhysics.displayList.add(entity);
+        return entity;
     }
 
     private void runFinalTransformation(ItemDisplay itemDisplay, Transformation transformation) {
@@ -156,5 +166,4 @@ public class InventoryClickListener implements Listener {
             itemDisplay.setTransformation(transformation);
         }, 2L);
     }
-
 }
