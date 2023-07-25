@@ -42,6 +42,7 @@
 /fancyphysics settings trapdoorphysics enable/disable
 /fancyphysics settings sprintdoorbreak enable/disable
 /fancyphysics settings visualcrafting enable/disable
+/fancyphysics settings naturaldropsonexplode enable/disable
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916326490262/Neues_Projekt_-_2023-06-15T233602.684.png?width=250&height=125)
@@ -73,6 +74,7 @@ Physics:
   RealisticTrees: true
   DropSaplings: true
   VisualCrafting: true
+  NaturalDropsOnExplode: true
   MaxParticleCount: 4000
   TrapdoorPhysics: false
   SprintDoorBreak: false
