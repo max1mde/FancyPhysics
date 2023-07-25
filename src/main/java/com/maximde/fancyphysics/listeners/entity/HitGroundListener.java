@@ -8,6 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class HitGroundListener implements Listener {
     private final FancyPhysics fancyPhysics;
 
@@ -27,9 +30,21 @@ public class HitGroundListener implements Listener {
         var fallingBlock = (FallingBlock) event.getEntity();
         event.setCancelled(true);
         var material = fallingBlock.getBlockData().getMaterial();
+        if(fancyPhysics.getPluginConfig().isNaturalDropsOnExplode()) {
+            event.getBlock().getLocation().getBlock().setType(material);
+            event.getBlock().getLocation().getBlock().breakNaturally();
+        }
         final var loc = event.getBlock().getLocation();
         loc.getWorld().playSound(loc, Sound.ENTITY_ITEM_PICKUP, 1.0f, 1.0f);
         this.fancyPhysics.getParticleGenerator().simulateBlockParticles(loc, this.fancyPhysics.getParticleGenerator().getParticleMaterial(material));
     }
+
+
+    private final List<Material> notDropMaterials = Arrays.asList(
+            Material.SPAWNER,
+            Material.COMMAND_BLOCK,
+            Material.REPEATING_COMMAND_BLOCK,
+            Material.CHAIN_COMMAND_BLOCK,
+            Material.BEDROCK);
 
 }

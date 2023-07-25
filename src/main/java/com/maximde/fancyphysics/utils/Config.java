@@ -19,7 +19,7 @@ public class Config {
     private boolean dropSaplings;
     private boolean sprintDoorBreak;
     private boolean visualCrafting;
-
+    private boolean naturalDropsOnExplode;
 
     public Config() {
         String[] settingsPhysics = {
@@ -31,7 +31,8 @@ public class Config {
                 "PerformanceMode",
                 "RealisticTrees",
                 "DropSaplings",
-                "VisualCrafting"};
+                "VisualCrafting",
+                "NaturalDropsOnExplode"};
 
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
@@ -59,6 +60,7 @@ public class Config {
         performanceMode = cfg.getBoolean("Physics.PerformanceMode");
         sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
         visualCrafting = cfg.getBoolean("Physics.VisualCrafting");
+        naturalDropsOnExplode = cfg.getBoolean("Physics.NaturalDropsOnExplode");
     }
 
     public void reload() {
@@ -120,6 +122,10 @@ public class Config {
 
     public boolean isSprintDoorBreak() {
         return sprintDoorBreak;
+    }
+
+    public boolean isNaturalDropsOnExplode() {
+        return naturalDropsOnExplode;
     }
 
     public File getFile() {

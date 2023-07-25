@@ -46,7 +46,7 @@ public class ExplodeListener implements Listener {
                 return;
             }
             var fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation(), block.getType(), block.getData());
-            fallingBlock.setDropItem(true);
+            if(fancyPhysics.getPluginConfig().isNaturalDropsOnExplode()) fallingBlock.setDropItem(false);
             fallingBlock.setVelocity(new Vector(x, y, z));
             block.setType(Material.AIR);
         }
