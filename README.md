@@ -10,12 +10,13 @@
 <a href="https://jitpack.io/#MaximFiedler/FancyPhysics"><img src="https://jitpack.io/v/MaximFiedler/FancyPhysics.svg" alt="jitpack"></a>  
 </div>
 
+---------------------------------------------------------------------------------------------------------
 
 <div align="center">
 <img src="https://media.discordapp.net/attachments/1052241511795937381/1119002915026260038/323395728d1b2021a47c225be37ec656e13b1111_1.png?width=937&height=262">
 </div>
 
-<h1 align="center">No resourcepack or mod needed!</h1>
+<h2 align="center">No resourcepack or mod needed!</h2>
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119003156915945502/Neues_Projekt_-_2023-06-15T233852.757.png?width=250&height=125)
 - Block particles
