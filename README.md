@@ -4,18 +4,18 @@
 <a href="https://www.spigotmc.org/resources/110500/"><img src="https://img.shields.io/spiget/downloads/110500?label=Spigot%20downloads" alt="Spigot downloads"></a>
 <a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833"><img src="https://img.shields.io/bstats/servers/18833" alt="bStats"></a>
 </div>
-<p align="center">
+<div align="center">
   <a href="https://github.com/MaximFiedler/FancyPhysics/blob/master/LICENSE"><img src="https://img.shields.io/github/license/MaximFiedler/FancyPhysics.svg" alt="License"></a>  
 <a href="https://github.com/MaximFiedler/FancyPhysics/releases"><img src="https://img.shields.io/github/v/tag/MaximFiedler/FancyPhysics.svg" alt="Version"></a>  
 <a href="https://jitpack.io/#MaximFiedler/FancyPhysics"><img src="https://jitpack.io/v/MaximFiedler/FancyPhysics.svg" alt="jitpack"></a>  
-</p>
+</div>
 
 
-<h1 align="center">
+<div align="center">
 <img src="https://media.discordapp.net/attachments/1052241511795937381/1119002915026260038/323395728d1b2021a47c225be37ec656e13b1111_1.png?width=937&height=262">
-</h1>
+</div>
 
-<p align="center">No resourcepack or mod needed!</p>
+<h1 align="center">No resourcepack or mod needed!</h1>
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119003156915945502/Neues_Projekt_-_2023-06-15T233852.757.png?width=250&height=125)
 - Block particles
