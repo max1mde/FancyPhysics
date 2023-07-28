@@ -1,8 +1,11 @@
 package com.maximde.fancyphysics.utils;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Config {
     private final File file = new File("plugins/FancyPhysics", "config.yml");
@@ -20,6 +23,7 @@ public class Config {
     private boolean sprintDoorBreak;
     private boolean visualCrafting;
     private boolean naturalDropsOnExplode;
+    private List<String> blockParticleBlackList;
 
     public Config() {
         String[] settingsPhysics = {
@@ -39,9 +43,14 @@ public class Config {
             cfg.set("Physics." + s, true);
         }
 
+
+        var blackList = new ArrayList<>();
+        blackList.add(Material.END_ROD.name());
+
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         if(!cfg.isSet("Physics.SprintDoorBreak")) cfg.set("Physics.SprintDoorBreak", false);
+        if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", blackList);
         saveConfig();
 
         initValues();
@@ -61,6 +70,7 @@ public class Config {
         sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
         visualCrafting = cfg.getBoolean("Physics.VisualCrafting");
         naturalDropsOnExplode = cfg.getBoolean("Physics.NaturalDropsOnExplode");
+        blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
     }
 
     public void reload() {
@@ -142,6 +152,10 @@ public class Config {
 
     public Object getValue(String path) {
         return this.cfg.get(path);
+    }
+
+    public List<String> getBlockParticleBlackList() {
+        return blockParticleBlackList;
     }
 
 }

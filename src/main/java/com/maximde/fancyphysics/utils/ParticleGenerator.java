@@ -107,6 +107,7 @@ public class ParticleGenerator {
      */
     public void simulateBlockParticles(Location location, Material material, float startSize, float speed) {
         if(!fancyPhysics.getPluginConfig().isBlockParticles()) return;
+        if(fancyPhysics.getPluginConfig().getBlockParticleBlackList().contains(material.name())) return;
         List<BlockDisplay> displayList = new ArrayList<>();
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {

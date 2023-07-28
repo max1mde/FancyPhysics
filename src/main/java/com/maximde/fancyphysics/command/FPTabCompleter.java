@@ -3,6 +3,7 @@ package com.maximde.fancyphysics.command;
 import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
@@ -58,20 +59,36 @@ public class FPTabCompleter implements TabCompleter {
                 if (fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false).contains(key)) {
                     final var val = fancyPhysics.getPluginConfig().getConfig().get("Physics." + key).toString().toLowerCase();
 
-                    /*
+                    if(key.equals("BlockParticleBlackList")) {
+                        for(Material m : Material.values()) {
+                            commands.add(m.name());
+                        }
+                    } else {
+                     /*
                         Convert boolean to nice readable strings
                         and add the unmodified given value if it's not a boolean
                      */
-                    if(val.equals("true") || val.equals("false")) {
-                        commands.add("enable");
-                        commands.add("disable");
-                    } else {
-                        commands.add(val);
+                        if(val.equals("true") || val.equals("false")) {
+                            commands.add("enable");
+                            commands.add("disable");
+                        } else {
+                            commands.add(val);
+                        }
+
                     }
                 }
             }
             StringUtil.copyPartialMatches(args[2], commands, completions);
         }
+
+        if (args.length == 4) {
+            if (args[1].equalsIgnoreCase("BlockParticleBlackList")) {
+                commands.add("add");
+                commands.add("remove");
+            }
+            StringUtil.copyPartialMatches(args[3], commands, completions);
+        }
+
         return completions;
     }
 

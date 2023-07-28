@@ -74,7 +74,6 @@ public final class FancyPhysics extends JavaPlugin {
         return api;
     }
 
-
     public Config getPluginConfig() {
         return config;
     }
