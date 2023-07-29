@@ -43,6 +43,7 @@
 /fancyphysics settings sprintdoorbreak enable/disable
 /fancyphysics settings visualcrafting enable/disable
 /fancyphysics settings naturaldropsonexplode enable/disable
+/fancyphysics settings blockparticleblacklist <material> add/remove
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916326490262/Neues_Projekt_-_2023-06-15T233602.684.png?width=250&height=125)
@@ -78,6 +79,8 @@ Physics:
   MaxParticleCount: 4000
   TrapdoorPhysics: false
   SprintDoorBreak: false
+  BlockParticleBlackList:
+  - END_ROD
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915328237599/Neues_Projekt_-_2023-06-15T233717.092.png?width=250&height=125)
