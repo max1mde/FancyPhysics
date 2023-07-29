@@ -1,7 +1,7 @@
 name: FancyPhysics
 version: '${version}'
 main: com.maximde.fancyphysics.FancyPhysics
-api-version: '1.20'
+api-version: '1.19'
 author: MaximFiedler
 description: Tree cut animation, blood particles, realistic explosions, 3D particles & more
 

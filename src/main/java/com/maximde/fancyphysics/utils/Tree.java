@@ -45,7 +45,7 @@ public class Tree {
         this.fancyPhysics = fancyPhysics;
         this.origin = origin;
         this.wood_material = origin.getType();
-        this.leave_material = getLeaveType(this.wood_material);
+        this.leave_material = Material.valueOf(getLeaveType(this.wood_material));
         scanTree(origin);
         this.isNatural = (this.stem.size() > 3 && this.leaves.size() > 10);
     }
@@ -160,19 +160,19 @@ public class Tree {
      * @param wood  The wood material of the tree.
      * @return      The material of the leaves.
      */
-    private Material getLeaveType(Material wood) {
-        return switch (wood) {
-            case OAK_LOG -> Material.OAK_LEAVES;
-            case DARK_OAK_LOG -> Material.DARK_OAK_LEAVES;
-            case JUNGLE_LOG -> Material.JUNGLE_LEAVES;
-            case ACACIA_LOG -> Material.ACACIA_LEAVES;
-            case BIRCH_LOG -> Material.BIRCH_LEAVES;
-            case SPRUCE_LOG -> Material.SPRUCE_LEAVES;
-            case CHERRY_LOG -> Material.CHERRY_LEAVES;
-            case MANGROVE_LOG -> Material.MANGROVE_LEAVES;
-            case WARPED_STEM -> Material.WARPED_WART_BLOCK;
-            case CRIMSON_STEM -> Material.NETHER_WART_BLOCK;
-            default -> Material.AIR;
+    private String getLeaveType(Material wood) {
+        return switch (wood.name()) {
+            case "OAK_LOG" -> "OAK_LEAVES";
+            case "DARK_OAK_LOG" -> "DARK_OAK_LEAVES";
+            case "JUNGLE_LOG" -> "JUNGLE_LEAVES";
+            case "ACACIA_LOG" -> "ACACIA_LEAVES";
+            case "BIRCH_LOG" -> "BIRCH_LEAVES";
+            case "SPRUCE_LOG" -> "SPRUCE_LEAVES";
+            case "CHERRY_LOG" -> "CHERRY_LEAVES";
+            case "MANGROVE_LOG" -> "MANGROVE_LEAVES";
+            case "WARPED_STEM" -> "WARPED_WART_BLOCK";
+            case "CRIMSON_STEM" -> "NETHER_WART_BLOCK";
+            default -> "AIR";
         };
     }
 

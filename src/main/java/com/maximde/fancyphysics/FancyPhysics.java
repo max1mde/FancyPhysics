@@ -11,6 +11,7 @@ import com.maximde.fancyphysics.listeners.player.*;
 import com.maximde.fancyphysics.utils.Config;
 import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
@@ -81,5 +82,4 @@ public final class FancyPhysics extends JavaPlugin {
     public ParticleGenerator getParticleGenerator() {
         return particleGenerator;
     }
-
 }

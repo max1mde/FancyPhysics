@@ -38,8 +38,8 @@ public class BlockBreakListener implements Listener {
     }
 
     private boolean isWood(Material pMaterial) {
-        return switch (pMaterial) {
-            case BIRCH_LOG, OAK_LOG, SPRUCE_LOG, DARK_OAK_LOG, ACACIA_LOG, JUNGLE_LOG, CRIMSON_STEM, WARPED_STEM, MANGROVE_LOG, CHERRY_LOG ->
+        return switch (pMaterial.name()) {
+            case "BIRCH_LOG", "OAK_LOG", "SPRUCE_LOG", "DARK_OAK_LOG", "ACACIA_LOG", "JUNGLE_LOG", "CRIMSON_STEM", "WARPED_STEM", "MANGROVE_LOG", "CHERRY_LOG" ->
                     true;
             default -> false;
         };
