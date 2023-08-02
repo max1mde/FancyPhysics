@@ -1,5 +1,8 @@
 package com.maximde.fancyphysics.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
@@ -7,23 +10,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Config {
-    private final File file = new File("plugins/FancyPhysics", "config.yml");
-    private YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
-    private boolean realisticExplosion;
-    private boolean entityDeathParticles;
-    private boolean blockParticles;
-    private boolean trapdoorPhysics;
-    private boolean damageParticles;
-    private boolean particleRotation;
-    private boolean performanceMode;
-    private boolean realisticTrees;
-    private int maxParticleCount;
-    private boolean dropSaplings;
-    private boolean sprintDoorBreak;
-    private boolean visualCrafting;
-    private boolean naturalDropsOnExplode;
-    private List<String> blockParticleBlackList;
+    private @Getter final File file = new File("plugins/FancyPhysics", "config.yml");
+    private @Getter YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
+    private @Getter boolean realisticExplosion;
+    private @Getter boolean entityDeathParticles;
+    private @Getter boolean blockParticles;
+    private @Getter boolean trapdoorPhysics;
+    private @Getter boolean damageParticles;
+    private @Getter boolean particleRotation;
+    private @Getter boolean performanceMode;
+    private @Getter boolean realisticTrees;
+    private @Getter boolean dropSaplings;
+    private @Getter boolean sprintDoorBreak;
+    private @Getter boolean visualCrafting;
+    private @Getter boolean naturalDropsOnExplode;
+    private @Getter int maxParticleCount;
+    private @Getter List<String> blockParticleBlackList;
 
     public Config() {
         String[] settingsPhysics = {
@@ -43,7 +47,6 @@ public class Config {
             cfg.set("Physics." + s, true);
         }
 
-
         var blackList = new ArrayList<>();
         blackList.add(Material.END_ROD.name());
 
@@ -52,7 +55,6 @@ public class Config {
         if(!cfg.isSet("Physics.SprintDoorBreak")) cfg.set("Physics.SprintDoorBreak", false);
         if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", blackList);
         saveConfig();
-
         initValues();
     }
 
@@ -86,76 +88,12 @@ public class Config {
         }
     }
 
-    public boolean isVisualCrafting() {
-        return visualCrafting;
-    }
-
-    public boolean isRealisticExplosion() {
-        return realisticExplosion;
-    }
-
-    public boolean isEntityDeathParticles() {
-        return entityDeathParticles;
-    }
-
-    public boolean isBlockParticles() {
-        return blockParticles;
-    }
-
-    public boolean isTrapdoorPhysics() {
-        return trapdoorPhysics;
-    }
-
-    public boolean isDamageParticles() {
-        return damageParticles;
-    }
-
-    public boolean isParticleRotation() {
-        return particleRotation;
-    }
-
-    public int getMaxParticleCount() {
-        return maxParticleCount;
-    }
-
-    public boolean isPerformanceMode() {
-        return performanceMode;
-    }
-
-    public boolean isRealisticTrees() {
-        return realisticTrees;
-    }
-
-    public boolean isDropSaplings() {
-        return dropSaplings;
-    }
-
-    public boolean isSprintDoorBreak() {
-        return sprintDoorBreak;
-    }
-
-    public boolean isNaturalDropsOnExplode() {
-        return naturalDropsOnExplode;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public YamlConfiguration getConfig() {
-        return cfg;
-    }
-
     public void setValue(String path, Object value) {
         this.cfg.set(path, value);
     }
 
     public Object getValue(String path) {
         return this.cfg.get(path);
-    }
-
-    public List<String> getBlockParticleBlackList() {
-        return blockParticleBlackList;
     }
 
 }

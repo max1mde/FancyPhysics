@@ -45,7 +45,7 @@ public class FPTabCompleter implements TabCompleter {
          */
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("settings")) {
-                commands.addAll(fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false));
+                commands.addAll(fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false));
             }
             StringUtil.copyPartialMatches(args[1], commands, completions);
         }
@@ -56,8 +56,8 @@ public class FPTabCompleter implements TabCompleter {
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("settings")) {
                 String key = args[1];
-                if (fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false).contains(key)) {
-                    final var val = fancyPhysics.getPluginConfig().getConfig().get("Physics." + key).toString().toLowerCase();
+                if (fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false).contains(key)) {
+                    final var val = fancyPhysics.getPluginConfig().getCfg().get("Physics." + key).toString().toLowerCase();
 
                     if(key.equals("BlockParticleBlackList")) {
                         for(Material m : Material.values()) {

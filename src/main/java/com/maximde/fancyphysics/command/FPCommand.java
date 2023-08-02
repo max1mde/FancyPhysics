@@ -53,7 +53,7 @@ public class FPCommand implements CommandExecutor {
         }
 
         if(args[0].equalsIgnoreCase("settings")) {
-            for(String key : fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false)) {
+            for(String key : fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false)) {
                 if(!args[1].equalsIgnoreCase(key)) continue;
                 /*
                     Convert nice readable strings to booleans
@@ -122,7 +122,7 @@ public class FPCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.DARK_PURPLE + "===== ALL COMMANDS =====");
         final var command = "/fancyphysics ";
         sender.sendMessage(ChatColor.LIGHT_PURPLE + command + "reload");
-        for(String key : fancyPhysics.getPluginConfig().getConfig().getConfigurationSection("Physics").getKeys(false)) {
+        for(String key : fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false)) {
             sender.sendMessage(ChatColor.LIGHT_PURPLE + command + key.toLowerCase() + ChatColor.GOLD + " <value> ...");
         }
         sender.sendMessage(ChatColor.DARK_PURPLE + "===== ALL COMMANDS =====");
