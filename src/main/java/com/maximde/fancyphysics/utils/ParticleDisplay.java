@@ -34,7 +34,7 @@ public class ParticleDisplay {
      */
     public ParticleDisplay(Block block, float x, float y, float z, FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
-        this.particleMaterial = this.fancyPhysics.getParticleGenerator().getParticleMaterial(block.getType());
+        this.particleMaterial = block.getType();
         spawnBlockDisplay(block.getLocation(), x, y, z);
     }
 
@@ -110,7 +110,7 @@ public class ParticleDisplay {
         var loc = new Location(location.getWorld(), (float)((int)location.getX()) + x, (float)((int)location.getY()) + y, (float)((int)location.getZ()) + z);
         float randomSize = ThreadLocalRandom.current().nextFloat() * 10;
         var material = this.particleMaterial;
-        if(material == null) material = this.fancyPhysics.getParticleGenerator().getParticleMaterial(location.getBlock().getType());
+        if(material == null) material = location.getBlock().getType();
         final BlockData blockData = material.createBlockData();
         if(this.fancyPhysics.displayList.size() > this.fancyPhysics.getPluginConfig().getMaxParticleCount()) return;
         final var entiysInChunk = location.getChunk().getEntities().length;

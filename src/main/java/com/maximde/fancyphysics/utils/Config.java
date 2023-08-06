@@ -1,8 +1,6 @@
 package com.maximde.fancyphysics.utils;
 
 import lombok.Getter;
-import lombok.Setter;
-import lombok.SneakyThrows;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
@@ -47,15 +45,69 @@ public class Config {
             cfg.set("Physics." + s, true);
         }
 
-        var blackList = new ArrayList<>();
-        blackList.add(Material.END_ROD.name());
 
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         if(!cfg.isSet("Physics.SprintDoorBreak")) cfg.set("Physics.SprintDoorBreak", false);
-        if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", blackList);
+        if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", getDefaultBlackList());
         saveConfig();
         initValues();
+    }
+
+    private ArrayList<String> getDefaultBlackList() {
+        ArrayList<String> blackList = new ArrayList<>();
+        blackList.add("END_ROD");
+        blackList.add("POINTED_DRIPSTONE");
+        blackList.add("CANDLE");
+        blackList.add("BLACK_CANDLE");
+        blackList.add("CYAN_CANDLE");
+        blackList.add("GRAY_CANDLE");
+        blackList.add("LIGHT_GRAY_CANDLE");
+        blackList.add("BAMBOO");
+        blackList.add("PURPLE_CANDLE");
+        blackList.add("BLUE_CANDLE");
+        blackList.add("LIME_CANDLE");
+        blackList.add("RED_CANDLE");
+        blackList.add("WHITE_CANDLE");
+        blackList.add("PINK_CANDLE");
+        blackList.add("MAGENTA_CANDLE");
+        blackList.add("BROWN_CANDLE");
+        blackList.add("GRAY_CANDLE");
+        blackList.add("GREEN_CANDLE");
+        blackList.add("YELLOW_CANDLE");
+        blackList.add("ORANGE_CANDLE");
+        blackList.add("RED_CANDLE");
+        blackList.add("LIGHT_BLUE_CANDLE");
+        blackList.add("CHAIN");
+        blackList.add("GRASS");
+        blackList.add("DANDELION");
+        blackList.add("CRIMSON_FUNGUS");
+        blackList.add("WARPED_FUNGUS");
+        blackList.add("OXEYE_DAISY");
+        blackList.add("WITHER_ROSE");
+        blackList.add("ORANGE_TULIP");
+        blackList.add("RED_TULIP");
+        blackList.add("RED_MUSHROOM");
+        blackList.add("BROWN_MUSHROOM");
+        blackList.add("TALL_GRASS");
+        blackList.add("SCULK_VEIN");
+        blackList.add("CHERRY_SAPLING");
+        blackList.add("LARGE_FERN");
+        blackList.add("SUNFLOWER");
+        blackList.add("CORNFLOWER");
+        blackList.add("PINK_PETALS");
+        blackList.add("TORCHFLOWER");
+        blackList.add("MANGROVE_PROPAGULE");
+        blackList.add("TWISTING_VINES");
+        blackList.add("POPPY");
+        blackList.add("ALLIUM");
+        blackList.add("PINK_TULIP");
+        blackList.add("LILY_OF_THE_VALLEY");
+        blackList.add("BLUE_ORCHID");
+        blackList.add("WARPED_ROOTS");
+        blackList.add("AZURE_BLUET");
+        blackList.add("BAMBOO");
+        return blackList;
     }
 
     private void initValues() {
