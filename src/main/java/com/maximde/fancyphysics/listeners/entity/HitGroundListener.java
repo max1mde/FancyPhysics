@@ -28,8 +28,9 @@ public class HitGroundListener implements Listener {
         if(event.getBlock().getType() != Material.AIR) return;
         if (event.getEntityType() != EntityType.FALLING_BLOCK) return;
         var fallingBlock = (FallingBlock) event.getEntity();
-        event.setCancelled(true);
         var material = fallingBlock.getBlockData().getMaterial();
+        if(material == Material.DRAGON_EGG) return;
+        event.setCancelled(true);
         if(fancyPhysics.getPluginConfig().isNaturalDropsOnExplode()) {
             event.getBlock().getLocation().getBlock().setType(material);
             event.getBlock().getLocation().getBlock().breakNaturally();
