@@ -120,6 +120,15 @@ public class ParticleGenerator {
         manageParticleEffectEvent(location, displayList);
     }
 
+    public void simulateBigBlockParticle(Location location, Material material) {
+        if(!fancyPhysics.getPluginConfig().isBlockParticles()) return;
+        if(fancyPhysics.getPluginConfig().getBlockParticleBlackList().contains(material.name())) return;
+        List<BlockDisplay> displayList = new ArrayList<>();
+        var display = new ParticleDisplay(8.0F, location, getParticleMaterial(material), 0F, 0F, 0F, this.fancyPhysics, 1F, 0F);
+        displayList.add(display.getBlockDisplay());
+        manageParticleEffectEvent(location, displayList);
+    }
+
     /**
      * Returns a better particle material for the given type because some particles are looking weird with specific materials
      *

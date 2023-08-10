@@ -25,6 +25,7 @@ public class Config {
     private @Getter boolean visualCrafting;
     private @Getter boolean naturalDropsOnExplode;
     private @Getter boolean fallingBlockPhysics;
+    private @Getter boolean flyUpParticles;
     private @Getter int maxParticleCount;
     private @Getter List<String> blockParticleBlackList;
 
@@ -51,6 +52,7 @@ public class Config {
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         if(!cfg.isSet("Physics.SprintDoorBreak")) cfg.set("Physics.SprintDoorBreak", false);
+        if(!cfg.isSet("Physics.FlyUpParticles")) cfg.set("Physics.FlyUpParticles", false);
         if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", getDefaultBlackList());
         saveConfig();
         initValues();
@@ -126,6 +128,7 @@ public class Config {
         sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
         visualCrafting = cfg.getBoolean("Physics.VisualCrafting");
         naturalDropsOnExplode = cfg.getBoolean("Physics.NaturalDropsOnExplode");
+        flyUpParticles = cfg.getBoolean("Physics.FlyUpParticles");
         fallingBlockPhysics = cfg.getBoolean("Physics.FallingBlockPhysics");
         blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
     }

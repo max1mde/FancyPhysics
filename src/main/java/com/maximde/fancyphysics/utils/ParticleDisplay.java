@@ -22,6 +22,7 @@ public class ParticleDisplay {
     private float startSize = 0F;
     private final Material particleMaterial;
     private int lightLevel = -1;
+    private float gravity = 0;
 
     /**
      * Constructs a ParticleDisplay object with the given block, offsets, and FancyPhysics instance.
@@ -76,6 +77,15 @@ public class ParticleDisplay {
         spawnBlockDisplay(location, x, y, z);
     }
 
+
+    public ParticleDisplay(float gravity, Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed) {
+        this.fancyPhysics = fancyPhysics;
+        this.speed = speed;
+        this.startSize = startSize;
+        this.particleMaterial = particleMaterial;
+        this.gravity = gravity;
+        spawnBlockDisplay(location, x, y, z);
+    }
     /**
      * Constructs a ParticleDisplay object with the given location, particle material, offsets, speed, light level, and FancyPhysics instance.
      *
@@ -167,7 +177,7 @@ public class ParticleDisplay {
         float randomZ = random.nextFloat();
         float randomX = random.nextFloat();
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-            var translationMove = new Vector3f((x - 0.4F) * (randomX * (9 * this.speed)), -3.3F + randomY, (z - 0.4F) * (randomZ * (9 * this.speed)));
+            var translationMove = new Vector3f((x - 0.4F) * (randomX * (9 * this.speed)), -3.3F + randomY + this.gravity, (z - 0.4F) * (randomZ * (9 * this.speed)));
 
             var rotationLeft = blockDisplay.getTransformation().getLeftRotation();
             var rotationRight = blockDisplay.getTransformation().getLeftRotation();

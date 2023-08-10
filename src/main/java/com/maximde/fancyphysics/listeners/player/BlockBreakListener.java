@@ -20,7 +20,11 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if(event.isCancelled()) return;
         manageTreePhysics(event);
-        this.fancyPhysics.getParticleGenerator().simulateBlockParticles(event.getBlock());
+        if(fancyPhysics.getPluginConfig().isFlyUpParticles()) {
+            this.fancyPhysics.getParticleGenerator().simulateBigBlockParticle(event.getBlock().getLocation(), event.getBlock().getType());
+        } else {
+            this.fancyPhysics.getParticleGenerator().simulateBlockParticles(event.getBlock());
+        }
     }
 
     /**
