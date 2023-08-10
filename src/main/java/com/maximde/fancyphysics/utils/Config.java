@@ -24,6 +24,7 @@ public class Config {
     private @Getter boolean sprintDoorBreak;
     private @Getter boolean visualCrafting;
     private @Getter boolean naturalDropsOnExplode;
+    private @Getter boolean fallingBlockPhysics;
     private @Getter int maxParticleCount;
     private @Getter List<String> blockParticleBlackList;
 
@@ -38,6 +39,7 @@ public class Config {
                 "RealisticTrees",
                 "DropSaplings",
                 "VisualCrafting",
+                "FallingBlockPhysics",
                 "NaturalDropsOnExplode"};
 
         for(String s : settingsPhysics) {
@@ -124,6 +126,7 @@ public class Config {
         sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
         visualCrafting = cfg.getBoolean("Physics.VisualCrafting");
         naturalDropsOnExplode = cfg.getBoolean("Physics.NaturalDropsOnExplode");
+        fallingBlockPhysics = cfg.getBoolean("Physics.FallingBlockPhysics");
         blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
     }
 
