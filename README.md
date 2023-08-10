@@ -30,20 +30,22 @@
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916070629567/Neues_Projekt_-_2023-06-15T233623.864.png?width=250&height=125)
 ```
 /fancyphysics reload
-/fancyphysics settings realisticexplosion enable/disable
-/fancyphysics settings entitydeathparticles enable/disable
-/fancyphysics settings 3dblockparticles enable/disable
-/fancyphysics settings damageparticles enable/disable
-/fancyphysics settings particlerotation enable/disable
-/fancyphysics settings performancemode enable/disable
-/fancyphysics settings realistictrees enable/disable
-/fancyphysics settings dropsaplings enable/disable
-/fancyphysics settings maxparticlecount <value>
-/fancyphysics settings trapdoorphysics enable/disable
-/fancyphysics settings sprintdoorbreak enable/disable
-/fancyphysics settings visualcrafting enable/disable
-/fancyphysics settings naturaldropsonexplode enable/disable
-/fancyphysics settings blockparticleblacklist <material> add/remove
+/fancyphysics settings RealisticExplosion enable/disable
+/fancyphysics settings EntityDeathParticles enable/disable
+/fancyphysics settings 3DBlockParticles enable/disable
+/fancyphysics settings DamageParticles enable/disable
+/fancyphysics settings ParticleRotation enable/disable
+/fancyphysics settings PerformanceMode enable/disable
+/fancyphysics settings RealisticTrees enable/disable
+/fancyphysics settings DropSaplings enable/disable
+/fancyphysics settings MaxParticleCount <value>
+/fancyphysics settings TrapdoorPhysics enable/disable
+/fancyphysics settings SprintDoorBreak enable/disable
+/fancyphysics settings VisualCrafting enable/disable
+/fancyphysics settings NaturalDropsOnExplode enable/disable
+/fancyphysics settings FlyUpParticles enable/disable
+/fancyphysics settings FallingBlockPhysics enable/disable
+/fancyphysics settings BlockParticleBlackList <material> add/remove
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916326490262/Neues_Projekt_-_2023-06-15T233602.684.png?width=250&height=125)
@@ -75,12 +77,15 @@ Physics:
   RealisticTrees: true
   DropSaplings: true
   VisualCrafting: true
+  FallingBlockPhysics: true
   NaturalDropsOnExplode: true
   MaxParticleCount: 4000
   TrapdoorPhysics: false
   SprintDoorBreak: false
+  FlyUpParticles: false
   BlockParticleBlackList:
   - END_ROD
+  ...
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915328237599/Neues_Projekt_-_2023-06-15T233717.092.png?width=250&height=125)
