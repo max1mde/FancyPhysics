@@ -11,17 +11,13 @@ import com.maximde.fancyphysics.listeners.player.*;
 import com.maximde.fancyphysics.utils.Config;
 import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
-import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
-import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public final class FancyPhysics extends JavaPlugin {
 
@@ -33,6 +29,13 @@ public final class FancyPhysics extends JavaPlugin {
     public List<Display> displayList = new ArrayList<>();
     public HashMap<UUID, Block> craftingTableMap = new HashMap<>();
     private static API api;
+    private final String enableMessage =
+            "\n    ______                          ____  __               _          \n" +
+                    "   / ____/___ _____  _______  __   / __ \\/ /_  __  _______(_)_________\n" +
+                    "  / /_  / __ `/ __ \\/ ___/ / / /  / /_/ / __ \\/ / / / ___/ / ___/ ___/\n" +
+                    " / __/ / /_/ / / / / /__/ /_/ /  / ____/ / / / /_/ (__  ) / /__(__  ) \n" +
+                    "/_/    \\__,_/_/ /_/\\___/\\__, /  /_/   /_/ /_/\\__, /____/_/\\___/____/  \n" +
+                    "                       /____/               /____/                   v" + getDescription().getVersion();
 
     @Override
     public void onEnable() {
@@ -43,6 +46,7 @@ public final class FancyPhysics extends JavaPlugin {
         registerListeners();
         getCommand("fancyphysics").setExecutor(new FPCommand(this));
         getCommand("fancyphysics").setTabCompleter(new FPTabCompleter(this));
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + enableMessage);
     }
 
     @Override
@@ -66,6 +70,7 @@ public final class FancyPhysics extends JavaPlugin {
         registerListener(new InventoryClickListener(this));
         registerListener(new PlayerQuitListener(this));
     }
+
 
     private void registerListener(Object listener) {
         getServer().getPluginManager().registerEvents((Listener) listener, this);

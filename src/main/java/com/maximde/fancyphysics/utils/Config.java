@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -48,7 +49,6 @@ public class Config {
             cfg.set("Physics." + s, true);
         }
 
-
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
         if(!cfg.isSet("Physics.SprintDoorBreak")) cfg.set("Physics.SprintDoorBreak", false);
@@ -58,61 +58,24 @@ public class Config {
         initValues();
     }
 
-    private ArrayList<String> getDefaultBlackList() {
-        ArrayList<String> blackList = new ArrayList<>();
-        blackList.add("END_ROD");
-        blackList.add("POINTED_DRIPSTONE");
-        blackList.add("CANDLE");
-        blackList.add("BLACK_CANDLE");
-        blackList.add("CYAN_CANDLE");
-        blackList.add("GRAY_CANDLE");
-        blackList.add("LIGHT_GRAY_CANDLE");
-        blackList.add("BAMBOO");
-        blackList.add("PURPLE_CANDLE");
-        blackList.add("BLUE_CANDLE");
-        blackList.add("LIME_CANDLE");
-        blackList.add("RED_CANDLE");
-        blackList.add("WHITE_CANDLE");
-        blackList.add("PINK_CANDLE");
-        blackList.add("MAGENTA_CANDLE");
-        blackList.add("BROWN_CANDLE");
-        blackList.add("GRAY_CANDLE");
-        blackList.add("GREEN_CANDLE");
-        blackList.add("YELLOW_CANDLE");
-        blackList.add("ORANGE_CANDLE");
-        blackList.add("RED_CANDLE");
-        blackList.add("LIGHT_BLUE_CANDLE");
-        blackList.add("CHAIN");
-        blackList.add("GRASS");
-        blackList.add("DANDELION");
-        blackList.add("CRIMSON_FUNGUS");
-        blackList.add("WARPED_FUNGUS");
-        blackList.add("OXEYE_DAISY");
-        blackList.add("WITHER_ROSE");
-        blackList.add("ORANGE_TULIP");
-        blackList.add("RED_TULIP");
-        blackList.add("RED_MUSHROOM");
-        blackList.add("BROWN_MUSHROOM");
-        blackList.add("TALL_GRASS");
-        blackList.add("SCULK_VEIN");
-        blackList.add("CHERRY_SAPLING");
-        blackList.add("LARGE_FERN");
-        blackList.add("SUNFLOWER");
-        blackList.add("CORNFLOWER");
-        blackList.add("PINK_PETALS");
-        blackList.add("TORCHFLOWER");
-        blackList.add("MANGROVE_PROPAGULE");
-        blackList.add("TWISTING_VINES");
-        blackList.add("POPPY");
-        blackList.add("ALLIUM");
-        blackList.add("PINK_TULIP");
-        blackList.add("LILY_OF_THE_VALLEY");
-        blackList.add("BLUE_ORCHID");
-        blackList.add("WARPED_ROOTS");
-        blackList.add("AZURE_BLUET");
-        blackList.add("BAMBOO");
-        return blackList;
+    private List<String> getDefaultBlackList() {
+        return new ArrayList<>(Arrays.asList(
+                "END_ROD", "POINTED_DRIPSTONE", "CANDLE", "BLACK_CANDLE",
+                "CYAN_CANDLE", "GRAY_CANDLE", "LIGHT_GRAY_CANDLE", "BAMBOO",
+                "PURPLE_CANDLE", "BLUE_CANDLE", "LIME_CANDLE", "RED_CANDLE",
+                "WHITE_CANDLE", "PINK_CANDLE", "MAGENTA_CANDLE", "BROWN_CANDLE",
+                "GRAY_CANDLE", "GREEN_CANDLE", "YELLOW_CANDLE", "ORANGE_CANDLE",
+                "RED_CANDLE", "LIGHT_BLUE_CANDLE", "CHAIN", "GRASS",
+                "DANDELION", "CRIMSON_FUNGUS", "WARPED_FUNGUS", "OXEYE_DAISY",
+                "WITHER_ROSE", "ORANGE_TULIP", "RED_TULIP", "RED_MUSHROOM",
+                "BROWN_MUSHROOM", "TALL_GRASS", "SCULK_VEIN", "CHERRY_SAPLING",
+                "LARGE_FERN", "SUNFLOWER", "CORNFLOWER", "PINK_PETALS",
+                "TORCHFLOWER", "MANGROVE_PROPAGULE", "TWISTING_VINES", "POPPY",
+                "ALLIUM", "PINK_TULIP", "LILY_OF_THE_VALLEY", "BLUE_ORCHID",
+                "WARPED_ROOTS", "AZURE_BLUET", "BAMBOO"
+        ));
     }
+
 
     private void initValues() {
         realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
