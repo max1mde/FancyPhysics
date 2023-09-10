@@ -10,7 +10,6 @@
 <a href="https://jitpack.io/#MaximFiedler/FancyPhysics"><img src="https://jitpack.io/v/MaximFiedler/FancyPhysics.svg" alt="jitpack"></a>  
 </div>
 
-
 <div align="center">
 <img src="https://media.discordapp.net/attachments/1052241511795937381/1119002915026260038/323395728d1b2021a47c225be37ec656e13b1111_1.png?width=937&height=262">
 </div>
