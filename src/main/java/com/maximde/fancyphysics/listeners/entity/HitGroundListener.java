@@ -24,7 +24,7 @@ public class HitGroundListener implements Listener {
     }
 
     private void createParticles(EntityChangeBlockEvent event) {
-        if(!this.fancyPhysics.getPluginConfig().isBlockParticles()) return;
+        if(!this.fancyPhysics.getPluginConfig().isBlockCrackOnFall()) return;
         if(!this.fancyPhysics.getPluginConfig().isFallingBlockPhysics()) return;
         if(event.getBlock().getType() != Material.AIR) return;
         if (event.getEntityType() != EntityType.FALLING_BLOCK) return;

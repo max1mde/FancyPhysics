@@ -27,6 +27,7 @@ public class Config {
     private @Getter boolean naturalDropsOnExplode;
     private @Getter boolean fallingBlockPhysics;
     private @Getter boolean flyUpParticles;
+    private @Getter boolean blockCrackOnFall;
     private @Getter int maxParticleCount;
     private @Getter List<String> blockParticleBlackList;
 
@@ -42,7 +43,8 @@ public class Config {
                 "DropSaplings",
                 "VisualCrafting",
                 "FallingBlockPhysics",
-                "NaturalDropsOnExplode"};
+                "NaturalDropsOnExplode",
+                "BlockCrackOnFall"};
 
         for(String s : settingsPhysics) {
             if(cfg.isSet("Physics."+s)) continue;
@@ -94,6 +96,7 @@ public class Config {
         flyUpParticles = cfg.getBoolean("Physics.FlyUpParticles");
         fallingBlockPhysics = cfg.getBoolean("Physics.FallingBlockPhysics");
         blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
+        blockCrackOnFall = cfg.getBoolean("Physics.BlockCrackOnFall");
     }
 
     public void reload() {
