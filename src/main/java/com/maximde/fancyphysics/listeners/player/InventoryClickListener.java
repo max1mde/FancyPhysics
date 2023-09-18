@@ -10,9 +10,11 @@ import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Transformation;
@@ -40,20 +42,33 @@ public class InventoryClickListener implements Listener {
         } catch (Exception ignore) {}
     }
 
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        removeDisplaysAndPlayer((Player) event.getPlayer());
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event) {
+        removeDisplaysAndPlayer(event.getEntity());
+    }
+
     /**
      Remove all displays on close
      */
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         var player = event.getPlayer();
+        if(event.getInventory().getType() != InventoryType.WORKBENCH) return;
+        removeDisplaysAndPlayer((Player) player);
+    }
 
+    private void removeDisplaysAndPlayer(Player player) {
         /*
          * Check if player was crafting
          */
-        if(event.getInventory().getType() != InventoryType.WORKBENCH) return;
+
         if(!fancyPhysics.craftingTableMap.containsKey(player.getUniqueId())) return;
         if(!displayList.containsKey(player.getUniqueId())) return;
-
         /*
          * Remove all displays
          */
@@ -126,6 +141,7 @@ public class InventoryClickListener implements Listener {
         var entity = location.getWorld().spawn(finalLocation, ItemDisplay.class, itemDisplay -> {
             var item = itemStack;
             if(item == null) item = new ItemStack(Material.AIR);
+            itemDisplay.addScoreboardTag("fancyphysics_crafting");
             itemDisplay.setItemStack(item);
             itemDisplay.setBrightness(new Display.Brightness(15, 15));
 

@@ -11,9 +11,13 @@ import com.maximde.fancyphysics.listeners.player.*;
 import com.maximde.fancyphysics.utils.Config;
 import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Display;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemDisplay;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -56,6 +60,14 @@ public final class FancyPhysics extends JavaPlugin {
         }
         this.displayList.clear();
         this.craftingTableMap.clear();
+
+        for(World world : Bukkit.getWorlds()) {
+            for(Entity entity : world.getEntities()) {
+                if(!(entity instanceof ItemDisplay)) continue;
+                if(!entity.getScoreboardTags().contains("fancyphysics_crafting")) continue;
+                entity.remove();
+            }
+        }
     }
 
     private void registerListeners() {

@@ -14,7 +14,7 @@ public class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        fancyPhysics.craftingTableMap.remove(event.getPlayer().getUniqueId());
+
     }
 
 }
