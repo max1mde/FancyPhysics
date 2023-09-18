@@ -14,7 +14,8 @@
 <img src="https://media.discordapp.net/attachments/1052241511795937381/1119002915026260038/323395728d1b2021a47c225be37ec656e13b1111_1.png?width=937&height=262">
 </div>
 
-<h3 align="center">No resourcepack or mod needed!</h3>
+> **Note**
+> Works without a resourcepack/mod!
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119003156915945502/Neues_Projekt_-_2023-06-15T233852.757.png?width=250&height=125)
 - Block particles
