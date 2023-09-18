@@ -15,7 +15,7 @@
 </div>
 
 > **Note**
-> Works without a resourcepack/mod!
+> Works **without** a resourcepack/mod!
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119003156915945502/Neues_Projekt_-_2023-06-15T233852.757.png?width=250&height=125)
 - Block particles
