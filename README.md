@@ -45,6 +45,7 @@
 /fancyphysics settings NaturalDropsOnExplode enable/disable
 /fancyphysics settings FlyUpParticles enable/disable
 /fancyphysics settings FallingBlockPhysics enable/disable
+/fancyphysics settings BlockCrackOnFall enable/disable
 /fancyphysics settings BlockParticleBlackList <material> add/remove
 ```
 
@@ -84,6 +85,7 @@ Physics:
   SprintDoorBreak: false
   FlyUpParticles: false
   BlockParticleBlackList:
+  BlockCrackOnFall: true
   - END_ROD
   ...
 ```
