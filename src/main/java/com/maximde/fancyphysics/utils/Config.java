@@ -11,28 +11,30 @@ import java.util.List;
 
 @Getter
 public class Config {
-    private @Getter final File file = new File("plugins/FancyPhysics", "config.yml");
-    private @Getter YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
-    private @Getter boolean realisticExplosion;
-    private @Getter boolean entityDeathParticles;
-    private @Getter boolean blockParticles;
-    private @Getter boolean trapdoorPhysics;
-    private @Getter boolean damageParticles;
-    private @Getter boolean particleRotation;
-    private @Getter boolean performanceMode;
-    private @Getter boolean realisticTrees;
-    private @Getter boolean dropSaplings;
-    private @Getter boolean sprintDoorBreak;
-    private @Getter boolean visualCrafting;
-    private @Getter boolean naturalDropsOnExplode;
-    private @Getter boolean fallingBlockPhysics;
-    private @Getter boolean flyUpParticles;
-    private @Getter boolean blockCrackOnFall;
-    private @Getter int maxParticleCount;
-    private @Getter List<String> blockParticleBlackList;
+    private final File file = new File("plugins/FancyPhysics", "config.yml");
+    private YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
+    private boolean realisticExplosion;
+    private boolean entityDeathParticles;
+    private boolean blockParticles;
+    private boolean trapdoorPhysics;
+    private boolean damageParticles;
+    private boolean particleRotation;
+    private boolean performanceMode;
+    private boolean realisticTrees;
+    private boolean dropSaplings;
+    private boolean sprintDoorBreak;
+    private boolean visualCrafting;
+    private boolean naturalDropsOnExplode;
+    private boolean fallingBlockPhysics;
+    private boolean flyUpParticles;
+    private boolean blockCrackOnFall;
+    private boolean explosionRegeneration;
+    private boolean treeRegeneration;
+    private int maxParticleCount;
+    private List<String> blockParticleBlackList;
 
     public Config() {
-        String[] settingsPhysics = {
+        String[] settingsPhysicsEnabled = {
                 "RealisticExplosion",
                 "EntityDeathParticles",
                 "3DBlockParticles",
@@ -46,15 +48,25 @@ public class Config {
                 "NaturalDropsOnExplode",
                 "BlockCrackOnFall"};
 
-        for(String s : settingsPhysics) {
+        String[] settingsPhysicsDisabled = {
+                "TrapdoorPhysics",
+                "SprintDoorBreak",
+                "FlyUpParticles",
+                "TreeRegeneration",
+                "ExplosionRegeneration",
+        };
+
+        for(String s : settingsPhysicsEnabled) {
+            if(cfg.isSet("Physics."+s)) continue;
+            cfg.set("Physics." + s, true);
+        }
+
+        for(String s : settingsPhysicsDisabled) {
             if(cfg.isSet("Physics."+s)) continue;
             cfg.set("Physics." + s, true);
         }
 
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
-        if(!cfg.isSet("Physics.TrapdoorPhysics")) cfg.set("Physics.TrapdoorPhysics", false);
-        if(!cfg.isSet("Physics.SprintDoorBreak")) cfg.set("Physics.SprintDoorBreak", false);
-        if(!cfg.isSet("Physics.FlyUpParticles")) cfg.set("Physics.FlyUpParticles", false);
         if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", getDefaultBlackList());
         saveConfig();
         initValues();
@@ -95,8 +107,10 @@ public class Config {
         naturalDropsOnExplode = cfg.getBoolean("Physics.NaturalDropsOnExplode");
         flyUpParticles = cfg.getBoolean("Physics.FlyUpParticles");
         fallingBlockPhysics = cfg.getBoolean("Physics.FallingBlockPhysics");
-        blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
         blockCrackOnFall = cfg.getBoolean("Physics.BlockCrackOnFall");
+        treeRegeneration = cfg.getBoolean("Physics.TreeRegeneration");
+        explosionRegeneration = cfg.getBoolean("Physics.ExplosionRegeneration");
+        blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
     }
 
     public void reload() {

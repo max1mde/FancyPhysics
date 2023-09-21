@@ -4,11 +4,14 @@ import com.maximde.fancyphysics.FancyPhysics;
 import com.maximde.fancyphysics.api.events.TreeBreakEvent;
 import com.maximde.fancyphysics.utils.Tree;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+
+import java.util.HashMap;
 
 public class BlockBreakListener implements Listener {
     private final FancyPhysics fancyPhysics;
@@ -38,7 +41,18 @@ public class BlockBreakListener implements Listener {
             Bukkit.getServer().getPluginManager().callEvent(treeBreakEvent);
             if (treeBreakEvent.isCancelled()) return;
             tree.breakWithFallAnimation();
+            if(fancyPhysics.getPluginConfig().isTreeRegeneration()) regenerate(tree, 10);
         }
+    }
+
+    private void regenerate(Tree tree, int seconds) {
+        Bukkit.getScheduler().runTaskLater(fancyPhysics, () -> {
+            for(Location location : tree.getOldBlockList().keySet()) {
+                var block = location.getBlock();
+                if(block.getType() != Material.AIR) continue;
+                block.setType(tree.getOldBlockList().get(location));
+            }
+        },  20L * seconds);
     }
 
     private boolean isWood(Material pMaterial) {

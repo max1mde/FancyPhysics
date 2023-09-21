@@ -1,7 +1,9 @@
 package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
+import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -13,6 +15,7 @@ import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Tree {
     /**
@@ -34,6 +37,7 @@ public class Tree {
     private final ArrayList<Block> stem = new ArrayList<>();
     private final ArrayList<Block> leaves = new ArrayList<>();
     private final FancyPhysics fancyPhysics;
+    @Getter final HashMap<Location, Material> oldBlockList = new HashMap<Location, Material>();
 
     /**
      * Constructs a Tree object with the given origin block and FancyPhysics instance.
@@ -189,6 +193,7 @@ public class Tree {
                 if (this.stem.contains(block))
                     return;
                 this.stem.add(block);
+                this.oldBlockList.put(block.getLocation(), block.getType());
             } else {
                 this.isNatural = false;
                 return;
@@ -198,6 +203,7 @@ public class Tree {
                 if (this.leaves.contains(block))
                     return;
                 this.leaves.add(block);
+                this.oldBlockList.put(block.getLocation(), block.getType());
             } else {
                 this.isNatural = false;
                 return;
