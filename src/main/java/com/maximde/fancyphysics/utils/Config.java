@@ -63,7 +63,7 @@ public class Config {
 
         for(String s : settingsPhysicsDisabled) {
             if(cfg.isSet("Physics."+s)) continue;
-            cfg.set("Physics." + s, true);
+            cfg.set("Physics." + s, false);
         }
 
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
