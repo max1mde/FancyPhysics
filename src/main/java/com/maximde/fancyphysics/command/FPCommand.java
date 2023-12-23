@@ -24,7 +24,7 @@ public class FPCommand implements CommandExecutor {
          */
         if(sender instanceof Player player) {
             if(!player.hasPermission("fancyphysics.commands") && !player.hasPermission("fancyphysics.admin")) {
-                player.sendMessage(ChatColor.RED + "No permission!");
+                player.sendMessage(fancyPhysics.red + "No permission!");
                 return false;
             }
         }
@@ -39,7 +39,7 @@ public class FPCommand implements CommandExecutor {
 
         if(args[0].equalsIgnoreCase("reload")) {
             fancyPhysics.getPluginConfig().reload();
-            sender.sendMessage(ChatColor.GREEN + "Config reloaded!");
+            sender.sendMessage(fancyPhysics.green + "Config reloaded!");
             return false;
         }
 
@@ -71,29 +71,29 @@ public class FPCommand implements CommandExecutor {
                         case "Long" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Long.parseLong(args[2]));
                         case "ArrayList" -> {
                             if(args.length != 4) {
-                                sender.sendMessage(ChatColor.RED + "Usage: /fancyphysics settings BlockParticleBlackList <material> add/remove");
+                                sender.sendMessage(fancyPhysics.red + "Usage: /fancyphysics settings BlockParticleBlackList <material> add/remove");
                                 return false;
                             }
                             if(!args[3].equalsIgnoreCase("add") && !args[3].equalsIgnoreCase("remove")) {
-                                sender.sendMessage(ChatColor.RED + "Usage: /fancyphysics settings BlockParticleBlackList <material> add/remove");
+                                sender.sendMessage(fancyPhysics.red + "Usage: /fancyphysics settings BlockParticleBlackList <material> add/remove");
                                 return false;
                             }
                             if(args[3].equalsIgnoreCase("add")) {
                                 if(Material.matchMaterial(args[2]) == null) {
-                                    sender.sendMessage(ChatColor.RED + "Material: " + args[2] + " not found!");
+                                    sender.sendMessage(fancyPhysics.red + "Material: " + args[2] + " not found!");
                                     return false;
                                 }
                                 var addList = fancyPhysics.getPluginConfig().getBlockParticleBlackList();
                                 addList.add(args[2]);
                                 fancyPhysics.getPluginConfig().setValue("Physics.BlockParticleBlackList",
                                         addList);
-                                sender.sendMessage(ChatColor.GREEN + "Added " + args[2] + " to the block particle blacklist!");
+                                sender.sendMessage(fancyPhysics.green + "Added " + args[2] + " to the block particle blacklist!");
                             } else if(args[3].equalsIgnoreCase("remove")) {
                                 var remList = fancyPhysics.getPluginConfig().getBlockParticleBlackList();
                                 remList.remove(args[2]);
                                 fancyPhysics.getPluginConfig().setValue("Physics.BlockParticleBlackList",
                                         remList);
-                                sender.sendMessage(ChatColor.GREEN + "Removed " + args[2] + " to the block particle blacklist!");
+                                sender.sendMessage(fancyPhysics.green + "Removed " + args[2] + " to the block particle blacklist!");
                             }
 
                             fancyPhysics.getPluginConfig().saveConfig();
@@ -103,9 +103,12 @@ public class FPCommand implements CommandExecutor {
                     };
                     fancyPhysics.getPluginConfig().saveConfig();
                     fancyPhysics.getPluginConfig().reload();
-                    sender.sendMessage(ChatColor.GREEN + "Changed " + key + " to " + args[2]);
+                    boolean isEnable = args[2].toLowerCase().equalsIgnoreCase("true");
+                    String enabled = isEnable ? "enabled" : "disabled";
+                    String color = isEnable ? fancyPhysics.green : fancyPhysics.red;
+                    sender.sendMessage(color + key + " is now " + enabled);
                 } catch (Exception e) {
-                    sender.sendMessage(ChatColor.RED + args[1] + " is not a valid " + getValueType(value));
+                    sender.sendMessage(fancyPhysics.red + args[1] + " is not a valid " + getValueType(value));
                 }
                 break;
             }
@@ -119,13 +122,13 @@ public class FPCommand implements CommandExecutor {
     }
 
     private void sendInfoMessage(CommandSender sender) {
-        sender.sendMessage(ChatColor.DARK_PURPLE + "===== ALL COMMANDS =====");
+        sender.sendMessage(fancyPhysics.primaryColor + "\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9 \u2728 FANCY PHYSICS \u2728 \u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8");
         final var command = "/fancyphysics ";
-        sender.sendMessage(ChatColor.LIGHT_PURPLE + command + "reload");
+        sender.sendMessage(fancyPhysics.secondaryColor + command + "reload");
         for(String key : fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false)) {
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + command + key.toLowerCase() + ChatColor.GOLD + " <value> ...");
+            sender.sendMessage(fancyPhysics.secondaryColor + command + key.toLowerCase() + fancyPhysics.green + " <value> ...");
         }
-        sender.sendMessage(ChatColor.DARK_PURPLE + "===== ALL COMMANDS =====");
+        sender.sendMessage(fancyPhysics.primaryColor + "\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9 \u2728 FANCY PHYSICS \u2728 \u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8");
     }
 
 }

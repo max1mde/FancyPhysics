@@ -11,8 +11,8 @@ import com.maximde.fancyphysics.listeners.player.*;
 import com.maximde.fancyphysics.utils.Config;
 import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Display;
@@ -21,7 +21,9 @@ import org.bukkit.entity.ItemDisplay;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public final class FancyPhysics extends JavaPlugin {
 
@@ -40,7 +42,10 @@ public final class FancyPhysics extends JavaPlugin {
                     " / __/ / /_/ / / / / /__/ /_/ /  / ____/ / / / /_/ (__  ) / /__(__  ) \n" +
                     "/_/    \\__,_/_/ /_/\\___/\\__, /  /_/   /_/ /_/\\__, /____/_/\\___/____/  \n" +
                     "                       /____/               /____/                   v" + getDescription().getVersion();
-
+    public final String primaryColor = ChatColor.of(new Color(238,103,87)).toString();
+    public final String secondaryColor = ChatColor.of(new Color(250, 150, 138)).toString();
+    public final String green = ChatColor.of(new Color(83, 246, 159)).toString();
+    public final String red = ChatColor.of(new Color(246, 94, 129)).toString();
     @Override
     public void onEnable() {
         api = new API(this);
@@ -50,7 +55,7 @@ public final class FancyPhysics extends JavaPlugin {
         registerListeners();
         getCommand("fancyphysics").setExecutor(new FPCommand(this));
         getCommand("fancyphysics").setTabCompleter(new FPTabCompleter(this));
-        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + enableMessage);
+        getServer().getConsoleSender().sendMessage(primaryColor + enableMessage);
     }
 
     @Override
