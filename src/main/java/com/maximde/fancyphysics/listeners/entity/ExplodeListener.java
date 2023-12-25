@@ -13,9 +13,8 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ExplodeListener implements Listener {
@@ -54,7 +53,8 @@ public class ExplodeListener implements Listener {
                 block.setType(Material.AIR);
                 continue;
             }
-            var fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation().add(0,1,0), block.getType(), block.getData());
+
+            var fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation().add(0,1,0), block.getType().createBlockData());
             if(fancyPhysics.getPluginConfig().isNaturalDropsOnExplode()) fallingBlock.setDropItem(false);
             fallingBlock.setVelocity(new Vector(x, y, z));
             block.setType(Material.AIR);
