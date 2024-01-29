@@ -23,6 +23,7 @@ public class Config {
     private boolean realisticTrees;
     private boolean dropSaplings;
     private boolean sprintDoorBreak;
+    private boolean sprintGlassBreak;
     private boolean visualCrafting;
     private boolean naturalDropsOnExplode;
     private boolean fallingBlockPhysics;
@@ -51,6 +52,7 @@ public class Config {
         String[] settingsPhysicsDisabled = {
                 "TrapdoorPhysics",
                 "SprintDoorBreak",
+                "SprintGlassBreak",
                 "FlyUpParticles",
                 "TreeRegeneration",
                 "ExplosionRegeneration",
@@ -103,6 +105,7 @@ public class Config {
         dropSaplings = cfg.getBoolean("Physics.DropSaplings");
         performanceMode = cfg.getBoolean("Physics.PerformanceMode");
         sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
+        sprintGlassBreak = cfg.getBoolean("Physics.SprintGlassBreak");
         visualCrafting = cfg.getBoolean("Physics.VisualCrafting");
         naturalDropsOnExplode = cfg.getBoolean("Physics.NaturalDropsOnExplode");
         flyUpParticles = cfg.getBoolean("Physics.FlyUpParticles");
