@@ -41,6 +41,7 @@
 /fancyphysics settings MaxParticleCount <value>
 /fancyphysics settings TrapdoorPhysics enable/disable
 /fancyphysics settings SprintDoorBreak enable/disable
+/fancyphysics settings SprintGlassBreak enable/disable
 /fancyphysics settings VisualCrafting enable/disable
 /fancyphysics settings NaturalDropsOnExplode enable/disable
 /fancyphysics settings FlyUpParticles enable/disable
@@ -83,6 +84,7 @@ Physics:
   MaxParticleCount: 4000
   TrapdoorPhysics: false
   SprintDoorBreak: false
+  SprintGlassBreak: false
   FlyUpParticles: false
   BlockParticleBlackList:
   BlockCrackOnFall: true
