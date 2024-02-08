@@ -20,6 +20,7 @@ public class HitGroundListener implements Listener {
 
     @EventHandler
     public void onBlockFall(EntityChangeBlockEvent event) {
+        if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getEntity().getLocation().getWorld().getName())) return;
         createParticles(event);
     }
 

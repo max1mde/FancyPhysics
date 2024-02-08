@@ -9,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FPCommand implements CommandExecutor {
     private final FancyPhysics fancyPhysics;
@@ -71,29 +73,37 @@ public class FPCommand implements CommandExecutor {
                         case "Long" -> fancyPhysics.getPluginConfig().setValue("Physics."+key, Long.parseLong(args[2]));
                         case "ArrayList" -> {
                             if(args.length != 4) {
-                                sender.sendMessage(fancyPhysics.red + "Usage: /fancyphysics settings BlockParticleBlackList <material> add/remove");
+                                sender.sendMessage(fancyPhysics.red + "Usage: /fancyphysics settings " + key + " add/remove <entry>");
                                 return false;
                             }
-                            if(!args[3].equalsIgnoreCase("add") && !args[3].equalsIgnoreCase("remove")) {
-                                sender.sendMessage(fancyPhysics.red + "Usage: /fancyphysics settings BlockParticleBlackList <material> add/remove");
+                            if(!args[2].equalsIgnoreCase("add") && !args[2].equalsIgnoreCase("remove")) {
+                                sender.sendMessage(fancyPhysics.red + "Usage: /fancyphysics settings " + key + " add/remove <entry>");
                                 return false;
                             }
-                            if(args[3].equalsIgnoreCase("add")) {
-                                if(Material.matchMaterial(args[2]) == null) {
-                                    sender.sendMessage(fancyPhysics.red + "Material: " + args[2] + " not found!");
-                                    return false;
+
+                            List<String> addList = new ArrayList<>();
+                            if(args[1].equals("BlockParticleBlackList")) {
+                                addList = fancyPhysics.getPluginConfig().getBlockParticleBlackList();
+                            }
+                            if(args[1].equals("DisabledWorldsList")) {
+                                addList = fancyPhysics.getPluginConfig().getDisabledWorldsList();
+                            }
+                            if(args[2].equalsIgnoreCase("add")) {
+
+                                if(args[1].equals("BlockParticleBlackList")) {
+                                    if(Material.matchMaterial(args[3]) == null) {
+                                        sender.sendMessage(fancyPhysics.red + "Material: " + args[3] + " not found!");
+                                        return false;
+                                    }
                                 }
-                                var addList = fancyPhysics.getPluginConfig().getBlockParticleBlackList();
-                                addList.add(args[2]);
-                                fancyPhysics.getPluginConfig().setValue("Physics.BlockParticleBlackList",
-                                        addList);
-                                sender.sendMessage(fancyPhysics.green + "Added " + args[2] + " to the block particle blacklist!");
-                            } else if(args[3].equalsIgnoreCase("remove")) {
-                                var remList = fancyPhysics.getPluginConfig().getBlockParticleBlackList();
-                                remList.remove(args[2]);
-                                fancyPhysics.getPluginConfig().setValue("Physics.BlockParticleBlackList",
-                                        remList);
-                                sender.sendMessage(fancyPhysics.green + "Removed " + args[2] + " to the block particle blacklist!");
+
+                                addList.add(args[3]);
+                                fancyPhysics.getPluginConfig().setValue("Physics." + key, addList);
+                                sender.sendMessage(fancyPhysics.green + "Added " + args[3] + " to the " + key);
+                            } else if(args[2].equalsIgnoreCase("remove")) {
+                                addList.remove(args[3]);
+                                fancyPhysics.getPluginConfig().setValue("Physics." + key, addList);
+                                sender.sendMessage(fancyPhysics.red + "Removed " + args[3] + " from the " + key);
                             }
 
                             fancyPhysics.getPluginConfig().saveConfig();

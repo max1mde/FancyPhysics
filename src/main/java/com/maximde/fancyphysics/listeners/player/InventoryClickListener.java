@@ -34,6 +34,7 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+        if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getWhoClicked().getLocation().getWorld().getName())) return;
         try {
             final var previousItems = new ArrayList<>(List.of(event.getInventory().getContents()));
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {

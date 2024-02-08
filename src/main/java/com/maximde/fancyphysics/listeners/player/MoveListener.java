@@ -23,6 +23,7 @@ public class MoveListener implements Listener {
     }
 
     private void doorBreakManager(PlayerMoveEvent event) {
+        if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getPlayer().getLocation().getWorld().getName())) return;
         if(!this.fancyPhysics.getPluginConfig().isSprintDoorBreak() && !this.fancyPhysics.getPluginConfig().isSprintGlassBreak()) return;
         Player player = event.getPlayer();
         if(!player.isSprinting()) return;

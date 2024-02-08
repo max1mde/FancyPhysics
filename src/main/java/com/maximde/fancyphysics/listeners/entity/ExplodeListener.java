@@ -29,6 +29,7 @@ public class ExplodeListener implements Listener {
     }
 
     private void createRealisticExplosion(EntityExplodeEvent event) {
+        if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getLocation().getWorld().getName())) return;
         if(!this.fancyPhysics.getPluginConfig().isRealisticExplosion()) return;
         if(event.isCancelled()) return;
         if(fancyPhysics.getPluginConfig().isPerformanceMode() && event.getLocation().getChunk().getEntities().length > 2000) return;

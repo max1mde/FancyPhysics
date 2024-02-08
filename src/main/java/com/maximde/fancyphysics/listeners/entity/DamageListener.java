@@ -17,6 +17,7 @@ public class DamageListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
+        if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getEntity().getLocation().getWorld().getName())) return;
         createDamageParticles(event);
     }
 

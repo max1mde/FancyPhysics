@@ -59,10 +59,9 @@ public class FPTabCompleter implements TabCompleter {
                 if (fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false).contains(key)) {
                     final var val = fancyPhysics.getPluginConfig().getCfg().get("Physics." + key).toString().toLowerCase();
 
-                    if(key.equals("BlockParticleBlackList")) {
-                        for(Material m : Material.values()) {
-                            commands.add(m.name());
-                        }
+                    if (key.equalsIgnoreCase("BlockParticleBlackList") || key.equalsIgnoreCase("DisabledWorldsList")) {
+                        commands.add("add");
+                        commands.add("remove");
                     } else {
                      /*
                         Convert boolean to nice readable strings
@@ -82,10 +81,15 @@ public class FPTabCompleter implements TabCompleter {
         }
 
         if (args.length == 4) {
-            if (args[1].equalsIgnoreCase("BlockParticleBlackList")) {
-                commands.add("add");
-                commands.add("remove");
+
+            if(args[1].equals("BlockParticleBlackList")) {
+                for(Material m : Material.values()) {
+                    commands.add(m.name());
+                }
+            } else if(args[1].equals("DisabledWorldsList")) {
+                commands.addAll(fancyPhysics.getPluginConfig().getDisabledWorldsList());
             }
+
             StringUtil.copyPartialMatches(args[3], commands, completions);
         }
 

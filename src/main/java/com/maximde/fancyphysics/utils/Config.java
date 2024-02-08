@@ -1,7 +1,6 @@
 package com.maximde.fancyphysics.utils;
 
 import lombok.Getter;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +32,7 @@ public class Config {
     private boolean treeRegeneration;
     private int maxParticleCount;
     private List<String> blockParticleBlackList;
+    private List<String> disabledWorldsList;
 
     public Config() {
         String[] settingsPhysicsEnabled = {
@@ -70,6 +70,7 @@ public class Config {
 
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", getDefaultBlackList());
+        if(!cfg.isSet("Physics.DisabledWorldsList")) cfg.set("Physics.DisabledWorldsList", new ArrayList<>(Arrays.asList("DisabledWorld", "AnotherDisabledWorld")));
         saveConfig();
         initValues();
     }
@@ -114,6 +115,7 @@ public class Config {
         treeRegeneration = cfg.getBoolean("Physics.TreeRegeneration");
         explosionRegeneration = cfg.getBoolean("Physics.ExplosionRegeneration");
         blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
+        disabledWorldsList = cfg.getStringList("Physics.DisabledWorldsList");
     }
 
     public void reload() {
