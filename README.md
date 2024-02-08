@@ -47,7 +47,8 @@
 /fancyphysics settings FlyUpParticles enable/disable
 /fancyphysics settings FallingBlockPhysics enable/disable
 /fancyphysics settings BlockCrackOnFall enable/disable
-/fancyphysics settings BlockParticleBlackList <material> add/remove
+/fancyphysics settings BlockParticleBlackList add/remove <material>
+/fancyphysics settings DisabledWorldsList add/remove <world> 
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002916326490262/Neues_Projekt_-_2023-06-15T233602.684.png?width=250&height=125)
@@ -86,10 +87,13 @@ Physics:
   SprintDoorBreak: false
   SprintGlassBreak: false
   FlyUpParticles: false
-  BlockParticleBlackList:
   BlockCrackOnFall: true
+  BlockParticleBlackList:
   - END_ROD
   ...
+  DisabledWorldsList:
+  - DisabledWorld
+  - AnotherDisabledWorld
 ```
 
 ![image](https://media.discordapp.net/attachments/1052241511795937381/1119002915328237599/Neues_Projekt_-_2023-06-15T233717.092.png?width=250&height=125)
