@@ -15,7 +15,9 @@ import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Tree {
     /**
@@ -51,7 +53,7 @@ public class Tree {
         this.wood_material = origin.getType();
         this.leave_material = Material.valueOf(getLeaveType(this.wood_material));
         scanTree(origin);
-        this.isNatural = (this.stem.size() > 3 && this.leaves.size() > 10);
+        this.isNatural = (this.stem.size() > 3 && this.leaves.size() > 8);
     }
 
     /**
@@ -88,7 +90,7 @@ public class Tree {
                         new Vector3f(1F, 1F,1F),    //scale
                         blockDisplay.getTransformation().getRightRotation()  //right rotation
                 );
-                blockDisplay.setInterpolationDuration(40);
+                blockDisplay.setInterpolationDuration(39);
                 blockDisplay.setInterpolationDelay(-1);
                 blockDisplay.setTransformation(transformation);
 
@@ -103,7 +105,7 @@ public class Tree {
                         this.fancyPhysics.getParticleGenerator().simulateBlockParticles(blockDisplay.getLocation().add(0,(this.origin.getY() - (block.getY() + 0.7F)) + 1.5F, transformationY -0.5F), blockData.getMaterial());
                     }
                     removeTree(blockDisplay, transformationY, blockData);
-                }, 18L);
+                }, 16L);
 
             }, 2L);
         });
@@ -180,16 +182,22 @@ public class Tree {
         };
     }
 
+    private int distanceToLastValid = 0;
+    private int amount = 0;
+
+    private List<Block> scannedBlocks = new ArrayList<>();
     /**
      * Recursively scans the tree structure, populating the stem and leaves lists.
      *
      * @param block  The current block being scanned.
      */
     private void scanTree(Block block) {
-        if (Math.abs(block.getX() - this.origin.getX()) > 3 || Math.abs(block.getZ() - this.origin.getZ()) > 3)
+        scannedBlocks.add(block);
+        amount++;
+        if (Math.abs(block.getX() - this.origin.getX()) > 10 || Math.abs(block.getZ() - this.origin.getZ()) > 10)
             return;
         if (block.getType() == this.wood_material) {
-            if (this.stem.size() < 100) {
+            if (this.stem.size() < this.fancyPhysics.getPluginConfig().getTreeMaxStemSize()) {
                 if (this.stem.contains(block))
                     return;
                 this.stem.add(block);
@@ -199,7 +207,7 @@ public class Tree {
                 return;
             }
         } else if (block.getType() == this.leave_material) {
-            if (this.leaves.size() < 100) {
+            if (this.leaves.size() < this.fancyPhysics.getPluginConfig().getTreeMaxLeavesSize()) {
                 if (this.leaves.contains(block))
                     return;
                 this.leaves.add(block);
@@ -209,25 +217,32 @@ public class Tree {
                 return;
             }
         }
-        var down = block.getRelative(BlockFace.DOWN);
-        var up = block.getRelative(BlockFace.UP);
-        var south = block.getRelative(BlockFace.SOUTH);
-        var north = block.getRelative(BlockFace.NORTH);
-        var east = block.getRelative(BlockFace.EAST);
-        var west = block.getRelative(BlockFace.WEST);
 
-        if (up.getType() == this.wood_material || up.getType() == this.leave_material)
-            scanTree(up);
-        if (down.getType() == this.leave_material || (down.getType() == this.wood_material && down.getY() >= this.origin.getY()))
-            scanTree(down);
-        if (south.getType() == this.wood_material || south.getType() == this.leave_material)
-            scanTree(south);
-        if (north.getType() == this.wood_material || north.getType() == this.leave_material)
-            scanTree(north);
-        if (east.getType() == this.wood_material || east.getType() == this.leave_material)
-            scanTree(east);
-        if (west.getType() == this.wood_material || west.getType() == this.leave_material)
-            scanTree(west);
+        boolean advancedStemScan = this.fancyPhysics.getPluginConfig().isAdvancedStemScan();
+
+        if(Arrays.asList(Material.COCOA_BEANS, Material.VINE, Material.SNOW).contains(block.getType()) && advancedStemScan) {
+            block.breakNaturally();
+        }
+
+        Arrays.asList(BlockFace.DOWN, BlockFace.UP, BlockFace.SOUTH, BlockFace.NORTH, BlockFace.WEST, BlockFace.EAST).forEach(blockFace -> {
+            final var currentBlock = block.getRelative(blockFace);
+
+            boolean scan = (currentBlock.getType() == this.wood_material || currentBlock.getType() == this.leave_material);
+            if(blockFace == BlockFace.DOWN && currentBlock.getY() <= this.origin.getY()) {
+                scan = false;
+            }
+            if (scan) {
+                scanTree(currentBlock);
+                distanceToLastValid = 0;
+                return;
+            }
+
+            if(amount < this.fancyPhysics.getPluginConfig().getTreeMaxInvalidScans() && this.stem.size() > 4 && advancedStemScan && distanceToLastValid < this.fancyPhysics.getPluginConfig().getTreeMaxInvalidBlockDistance()) {
+                distanceToLastValid++;
+                if(!scannedBlocks.contains(currentBlock)) scanTree(currentBlock);
+            }
+            
+        });
     }
 
     public ArrayList<Block> getStem() {

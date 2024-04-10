@@ -154,7 +154,7 @@ public class ParticleDisplay {
                     size,
                     blockDisplay.getTransformation().getRightRotation()
             );
-            animateDisplay(x, z, blockDisplay, transformation);
+            animateDisplay(x, z, blockDisplay, transformation, loc, y);
         });
     }
 
@@ -166,18 +166,25 @@ public class ParticleDisplay {
      * @param blockDisplay  The block display to animate.
      * @param transformation The transformation of the block display.
      */
-    private void animateDisplay(float x, float z, BlockDisplay blockDisplay, Transformation transformation) {
+    private void animateDisplay(float x, float z, BlockDisplay blockDisplay, Transformation transformation, Location location, float relativeY) {
         blockDisplay.setInterpolationDelay(-1);
         blockDisplay.setInterpolationDuration(0);
         blockDisplay.setTransformation(transformation);
 
-        float randomY = ThreadLocalRandom.current().nextFloat()  / 5;
+        float randomY = ThreadLocalRandom.current().nextFloat()  / 10;
 
         Random random = new Random();
         float randomZ = random.nextFloat();
         float randomX = random.nextFloat();
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-            var translationMove = new Vector3f((x - 0.4F) * (randomX * (9 * this.speed)), -3.3F + randomY + this.gravity, (z - 0.4F) * (randomZ * (9 * this.speed)));
+
+            boolean firstBelow = location.getWorld().getBlockAt(location.clone().subtract(0, 1, 0)).getType().isSolid();
+            boolean secondBelow = location.getWorld().getBlockAt(location.clone().subtract(0, 2, 0)).getType().isSolid();
+            float blockModifier = 0;
+            if (secondBelow) blockModifier = 1.3F;
+            if (firstBelow) blockModifier = (3.3F - randomY) - relativeY * 2;
+
+            var translationMove = new Vector3f((x - 0.4F) * (randomX * (9 * this.speed)), -3.3F + randomY + this.gravity + blockModifier, (z - 0.4F) * (randomZ * (9 * this.speed)));
 
             var rotationLeft = blockDisplay.getTransformation().getLeftRotation();
             var rotationRight = blockDisplay.getTransformation().getLeftRotation();

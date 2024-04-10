@@ -13,12 +13,9 @@ import com.maximde.fancyphysics.bstats.Metrics;
 import com.maximde.fancyphysics.utils.ParticleGenerator;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.ItemDisplay;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
@@ -35,6 +32,10 @@ public final class FancyPhysics extends JavaPlugin {
     public List<Display> displayList = new ArrayList<>();
     public HashMap<UUID, Block> craftingTableMap = new HashMap<>();
     private static API api;
+    public final String primaryColor = ChatColor.of(new Color(238,103,87)).toString();
+    public final String secondaryColor = ChatColor.of(new Color(250, 150, 138)).toString();
+    public final String green = ChatColor.of(new Color(83, 246, 159)).toString();
+    public final String red = ChatColor.of(new Color(246, 94, 129)).toString();
     private final String enableMessage =
             "\n    ______                          ____  __               _          \n" +
                     "   / ____/___ _____  _______  __   / __ \\/ /_  __  _______(_)_________\n" +
@@ -42,10 +43,6 @@ public final class FancyPhysics extends JavaPlugin {
                     " / __/ / /_/ / / / / /__/ /_/ /  / ____/ / / / /_/ (__  ) / /__(__  ) \n" +
                     "/_/    \\__,_/_/ /_/\\___/\\__, /  /_/   /_/ /_/\\__, /____/_/\\___/____/  \n" +
                     "                       /____/               /____/                   v" + getDescription().getVersion();
-    public final String primaryColor = ChatColor.of(new Color(238,103,87)).toString();
-    public final String secondaryColor = ChatColor.of(new Color(250, 150, 138)).toString();
-    public final String green = ChatColor.of(new Color(83, 246, 159)).toString();
-    public final String red = ChatColor.of(new Color(246, 94, 129)).toString();
     @Override
     public void onEnable() {
         api = new API(this);
@@ -60,37 +57,28 @@ public final class FancyPhysics extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for(Display blockDisplay : displayList) {
-            blockDisplay.remove();
-        }
+        displayList.forEach(Display::remove);
         this.displayList.clear();
         this.craftingTableMap.clear();
-
-        for(World world : Bukkit.getWorlds()) {
-            for(Entity entity : world.getEntities()) {
-                if(!(entity instanceof ItemDisplay)) continue;
-                if(!entity.getScoreboardTags().contains("fancyphysics_crafting")) continue;
-                entity.remove();
-            }
-        }
+        Bukkit.getWorlds().forEach(world -> {
+            world.getEntities().stream().filter(entity -> entity.getScoreboardTags().contains("fancyphysics_crafting")).forEach(Entity::remove);
+        });
     }
 
     private void registerListeners() {
-        registerListener(new BlockBreakListener(this));
-        registerListener(new DeathListener(this));
-        registerListener(new ExplodeListener(this));
-        registerListener(new HitGroundListener(this));
-        registerListener(new InteractListener(this));
-        registerListener(new BlockPlaceListener(this));
-        registerListener(new DamageListener(this));
-        registerListener(new MoveListener(this));
-        registerListener(new InventoryClickListener(this));
-        registerListener(new PlayerQuitListener(this));
-    }
-
-
-    private void registerListener(Object listener) {
-        getServer().getPluginManager().registerEvents((Listener) listener, this);
+        Arrays.asList(
+                new BlockBreakListener(this),
+                new DeathListener(this),
+                new ExplodeListener(this),
+                new HitGroundListener(this),
+                new InteractListener(this),
+                new BlockPlaceListener(this),
+                new DamageListener(this),
+                new MoveListener(this),
+                new InventoryClickListener(this),
+                new PlayerQuitListener(this)).forEach(listener -> {
+            getServer().getPluginManager().registerEvents(listener, this);
+        });
     }
 
     public static API getAPI() {

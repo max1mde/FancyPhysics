@@ -30,6 +30,11 @@ public class Config {
     private boolean blockCrackOnFall;
     private boolean explosionRegeneration;
     private boolean treeRegeneration;
+    private int treeMaxStemSize;
+    private int treeMaxLeavesSize;
+    private int treeMaxInvalidScans;
+    private int treeMaxInvalidBlockDistance;
+    private boolean advancedStemScan;
     private int maxParticleCount;
     private List<String> blockParticleBlackList;
     private List<String> disabledWorldsList;
@@ -56,6 +61,7 @@ public class Config {
                 "FlyUpParticles",
                 "TreeRegeneration",
                 "ExplosionRegeneration",
+                "AdvancedStemScan"
         };
 
         for(String s : settingsPhysicsEnabled) {
@@ -68,6 +74,10 @@ public class Config {
             cfg.set("Physics." + s, false);
         }
 
+        if(!cfg.isSet("Physics.TreeScanMaxStemSize")) cfg.set("Physics.TreeScanMaxStemSize", 200);
+        if(!cfg.isSet("Physics.TreeScanMaxLeavesSize")) cfg.set("Physics.TreeScanMaxLeavesSize", 260);
+        if(!cfg.isSet("Physics.TreeMaxInvalidScans")) cfg.set("Physics.TreeMaxInvalidScans", 2700);
+        if(!cfg.isSet("Physics.TreeMaxInvalidBlockDistance")) cfg.set("Physics.TreeMaxInvalidBlockDistance", 2);
         if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
         if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", getDefaultBlackList());
         if(!cfg.isSet("Physics.DisabledWorldsList")) cfg.set("Physics.DisabledWorldsList", new ArrayList<>(Arrays.asList("DisabledWorld", "AnotherDisabledWorld")));
@@ -116,10 +126,15 @@ public class Config {
         explosionRegeneration = cfg.getBoolean("Physics.ExplosionRegeneration");
         blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
         disabledWorldsList = cfg.getStringList("Physics.DisabledWorldsList");
+        advancedStemScan = cfg.getBoolean("Physics.AdvancedStemScan");
+        treeMaxLeavesSize = cfg.getInt("Physics.TreeScanMaxLeavesSize");
+        treeMaxStemSize = cfg.getInt("Physics.TreeScanMaxStemSize");
+        treeMaxInvalidScans = cfg.getInt("Physics.TreeMaxInvalidScans");
+        treeMaxInvalidBlockDistance = cfg.getInt("Physics.TreeMaxInvalidBlockDistance");
     }
 
     public void reload() {
-        this.cfg = new YamlConfiguration().loadConfiguration(file);
+        this.cfg = YamlConfiguration.loadConfiguration(file);
         initValues();
     }
 
