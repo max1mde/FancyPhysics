@@ -39,6 +39,7 @@ public class Config {
     private List<String> blockParticleBlackList;
     private List<String> disabledWorldsList;
     private boolean sounds;
+    private boolean treeChopDelay;
 
     public Config() {
         String[] settingsPhysicsEnabled = {
@@ -54,7 +55,8 @@ public class Config {
                 "VisualCrafting",
                 "FallingBlockPhysics",
                 "NaturalDropsOnExplode",
-                "BlockCrackOnFall"};
+                "BlockCrackOnFall",
+                "TreeChopDelay"};
 
         String[] settingsPhysicsDisabled = {
                 "TrapdoorPhysics",
@@ -134,6 +136,7 @@ public class Config {
         treeMaxInvalidScans = cfg.getInt("Physics.TreeMaxInvalidScans");
         treeMaxInvalidBlockDistance = cfg.getInt("Physics.TreeMaxInvalidBlockDistance");
         sounds = cfg.getBoolean("Physics.Sounds");
+        treeChopDelay = cfg.getBoolean("Physics.TreeChopDelay");
     }
 
     public void reload() {

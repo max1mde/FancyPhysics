@@ -20,6 +20,7 @@ public class Tree {
     /**
      * Returns true if the tree's properties are characteristic of a naturally generated tree.
      */
+    @Getter
     private boolean isNatural;
     /**
      * The block that was broken by the player
@@ -47,10 +48,12 @@ public class Tree {
     public Tree(Block origin, FancyPhysics fancyPhysics) {
         this.fancyPhysics = fancyPhysics;
         this.origin = origin;
-        this.wood_material = origin.getType();
+        Block aboveOrigin = origin.getLocation().clone().add(0, 1, 0).getBlock();
+        this.wood_material = aboveOrigin.getType();
         this.leave_material = Material.valueOf(getLeaveType(this.wood_material));
-        scanTree(origin);
-        this.isNatural = (this.stem.size() > 3 && this.leaves.size() > 8);
+        scanTree(aboveOrigin);
+        stem.add(origin);
+        this.isNatural = (this.stem.size() > 3 && this.leaves.size() > 5);
     }
 
     /**
@@ -171,24 +174,25 @@ public class Tree {
     /**
      * Determines the material of the leaves based on the wood material of the tree.
      *
-     * @param wood  The wood material of the tree.
+     * @param material  The wood material of the tree.
      * @return      The material of the leaves.
      */
-    private String getLeaveType(Material wood) {
-        return switch (wood.name()) {
-            case "OAK_LOG" -> "OAK_LEAVES";
-            case "DARK_OAK_LOG" -> "DARK_OAK_LEAVES";
-            case "JUNGLE_LOG" -> "JUNGLE_LEAVES";
-            case "ACACIA_LOG" -> "ACACIA_LEAVES";
-            case "BIRCH_LOG" -> "BIRCH_LEAVES";
-            case "SPRUCE_LOG" -> "SPRUCE_LEAVES";
-            case "CHERRY_LOG" -> "CHERRY_LEAVES";
-            case "MANGROVE_LOG" -> "MANGROVE_LEAVES";
-            case "WARPED_STEM" -> "WARPED_WART_BLOCK";
+    private String getLeaveType(Material material) {
+        return switch (material.name()) {
+            case "OAK_LOG", "STRIPPED_OAK_LOG", "OAK_FENCE" -> "OAK_LEAVES";
+            case "DARK_OAK_LOG", "STRIPPED_DARK_OAK_LOG", "DARK_OAK_FENCE" -> "DARK_OAK_LEAVES";
+            case "JUNGLE_LOG", "STRIPPED_JUNGLE_LOG", "JUNGLE_FENCE" -> "JUNGLE_LEAVES";
+            case "ACACIA_LOG", "STRIPPED_ACACIA_LOG", "ACACIA_FENCE" -> "ACACIA_LEAVES";
+            case "BIRCH_LOG", "STRIPPED_BIRCH_LOG", "BIRCH_FENCE" -> "BIRCH_LEAVES";
+            case "SPRUCE_LOG", "STRIPPED_SPRUCE_LOG", "SPRUCE_FENCE" -> "SPRUCE_LEAVES";
+            case "CHERRY_LOG", "STRIPPED_CHERRY_LOG", "CHERRY_FENCE" -> "CHERRY_LEAVES";
+            case "MANGROVE_LOG", "STRIPPED_MANGROVE_LOG", "MANGROVE_FENCE" -> "MANGROVE_LEAVES";
+            case "WARPED_STEM", "NETHER_WART_BLOCK" -> "WARPED_WART_BLOCK";
             case "CRIMSON_STEM" -> "NETHER_WART_BLOCK";
             default -> "AIR";
         };
     }
+
 
     private int distanceToLastValid = 0;
     private int amount = 0;
@@ -236,7 +240,7 @@ public class Tree {
             final var currentBlock = block.getRelative(blockFace);
 
             boolean scan = (currentBlock.getType() == this.wood_material || currentBlock.getType() == this.leave_material);
-            if(blockFace == BlockFace.DOWN && currentBlock.getY() <= this.origin.getY()) {
+            if(blockFace == BlockFace.DOWN && currentBlock.getY() <= this.origin.getY() + 12) {
                 scan = false;
             }
             if (scan) {

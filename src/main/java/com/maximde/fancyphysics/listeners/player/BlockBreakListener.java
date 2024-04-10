@@ -7,9 +7,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.BlockDisplay;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.util.Transformation;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.HashMap;
 
@@ -23,7 +27,8 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if(event.isCancelled()) return;
         if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getPlayer().getLocation().getWorld().getName())) return;
-        manageTreePhysics(event);
+        boolean playParticles = manageTreePhysics(event);
+        if(!playParticles) return;
         if(fancyPhysics.getPluginConfig().isFlyUpParticles()) {
             this.fancyPhysics.getParticleGenerator().simulateBigBlockParticle(event.getBlock().getLocation(), event.getBlock().getType());
         } else {
@@ -34,16 +39,53 @@ public class BlockBreakListener implements Listener {
     /**
      * Creates a new Tree object and plays a break animation
      */
-    private void manageTreePhysics(BlockBreakEvent event) {
+    private boolean manageTreePhysics(BlockBreakEvent event) {
         if (isWood(event.getBlock().getType()) && this.fancyPhysics.getPluginConfig().isRealisticTrees() &&
                 event.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR && isWood(event.getBlock().getRelative(BlockFace.UP).getType())) {
             Tree tree = new Tree(event.getBlock(), this.fancyPhysics);
+
+            if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 4 && !event.getBlock().getType().name().contains("STRIPPED") && !event.getBlock().getType().name().contains("FENCE")) {
+                event.getBlock().setType(getStripedLog(event.getBlock().getType()));
+                event.setCancelled(true);
+                return false;
+            }
+
+            if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 8 && event.getBlock().getType().name().contains("STRIPPED")) {
+                event.getBlock().setType(getFenceFromStrippedLog(event.getBlock().getType()));
+                event.getBlock().getLocation().getWorld().spawn(event.getBlock().getLocation(), BlockDisplay.class, blockDisplay -> {
+                    blockDisplay.setBlock(event.getBlock().getType().createBlockData());
+                    blockDisplay.setInterpolationDuration(0);
+                    blockDisplay.setInterpolationDelay(-1);
+                    blockDisplay.setTransformation(new Transformation(
+                            new Vector3f(-1F,0,-1F),
+                            new Quaternionf(0,0,0,1),
+                            new Vector3f(3F, 1F, 3F),
+                            new Quaternionf(0,0,0,1)
+                    ));
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+                        int animLenght = 3;
+                        blockDisplay.setInterpolationDuration(animLenght);
+                        blockDisplay.setInterpolationDelay(-1);
+                        blockDisplay.setTransformation(new Transformation(
+                                new Vector3f(0.1F,0,0.1F),
+                                new Quaternionf(0,0,0,1),
+                                new Vector3f(0.9F, 0.9F, 0.9F),
+                                new Quaternionf(0,0,0,1)
+                        ));
+                        Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, blockDisplay::remove, animLenght);
+                    }, 2L);
+                });
+                event.setCancelled(true);
+                return true;
+            }
+
             TreeBreakEvent treeBreakEvent = new TreeBreakEvent(tree);
             Bukkit.getServer().getPluginManager().callEvent(treeBreakEvent);
-            if (treeBreakEvent.isCancelled()) return;
+            if (treeBreakEvent.isCancelled()) return true;
             tree.breakWithFallAnimation();
             if(fancyPhysics.getPluginConfig().isTreeRegeneration()) regenerate(tree, 10);
         }
+        return true;
     }
 
     private void regenerate(Tree tree, int seconds) {
@@ -56,12 +98,39 @@ public class BlockBreakListener implements Listener {
         },  20L * seconds);
     }
 
-    private boolean isWood(Material pMaterial) {
-        return switch (pMaterial.name()) {
-            case "BIRCH_LOG", "OAK_LOG", "SPRUCE_LOG", "DARK_OAK_LOG", "ACACIA_LOG", "JUNGLE_LOG", "CRIMSON_STEM", "WARPED_STEM", "MANGROVE_LOG", "CHERRY_LOG" ->
-                    true;
-            default -> false;
+    private Material getStripedLog(Material logType) {
+        return switch (logType) {
+            case BIRCH_LOG -> Material.STRIPPED_BIRCH_LOG;
+            case SPRUCE_LOG -> Material.STRIPPED_SPRUCE_LOG;
+            case DARK_OAK_LOG -> Material.STRIPPED_DARK_OAK_LOG;
+            case ACACIA_LOG -> Material.STRIPPED_ACACIA_LOG;
+            case JUNGLE_LOG -> Material.STRIPPED_JUNGLE_LOG;
+            case CRIMSON_STEM -> Material.STRIPPED_CRIMSON_STEM;
+            case WARPED_STEM -> Material.STRIPPED_WARPED_STEM;
+            case MANGROVE_LOG -> Material.STRIPPED_MANGROVE_LOG;
+            case CHERRY_LOG -> Material.STRIPPED_CHERRY_LOG;
+            default -> Material.STRIPPED_OAK_LOG;
         };
+    }
+
+    private Material getFenceFromStrippedLog(Material strippedLog) {
+        return switch (strippedLog) {
+            case STRIPPED_BIRCH_LOG -> Material.BIRCH_FENCE;
+            case STRIPPED_SPRUCE_LOG -> Material.SPRUCE_FENCE;
+            case STRIPPED_DARK_OAK_LOG -> Material.DARK_OAK_FENCE;
+            case STRIPPED_ACACIA_LOG -> Material.ACACIA_FENCE;
+            case STRIPPED_JUNGLE_LOG -> Material.JUNGLE_FENCE;
+            case STRIPPED_CRIMSON_STEM -> Material.CRIMSON_FENCE;
+            case STRIPPED_WARPED_STEM -> Material.WARPED_FENCE;
+            case STRIPPED_MANGROVE_LOG -> Material.MANGROVE_FENCE;
+            case STRIPPED_CHERRY_LOG -> Material.CHERRY_FENCE;
+            default -> Material.OAK_FENCE;
+        };
+    }
+
+
+    private boolean isWood(Material pMaterial) {
+        return pMaterial.name().endsWith("LOG") || pMaterial.name().endsWith("STEM") ||pMaterial.name().endsWith("FENCE");
     }
 
 }
