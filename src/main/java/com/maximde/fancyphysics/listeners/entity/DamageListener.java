@@ -2,6 +2,7 @@ package com.maximde.fancyphysics.listeners.entity;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -36,6 +37,7 @@ public class DamageListener implements Listener {
         var material = getParticleMaterial(entity.getType());
         var lightLevel = -1;
         if(entity.getType() == EntityType.BLAZE) lightLevel = 15;
+        if(fancyPhysics.getPluginConfig().isSounds()) entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_ALLAY_ITEM_THROWN, 0.8f, 1f);
 
         for (int i = 0; i < roundedHeight; i++) {
             this.fancyPhysics.getParticleGenerator().simulateSplashBloodParticles(block.getLocation(), material, lightLevel);

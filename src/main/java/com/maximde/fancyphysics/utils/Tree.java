@@ -2,10 +2,7 @@ package com.maximde.fancyphysics.utils;
 
 import com.maximde.fancyphysics.FancyPhysics;
 import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
@@ -63,6 +60,13 @@ public class Tree {
         if(!isNatural) return;
         for (Block b : this.stem)  spawnDisplay(b);
         for (Block b : this.leaves) spawnDisplay(b);
+        if(fancyPhysics.getPluginConfig().isSounds()) {
+            origin.getLocation().getWorld().playSound(origin.getLocation(), Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+                origin.getWorld().playSound(origin.getLocation(), Sound.ENTITY_ARMOR_STAND_PLACE, 1.0f, 1.0f);
+            }, 18L);
+        }
     }
 
     private void spawnDisplay(Block block) {
@@ -84,6 +88,8 @@ public class Tree {
             Transform display (Falling animation)
              */
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+
+
                 Transformation transformation = new Transformation(
                         new Vector3f(0, transformationY + (this.origin.getY() - (block.getY() + 0.6F)) / 2, transformationZ),//translation
                         new Quaternionf(-1.0F,0,0,0.1),   //left rotation
@@ -99,6 +105,8 @@ public class Tree {
                  */
                 Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
                     final var loc = blockDisplay.getLocation().add(0.5,(this.origin.getY() - (block.getY() + 0.7F)) + 1, transformationY);
+
+
                     if(false) { //TODO add option to config
                         blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
                     } else {

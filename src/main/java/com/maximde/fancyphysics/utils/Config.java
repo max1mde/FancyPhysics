@@ -38,9 +38,11 @@ public class Config {
     private int maxParticleCount;
     private List<String> blockParticleBlackList;
     private List<String> disabledWorldsList;
+    private boolean sounds;
 
     public Config() {
         String[] settingsPhysicsEnabled = {
+                "Sounds",
                 "RealisticExplosion",
                 "EntityDeathParticles",
                 "3DBlockParticles",
@@ -131,6 +133,7 @@ public class Config {
         treeMaxStemSize = cfg.getInt("Physics.TreeScanMaxStemSize");
         treeMaxInvalidScans = cfg.getInt("Physics.TreeMaxInvalidScans");
         treeMaxInvalidBlockDistance = cfg.getInt("Physics.TreeMaxInvalidBlockDistance");
+        sounds = cfg.getBoolean("Physics.Sounds");
     }
 
     public void reload() {
