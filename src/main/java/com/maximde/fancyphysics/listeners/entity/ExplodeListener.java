@@ -60,7 +60,7 @@ public class ExplodeListener implements Listener {
             fallingBlock.setVelocity(new Vector(x, y, z));
             block.setType(Material.AIR);
         }
-        if(fancyPhysics.getPluginConfig().isExplosionRegeneration()) regenerate(oldBlockList, 10);
+        if(fancyPhysics.getPluginConfig().isExplosionRegeneration()) regenerate(oldBlockList, fancyPhysics.getPluginConfig().getExplosionRegenerationDelay());
     }
 
     private void regenerate(HashMap<Location, Material> blocks, int seconds) {

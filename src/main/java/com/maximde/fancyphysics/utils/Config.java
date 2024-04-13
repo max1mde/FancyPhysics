@@ -40,6 +40,8 @@ public class Config {
     private List<String> disabledWorldsList;
     private boolean sounds;
     private boolean treeChopDelay;
+    private int treeRegenerationDelay;
+    private int explosionRegenerationDelay;
 
     public Config() {
         String[] settingsPhysicsEnabled = {
@@ -63,8 +65,6 @@ public class Config {
                 "SprintDoorBreak",
                 "SprintGlassBreak",
                 "FlyUpParticles",
-                "TreeRegeneration",
-                "ExplosionRegeneration",
                 "AdvancedStemScan"
         };
 
@@ -77,6 +77,13 @@ public class Config {
             if(cfg.isSet("Physics."+s)) continue;
             cfg.set("Physics." + s, false);
         }
+
+        if(!cfg.isSet("Regeneration.TreeRegeneration.Enabled")) cfg.set("Regeneration.TreeRegeneration.Enabled", false);
+        if(!cfg.isSet("Regeneration.ExplosionRegeneration.Enabled")) cfg.set("Regeneration.ExplosionRegeneration.Enabled", false);
+
+        if(!cfg.isSet("Regeneration.TreeRegeneration.Delay")) cfg.set("Regeneration.TreeRegeneration.Delay", 10);
+        if(!cfg.isSet("Regeneration.ExplosionRegeneration.Delay")) cfg.set("Regeneration.ExplosionRegeneration.Delay", 10);
+
 
         if(!cfg.isSet("Physics.TreeScanMaxStemSize")) cfg.set("Physics.TreeScanMaxStemSize", 200);
         if(!cfg.isSet("Physics.TreeScanMaxLeavesSize")) cfg.set("Physics.TreeScanMaxLeavesSize", 260);
@@ -126,8 +133,8 @@ public class Config {
         flyUpParticles = cfg.getBoolean("Physics.FlyUpParticles");
         fallingBlockPhysics = cfg.getBoolean("Physics.FallingBlockPhysics");
         blockCrackOnFall = cfg.getBoolean("Physics.BlockCrackOnFall");
-        treeRegeneration = cfg.getBoolean("Physics.TreeRegeneration");
-        explosionRegeneration = cfg.getBoolean("Physics.ExplosionRegeneration");
+        treeRegeneration = cfg.getBoolean("Regeneration.TreeRegeneration.Enabled");
+        explosionRegeneration = cfg.getBoolean("Regeneration.ExplosionRegeneration.Enabled");
         blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
         disabledWorldsList = cfg.getStringList("Physics.DisabledWorldsList");
         advancedStemScan = cfg.getBoolean("Physics.AdvancedStemScan");
@@ -137,6 +144,8 @@ public class Config {
         treeMaxInvalidBlockDistance = cfg.getInt("Physics.TreeMaxInvalidBlockDistance");
         sounds = cfg.getBoolean("Physics.Sounds");
         treeChopDelay = cfg.getBoolean("Physics.TreeChopDelay");
+        treeRegenerationDelay = cfg.getInt("Regeneration.TreeRegeneration.Delay");
+        explosionRegenerationDelay = cfg.getInt("Regeneration.ExplosionRegeneration.Delay");
     }
 
     public void reload() {

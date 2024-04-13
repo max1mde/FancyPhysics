@@ -83,7 +83,7 @@ public class BlockBreakListener implements Listener {
             Bukkit.getServer().getPluginManager().callEvent(treeBreakEvent);
             if (treeBreakEvent.isCancelled()) return true;
             tree.breakWithFallAnimation();
-            if(fancyPhysics.getPluginConfig().isTreeRegeneration()) regenerate(tree, 10);
+            if(fancyPhysics.getPluginConfig().isTreeRegeneration()) regenerate(tree, fancyPhysics.getPluginConfig().getTreeRegenerationDelay());
         }
         return true;
     }
