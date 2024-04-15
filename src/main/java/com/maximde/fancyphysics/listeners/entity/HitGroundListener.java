@@ -30,6 +30,7 @@ public class HitGroundListener implements Listener {
         if(event.getBlock().getType() != Material.AIR) return;
         if (event.getEntityType() != EntityType.FALLING_BLOCK) return;
         var fallingBlock = (FallingBlock) event.getEntity();
+        if(fallingBlock.getScoreboardTags().contains("DontBreak")) return;
         var material = fallingBlock.getBlockData().getMaterial();
         if(material == Material.DRAGON_EGG) return;
         event.setCancelled(true);

@@ -138,7 +138,7 @@ public class ParticleGenerator {
     public Material getParticleMaterial(Material type) {
         return switch (type) {
             case GRASS_BLOCK -> Material.DIRT;
-            case VINE, ACACIA_LEAVES, OAK_LEAVES, DARK_OAK_LEAVES, MANGROVE_LEAVES, FIRE -> Material.AIR;
+            case VINE, FIRE -> Material.AIR;
             default -> type;
         };
     }

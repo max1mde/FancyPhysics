@@ -68,8 +68,8 @@ public class Tree {
             }
         });
         if(!isNatural) return;
-        for (Block b : this.stem)  spawnDisplay(b);
         for (Block b : this.leaves) spawnDisplay(b);
+        for (Block b : this.stem)  spawnDisplay(b);
         if(fancyPhysics.getPluginConfig().isSounds()) {
             origin.getLocation().getWorld().playSound(origin.getLocation(), Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
 
@@ -100,31 +100,44 @@ public class Tree {
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
 
 
+                final var loc = blockDisplay.getLocation().add(0,(this.origin.getY() - (block.getY() + 0.7F)) + 1.5F, transformationY -0.5F);
+
+                Block impactLocation = loc.getBlock();
+
+                if(loc.getBlock().getType().isSolid()) {
+                    int tries = 0;
+                    while (impactLocation.getType().isSolid() && tries < 5) {
+                        impactLocation = impactLocation.getRelative(BlockFace.UP);
+                        tries++;
+                    }
+                }
+
                 Transformation transformation = new Transformation(
                         new Vector3f(0, transformationY + (this.origin.getY() - (block.getY() + 0.6F)) / 2, transformationZ),//translation
-                        new Quaternionf(-1.0F,0,0,0.1),   //left rotation
+                        new Quaternionf(-1.0F + (float)loc.distance(impactLocation.getLocation()) / 10,0,0,0.1),   //left rotation
                         new Vector3f(1F, 1F,1F),    //scale
                         blockDisplay.getTransformation().getRightRotation()  //right rotation
                 );
-                blockDisplay.setInterpolationDuration(39);
+                blockDisplay.setInterpolationDuration(30);
                 blockDisplay.setInterpolationDelay(-1);
                 blockDisplay.setTransformation(transformation);
 
                 /*
                 Break tree
                  */
+                Block finalImpactLocation = impactLocation;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
-                    final var loc = blockDisplay.getLocation().add(0.5,(this.origin.getY() - (block.getY() + 0.7F)) + 1, transformationY);
-
 
                     if(false) { //TODO add option to config
-                        blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 50, blockData);
+                        blockDisplay.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, finalImpactLocation.getLocation(), 50, blockData);
                     } else {
-                        this.fancyPhysics.getParticleGenerator().simulateBlockParticles(blockDisplay.getLocation().add(0,(this.origin.getY() - (block.getY() + 0.7F)) + 1.5F, transformationY -0.5F), blockData.getMaterial());
+                        if(!finalImpactLocation.getType().isSolid()) {
+                            this.fancyPhysics.getParticleGenerator().simulateBlockParticles(finalImpactLocation.getLocation(), blockData.getMaterial());
+                        }
                     }
                     removeTree(blockDisplay, transformationY, blockData);
-                }, 16L);
 
+                }, 12L - Math.min(11, (int)(loc.distance(impactLocation.getLocation()) * 2)));
             }, 2L);
         });
     }

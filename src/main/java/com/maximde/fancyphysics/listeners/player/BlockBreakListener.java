@@ -6,12 +6,15 @@ import com.maximde.fancyphysics.utils.Tree;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.util.Transformation;
+import org.bukkit.util.Vector;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -41,8 +44,18 @@ public class BlockBreakListener implements Listener {
      * Creates a new Tree object and plays a break animation
      */
     private boolean manageTreePhysics(BlockBreakEvent event) {
-        if (isWood(event.getBlock().getType()) && this.fancyPhysics.getPluginConfig().isRealisticTrees() && isWood(event.getBlock().getRelative(BlockFace.UP).getType())) {
-            Tree tree = new Tree(event.getBlock(), this.fancyPhysics);
+        if (isWood(event.getBlock().getRelative(BlockFace.UP).getType()) && this.fancyPhysics.getPluginConfig().isRealisticTrees()) {
+            Tree tree;
+            if(isWood(event.getBlock().getType())) {
+                tree = new Tree(event.getBlock(), this.fancyPhysics);
+            } else {
+                tree = new Tree(event.getBlock().getRelative(BlockFace.UP), this.fancyPhysics);
+                if(!tree.isNatural()) return false;
+                tree.getStem().forEach(block -> replaceWithFallingBlock(block, tree.getOrigin()));
+                tree.getLeaves().forEach(block -> replaceWithFallingBlock(block, tree.getOrigin()));
+                replaceWithFallingBlock(tree.getOrigin(), tree.getOrigin());
+                return false;
+            }
 
             if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 4 && !event.getBlock().getType().name().contains("STRIPPED") && !event.getBlock().getType().name().contains("FENCE")) {
                 event.getBlock().setType(getStripedLog(event.getBlock().getType()));
@@ -86,6 +99,34 @@ public class BlockBreakListener implements Listener {
             if(fancyPhysics.getPluginConfig().isTreeRegeneration()) regenerate(tree, fancyPhysics.getPluginConfig().getTreeRegenerationDelay());
         }
         return true;
+    }
+
+    private void replaceWithFallingBlock(Block block, Block origin) {
+        final BlockData blockData = block.getType().createBlockData();
+        if(block.getType() == Material.AIR) return;
+        if(block != origin && block.getRelative(BlockFace.DOWN).getType().isSolid() && !isWood(block.getRelative(BlockFace.DOWN).getType()) && !block.getRelative(BlockFace.DOWN).getType().name().contains("LEAVES")) return;
+        block.setType(Material.AIR);
+
+        block.getWorld().spawn(block.getLocation(), BlockDisplay.class, blockDisplay -> {
+            blockDisplay.setBlock(blockData);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+
+                Transformation transformation = new Transformation(
+                        new Vector3f(0, -1.1F, 0),
+                        blockDisplay.getTransformation().getLeftRotation(),
+                        blockDisplay.getTransformation().getScale(),
+                        blockDisplay.getTransformation().getRightRotation()
+                );
+                blockDisplay.setInterpolationDuration(5);
+                blockDisplay.setInterpolationDelay(-1);
+                blockDisplay.setTransformation(transformation);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
+                    block.getRelative(BlockFace.DOWN).setType(blockData.getMaterial());
+                    blockDisplay.remove();
+                }, 5L);
+            }, 2L);
+        });
+
     }
 
     private void regenerate(Tree tree, int seconds) {

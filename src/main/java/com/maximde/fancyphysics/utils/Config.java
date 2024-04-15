@@ -43,7 +43,7 @@ public class Config {
     private int treeRegenerationDelay;
     private int explosionRegenerationDelay;
     private boolean affectedBlocksInPlayerStats;
-
+    private int particleAnimationSpeed;
     public Config() {
         String[] settingsPhysicsEnabled = {
                 "Sounds",
@@ -86,6 +86,7 @@ public class Config {
         if(!cfg.isSet("Regeneration.TreeRegeneration.Delay")) cfg.set("Regeneration.TreeRegeneration.Delay", 10);
         if(!cfg.isSet("Regeneration.ExplosionRegeneration.Delay")) cfg.set("Regeneration.ExplosionRegeneration.Delay", 10);
 
+        if(!cfg.isSet("Physics.ParticlesAnimationSpeedTicks")) cfg.set("Physics.ParticlesAnimationSpeedTicks", 40);
 
         if(!cfg.isSet("Physics.TreeScanMaxStemSize")) cfg.set("Physics.TreeScanMaxStemSize", 200);
         if(!cfg.isSet("Physics.TreeScanMaxLeavesSize")) cfg.set("Physics.TreeScanMaxLeavesSize", 260);
@@ -149,6 +150,7 @@ public class Config {
         treeRegenerationDelay = cfg.getInt("Regeneration.TreeRegeneration.Delay");
         explosionRegenerationDelay = cfg.getInt("Regeneration.ExplosionRegeneration.Delay");
         affectedBlocksInPlayerStats = cfg.getBoolean("Physics.AffectedBlocksInPlayerStatistic");
+        particleAnimationSpeed = cfg.getInt("Physics.ParticlesAnimationSpeedTicks");
     }
 
     public void reload() {

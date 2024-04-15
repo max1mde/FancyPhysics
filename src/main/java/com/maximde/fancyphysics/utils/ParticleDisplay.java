@@ -13,6 +13,7 @@ import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ParticleDisplay {
@@ -186,21 +187,25 @@ public class ParticleDisplay {
             var rotationLeft = blockDisplay.getTransformation().getLeftRotation();
             var rotationRight = blockDisplay.getTransformation().getLeftRotation();
             if(this.fancyPhysics.getPluginConfig().isParticleRotation()) {
-                rotationLeft = new Quaternionf(x * randomZ, x * randomZ, x * randomZ, 0);
-                rotationRight = new Quaternionf(x * randomZ, x * randomZ, x * randomZ, 0);
+                rotationLeft = new Quaternionf(x * randomZ / 2, x * randomZ / 2, x * randomZ / 2, 0);
+                rotationRight = new Quaternionf(x * randomZ / 2, x * randomZ / 2, x * randomZ / 2, 0);
             }
+
+            Vector3f scale = new Vector3f(1F / 20F * x,1F / 20F * x,1F / 20F * x);
+
+            if(secondBelow || firstBelow) scale = new Vector3f(0.9F,0.9F,0.9F);
 
             Transformation transformationMove = new Transformation(
                     translationMove,
                     rotationLeft,
-                    new Vector3f(1F / 100F * x,1F / 100F * x,1F / 100F * x),
+                    scale,
                     rotationRight
             );
-            blockDisplay.setInterpolationDuration(35);
+            blockDisplay.setInterpolationDuration(fancyPhysics.getPluginConfig().getParticleAnimationSpeed());
             blockDisplay.setInterpolationDelay(-1);
             blockDisplay.setTransformation(transformationMove);
             blockDisplay.setViewRange(5);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, this::removeDisplay, 35L);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, this::removeDisplay, fancyPhysics.getPluginConfig().getParticleAnimationSpeed());
         }, 2L);
     }
 
