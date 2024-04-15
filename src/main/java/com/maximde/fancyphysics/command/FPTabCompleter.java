@@ -36,9 +36,13 @@ public class FPTabCompleter implements TabCompleter {
 
         if (args.length == 1) {
             commands.add("reload");
-            commands.add("settings");
+            //commands.add("settings");
             StringUtil.copyPartialMatches(args[0], commands, completions);
         }
+
+
+        //TODO TEMP DISABLED
+        if(true) return completions;
 
         /*
          * Add all keys from the config

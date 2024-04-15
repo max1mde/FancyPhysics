@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.maximde'
-version = '2.9.4'
+version = '3.0.0'
 
 repositories {
     mavenCentral()

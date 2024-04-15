@@ -26,7 +26,7 @@ public class FPCommand implements CommandExecutor {
          */
         if(sender instanceof Player player) {
             if(!player.hasPermission("fancyphysics.commands") && !player.hasPermission("fancyphysics.admin")) {
-                player.sendMessage(fancyPhysics.red + "No permission!");
+                player.sendMessage(fancyPhysics.primaryColor + "Running Fancy Physics on version " + fancyPhysics.getDescription().getVersion() + " made by MaximDe!" + fancyPhysics.green + "\nDownload here: https://www.spigotmc.org/resources/110500/");
                 return false;
             }
         }
@@ -54,6 +54,8 @@ public class FPCommand implements CommandExecutor {
             return false;
         }
 
+        //TODO settings currently disabled
+        if(true) return false;
         if(args[0].equalsIgnoreCase("settings")) {
             for(String key : fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false)) {
                 if(!args[1].equalsIgnoreCase(key)) continue;
@@ -132,12 +134,13 @@ public class FPCommand implements CommandExecutor {
     }
 
     private void sendInfoMessage(CommandSender sender) {
+
         sender.sendMessage(fancyPhysics.primaryColor + "\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9 \u2728 FANCY PHYSICS \u2728 \u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8");
         final var command = "/fancyphysics ";
         sender.sendMessage(fancyPhysics.secondaryColor + command + "reload");
-        for(String key : fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false)) {
+        /*for(String key : fancyPhysics.getPluginConfig().getCfg().getConfigurationSection("Physics").getKeys(false)) {
             sender.sendMessage(fancyPhysics.secondaryColor + command + key.toLowerCase() + fancyPhysics.green + " <value> ...");
-        }
+        }*/
         sender.sendMessage(fancyPhysics.primaryColor + "\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9\u22D9 \u2728 FANCY PHYSICS \u2728 \u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8\u22D8");
     }
 
