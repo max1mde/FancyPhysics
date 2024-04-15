@@ -123,9 +123,6 @@ public class ParticleDisplay {
         if(material == null) material = location.getBlock().getType();
         final BlockData blockData = material.createBlockData();
         if(this.fancyPhysics.displayList.size() > this.fancyPhysics.getPluginConfig().getMaxParticleCount()) return;
-        final var entiysInChunk = location.getChunk().getEntities().length;
-        if(entiysInChunk > 1000 && this.fancyPhysics.getPluginConfig().isPerformanceMode()) return;
-        if(this.fancyPhysics.getPluginConfig().isPerformanceMode() && (entiysInChunk % 2 == 0) && entiysInChunk > 500) return; //remove some of the particles but not all
 
         loc.getWorld().spawn(loc, BlockDisplay.class, blockDisplay -> {
             Vector3f size = new Vector3f(this.startSize,this.startSize,this.startSize);

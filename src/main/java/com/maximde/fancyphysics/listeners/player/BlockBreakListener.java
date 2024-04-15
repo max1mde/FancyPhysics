@@ -16,6 +16,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public class BlockBreakListener implements Listener {
     private final FancyPhysics fancyPhysics;
@@ -40,8 +41,7 @@ public class BlockBreakListener implements Listener {
      * Creates a new Tree object and plays a break animation
      */
     private boolean manageTreePhysics(BlockBreakEvent event) {
-        if (isWood(event.getBlock().getType()) && this.fancyPhysics.getPluginConfig().isRealisticTrees() &&
-                event.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR && isWood(event.getBlock().getRelative(BlockFace.UP).getType())) {
+        if (isWood(event.getBlock().getType()) && this.fancyPhysics.getPluginConfig().isRealisticTrees() && isWood(event.getBlock().getRelative(BlockFace.UP).getType())) {
             Tree tree = new Tree(event.getBlock(), this.fancyPhysics);
 
             if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 4 && !event.getBlock().getType().name().contains("STRIPPED") && !event.getBlock().getType().name().contains("FENCE")) {
@@ -82,7 +82,7 @@ public class BlockBreakListener implements Listener {
             TreeBreakEvent treeBreakEvent = new TreeBreakEvent(tree);
             Bukkit.getServer().getPluginManager().callEvent(treeBreakEvent);
             if (treeBreakEvent.isCancelled()) return true;
-            tree.breakWithFallAnimation();
+            tree.breakWithFallAnimation(Optional.of(event.getPlayer()));
             if(fancyPhysics.getPluginConfig().isTreeRegeneration()) regenerate(tree, fancyPhysics.getPluginConfig().getTreeRegenerationDelay());
         }
         return true;
@@ -95,6 +95,7 @@ public class BlockBreakListener implements Listener {
                 if(block.getType() != Material.AIR) continue;
                 block.setType(tree.getOldBlockList().get(location));
             }
+            tree.getOrigin().setType(tree.getWood_material());
         },  20L * seconds);
     }
 

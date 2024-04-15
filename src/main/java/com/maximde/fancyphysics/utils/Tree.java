@@ -7,14 +7,13 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+
+import java.util.*;
 
 public class Tree {
     /**
@@ -25,10 +24,12 @@ public class Tree {
     /**
      * The block that was broken by the player
      */
+    @Getter
     private final Block origin;
     /**
      * The material of the tree's stem.
      */
+    @Getter
     private final Material wood_material;
     /**
      * The material of the tree's leaves.
@@ -59,7 +60,13 @@ public class Tree {
     /**
      * Breaks the tree with a falling animation if the tree is natural.
      */
-    public void breakWithFallAnimation() {
+    public void breakWithFallAnimation(Optional<Player> player) {
+        player.ifPresent(value -> {
+            if(fancyPhysics.getPluginConfig().isAffectedBlocksInPlayerStats()) {
+                value.incrementStatistic(Statistic.MINE_BLOCK, this.wood_material, this.stem.size());
+                value.incrementStatistic(Statistic.MINE_BLOCK, this.leave_material, this.leaves.size());
+            }
+        });
         if(!isNatural) return;
         for (Block b : this.stem)  spawnDisplay(b);
         for (Block b : this.leaves) spawnDisplay(b);

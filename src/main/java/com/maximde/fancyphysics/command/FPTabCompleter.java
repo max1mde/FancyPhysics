@@ -73,7 +73,6 @@ public class FPTabCompleter implements TabCompleter {
                         } else {
                             commands.add(val);
                         }
-
                     }
                 }
             }

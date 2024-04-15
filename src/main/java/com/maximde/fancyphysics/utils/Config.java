@@ -42,6 +42,7 @@ public class Config {
     private boolean treeChopDelay;
     private int treeRegenerationDelay;
     private int explosionRegenerationDelay;
+    private boolean affectedBlocksInPlayerStats;
 
     public Config() {
         String[] settingsPhysicsEnabled = {
@@ -58,7 +59,8 @@ public class Config {
                 "FallingBlockPhysics",
                 "NaturalDropsOnExplode",
                 "BlockCrackOnFall",
-                "TreeChopDelay"};
+                "TreeChopDelay",
+                "AffectedBlocksInPlayerStatistic"};
 
         String[] settingsPhysicsDisabled = {
                 "TrapdoorPhysics",
@@ -146,6 +148,7 @@ public class Config {
         treeChopDelay = cfg.getBoolean("Physics.TreeChopDelay");
         treeRegenerationDelay = cfg.getInt("Regeneration.TreeRegeneration.Delay");
         explosionRegenerationDelay = cfg.getInt("Regeneration.ExplosionRegeneration.Delay");
+        affectedBlocksInPlayerStats = cfg.getBoolean("Physics.AffectedBlocksInPlayerStatistic");
     }
 
     public void reload() {
