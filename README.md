@@ -30,25 +30,6 @@
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233623.864.png?raw=true)
 ```
 /fancyphysics reload
-/fancyphysics settings RealisticExplosion enable/disable
-/fancyphysics settings EntityDeathParticles enable/disable
-/fancyphysics settings 3DBlockParticles enable/disable
-/fancyphysics settings DamageParticles enable/disable
-/fancyphysics settings ParticleRotation enable/disable
-/fancyphysics settings PerformanceMode enable/disable
-/fancyphysics settings RealisticTrees enable/disable
-/fancyphysics settings DropSaplings enable/disable
-/fancyphysics settings MaxParticleCount <value>
-/fancyphysics settings TrapdoorPhysics enable/disable
-/fancyphysics settings SprintDoorBreak enable/disable
-/fancyphysics settings SprintGlassBreak enable/disable
-/fancyphysics settings VisualCrafting enable/disable
-/fancyphysics settings NaturalDropsOnExplode enable/disable
-/fancyphysics settings FlyUpParticles enable/disable
-/fancyphysics settings FallingBlockPhysics enable/disable
-/fancyphysics settings BlockCrackOnFall enable/disable
-/fancyphysics settings BlockParticleBlackList add/remove <material>
-/fancyphysics settings DisabledWorldsList add/remove <world> 
 ```
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233602.684.png?raw=true)
@@ -70,30 +51,54 @@ Spawn your own particles or cancel/modify existing particles using events in you
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_100.png?raw=true)
 ```yml
-Physics:
-  RealisticExplosion: true
-  EntityDeathParticles: true
-  3DBlockParticles: true
-  DamageParticles: true
-  ParticleRotation: true
-  PerformanceMode: true
-  RealisticTrees: true
+Sounds: true
+Explosion:
+  Physics: true
+  NaturalDrops: true
+EntityDeathParticles: true
+Particle:
+  Enabled: true
+  Animation:
+    Rotation: true
+    FlyUp: false
+    SpeedInTicks: 40
+    EndSizeMultiplier: 0.5
+  MaxAmount: 4000
+DamageParticles: true
+PerformanceMode: true
+Tree:
+  Physics: true
   DropSaplings: true
-  VisualCrafting: true
-  FallingBlockPhysics: true
-  NaturalDropsOnExplode: true
-  MaxParticleCount: 4000
-  TrapdoorPhysics: false
-  SprintDoorBreak: false
-  SprintGlassBreak: false
-  FlyUpParticles: false
-  BlockCrackOnFall: true
-  BlockParticleBlackList:
-  - END_ROD
-  ...
-  DisabledWorldsList:
-  - DisabledWorld
-  - AnotherDisabledWorld
+  ChopDelay: true
+  GravityIfInAir: true
+  AffectedBlocksInPlayerBreakBlocksStatistic: true
+  AdvancedStemScan: false
+  ScanMaxStemSize: 200
+  ScanMaxLeavesSize: 260
+  MaxInvalidScans: 2700
+  MaxInvalidBlockDistance: 2
+VisualCrafting: true
+FallingBlockPhysics: true
+BlockCrackOnFall: true
+TrapdoorPhysics: false
+SprintBreak:
+  Door: false
+  Glass: false
+Regeneration:
+  TreeRegeneration:
+    Enabled: false
+    Delay: 10
+  ExplosionRegeneration:
+    Enabled: false
+    Delay: 10
+BlockParticleBlackList:
+- END_ROD
+- POINTED_DRIPSTONE
+- CANDLE
+- ........
+DisabledWorldsList:
+- DisabledWorld
+- AnotherDisabledWorld
 ```
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233717.092.png?raw=true)
