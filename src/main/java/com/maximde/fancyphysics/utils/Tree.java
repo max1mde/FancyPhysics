@@ -63,8 +63,8 @@ public class Tree {
     public void breakWithFallAnimation(Optional<Player> player) {
         player.ifPresent(value -> {
             if(fancyPhysics.getPluginConfig().isAffectedBlocksInPlayerStats()) {
-                value.incrementStatistic(Statistic.MINE_BLOCK, this.wood_material, this.stem.size());
-                value.incrementStatistic(Statistic.MINE_BLOCK, this.leave_material, this.leaves.size());
+              if(this.stem.size() > 0)  value.incrementStatistic(Statistic.MINE_BLOCK, this.wood_material, this.stem.size());
+              if(this.leaves.size() > 0) value.incrementStatistic(Statistic.MINE_BLOCK, this.leave_material, this.leaves.size());
             }
         });
         if(!isNatural) return;

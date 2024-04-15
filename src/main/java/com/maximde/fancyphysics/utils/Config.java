@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class Config {
     private final File file = new File("plugins/FancyPhysics", "config.yml");
-    private YamlConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
+    private YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
     private boolean realisticExplosion;
     private boolean entityDeathParticles;
     private boolean blockParticles;
@@ -44,57 +44,56 @@ public class Config {
     private int explosionRegenerationDelay;
     private boolean affectedBlocksInPlayerStats;
     private int particleAnimationSpeed;
+    private boolean gravityInAir;
     public Config() {
-        String[] settingsPhysicsEnabled = {
+
+        /**
+         * True values
+         */
+        for(String s : new String[]{
                 "Sounds",
-                "RealisticExplosion",
+                "Explosion.Physics",
                 "EntityDeathParticles",
-                "3DBlockParticles",
+                "Particle.Enabled",
                 "DamageParticles",
-                "ParticleRotation",
+                "Particle.Animation.Rotation",
                 "PerformanceMode",
-                "RealisticTrees",
-                "DropSaplings",
+                "Tree.Physics",
+                "Tree.DropSaplings",
                 "VisualCrafting",
                 "FallingBlockPhysics",
-                "NaturalDropsOnExplode",
+                "Explosion.NaturalDrops",
                 "BlockCrackOnFall",
-                "TreeChopDelay",
-                "AffectedBlocksInPlayerStatistic"};
+                "Tree.ChopDelay",
+                "Tree.GravityIfInAir",
+                "Tree.AffectedBlocksInPlayerBreakBlocksStatistic"}) setIfNot(s, true);
 
-        String[] settingsPhysicsDisabled = {
+        /**
+         * False values
+         */
+        for(String s : new String[]{
                 "TrapdoorPhysics",
-                "SprintDoorBreak",
-                "SprintGlassBreak",
-                "FlyUpParticles",
-                "AdvancedStemScan"
-        };
+                "SprintBreak.Door",
+                "SprintBreak.Glass",
+                "Particle.Animation.FlyUp",
+                "Tree.AdvancedStemScan"
+        }) setIfNot(s, false);
 
-        for(String s : settingsPhysicsEnabled) {
-            if(cfg.isSet("Physics."+s)) continue;
-            cfg.set("Physics." + s, true);
-        }
+        setIfNot("Regeneration.TreeRegeneration.Enabled", false);
+        setIfNot("Regeneration.ExplosionRegeneration.Enabled", false);
 
-        for(String s : settingsPhysicsDisabled) {
-            if(cfg.isSet("Physics."+s)) continue;
-            cfg.set("Physics." + s, false);
-        }
+        setIfNot("Regeneration.TreeRegeneration.Delay", 10);
+        setIfNot("Regeneration.ExplosionRegeneration.Delay", 10);
 
-        if(!cfg.isSet("Regeneration.TreeRegeneration.Enabled")) cfg.set("Regeneration.TreeRegeneration.Enabled", false);
-        if(!cfg.isSet("Regeneration.ExplosionRegeneration.Enabled")) cfg.set("Regeneration.ExplosionRegeneration.Enabled", false);
+        setIfNot("Particle.Animation.SpeedInTicks", 40);
 
-        if(!cfg.isSet("Regeneration.TreeRegeneration.Delay")) cfg.set("Regeneration.TreeRegeneration.Delay", 10);
-        if(!cfg.isSet("Regeneration.ExplosionRegeneration.Delay")) cfg.set("Regeneration.ExplosionRegeneration.Delay", 10);
-
-        if(!cfg.isSet("Physics.ParticlesAnimationSpeedTicks")) cfg.set("Physics.ParticlesAnimationSpeedTicks", 40);
-
-        if(!cfg.isSet("Physics.TreeScanMaxStemSize")) cfg.set("Physics.TreeScanMaxStemSize", 200);
-        if(!cfg.isSet("Physics.TreeScanMaxLeavesSize")) cfg.set("Physics.TreeScanMaxLeavesSize", 260);
-        if(!cfg.isSet("Physics.TreeMaxInvalidScans")) cfg.set("Physics.TreeMaxInvalidScans", 2700);
-        if(!cfg.isSet("Physics.TreeMaxInvalidBlockDistance")) cfg.set("Physics.TreeMaxInvalidBlockDistance", 2);
-        if(!cfg.isSet("Physics.MaxParticleCount")) cfg.set("Physics.MaxParticleCount", 4000);
-        if(!cfg.isSet("Physics.BlockParticleBlackList")) cfg.set("Physics.BlockParticleBlackList", getDefaultBlackList());
-        if(!cfg.isSet("Physics.DisabledWorldsList")) cfg.set("Physics.DisabledWorldsList", new ArrayList<>(Arrays.asList("DisabledWorld", "AnotherDisabledWorld")));
+        setIfNot("Tree.ScanMaxStemSize", 200);
+        setIfNot("Tree.ScanMaxLeavesSize", 260);
+        setIfNot("Tree.MaxInvalidScans", 2700);
+        setIfNot("Tree.MaxInvalidBlockDistance", 2);
+        setIfNot("Particle.MaxAmount", 4000);
+        setIfNot("BlockParticleBlackList", getDefaultBlackList());
+        setIfNot("DisabledWorldsList", new ArrayList<>(Arrays.asList("DisabledWorld", "AnotherDisabledWorld")));
         saveConfig();
         initValues();
     }
@@ -119,38 +118,39 @@ public class Config {
 
 
     private void initValues() {
-        realisticExplosion = cfg.getBoolean("Physics.RealisticExplosion");
-        entityDeathParticles = cfg.getBoolean("Physics.EntityDeathParticles");
-        blockParticles = cfg.getBoolean("Physics.3DBlockParticles");
-        trapdoorPhysics = cfg.getBoolean("Physics.TrapdoorPhysics");
-        damageParticles = cfg.getBoolean("Physics.DamageParticles");
-        particleRotation = cfg.getBoolean("Physics.ParticleRotation");
-        maxParticleCount = cfg.getInt("Physics.MaxParticleCount");
-        realisticTrees = cfg.getBoolean("Physics.RealisticTrees");
-        dropSaplings = cfg.getBoolean("Physics.DropSaplings");
-        performanceMode = cfg.getBoolean("Physics.PerformanceMode");
-        sprintDoorBreak = cfg.getBoolean("Physics.SprintDoorBreak");
-        sprintGlassBreak = cfg.getBoolean("Physics.SprintGlassBreak");
-        visualCrafting = cfg.getBoolean("Physics.VisualCrafting");
-        naturalDropsOnExplode = cfg.getBoolean("Physics.NaturalDropsOnExplode");
-        flyUpParticles = cfg.getBoolean("Physics.FlyUpParticles");
-        fallingBlockPhysics = cfg.getBoolean("Physics.FallingBlockPhysics");
-        blockCrackOnFall = cfg.getBoolean("Physics.BlockCrackOnFall");
+        realisticExplosion = cfg.getBoolean("Explosion.Physics");
+        entityDeathParticles = cfg.getBoolean("EntityDeathParticles");
+        blockParticles = cfg.getBoolean("Particle.Enabled");
+        trapdoorPhysics = cfg.getBoolean("TrapdoorPhysics");
+        damageParticles = cfg.getBoolean("DamageParticles");
+        particleRotation = cfg.getBoolean("Particle.Animation.Rotation");
+        maxParticleCount = cfg.getInt("Particle.MaxAmount");
+        realisticTrees = cfg.getBoolean("Tree.Physics");
+        dropSaplings = cfg.getBoolean("Tree.DropSaplings");
+        performanceMode = cfg.getBoolean("PerformanceMode");
+        sprintDoorBreak = cfg.getBoolean("SprintBreak.Door");
+        sprintGlassBreak = cfg.getBoolean("SprintBreak.Glass");
+        visualCrafting = cfg.getBoolean("VisualCrafting");
+        naturalDropsOnExplode = cfg.getBoolean("Explosion.NaturalDrops");
+        flyUpParticles = cfg.getBoolean("Particle.Animation.FlyUp");
+        fallingBlockPhysics = cfg.getBoolean("FallingBlockPhysics");
+        blockCrackOnFall = cfg.getBoolean("BlockCrackOnFall");
         treeRegeneration = cfg.getBoolean("Regeneration.TreeRegeneration.Enabled");
         explosionRegeneration = cfg.getBoolean("Regeneration.ExplosionRegeneration.Enabled");
-        blockParticleBlackList = cfg.getStringList("Physics.BlockParticleBlackList");
-        disabledWorldsList = cfg.getStringList("Physics.DisabledWorldsList");
-        advancedStemScan = cfg.getBoolean("Physics.AdvancedStemScan");
-        treeMaxLeavesSize = cfg.getInt("Physics.TreeScanMaxLeavesSize");
-        treeMaxStemSize = cfg.getInt("Physics.TreeScanMaxStemSize");
-        treeMaxInvalidScans = cfg.getInt("Physics.TreeMaxInvalidScans");
-        treeMaxInvalidBlockDistance = cfg.getInt("Physics.TreeMaxInvalidBlockDistance");
-        sounds = cfg.getBoolean("Physics.Sounds");
-        treeChopDelay = cfg.getBoolean("Physics.TreeChopDelay");
+        blockParticleBlackList = cfg.getStringList("BlockParticleBlackList");
+        disabledWorldsList = cfg.getStringList("DisabledWorldsList");
+        advancedStemScan = cfg.getBoolean("Tree.AdvancedStemScan");
+        treeMaxLeavesSize = cfg.getInt("Tree.ScanMaxLeavesSize");
+        treeMaxStemSize = cfg.getInt("Tree.ScanMaxStemSize");
+        treeMaxInvalidScans = cfg.getInt("Tree.MaxInvalidScans");
+        treeMaxInvalidBlockDistance = cfg.getInt("Tree.MaxInvalidBlockDistance");
+        sounds = cfg.getBoolean("Sounds");
+        treeChopDelay = cfg.getBoolean("Tree.ChopDelay");
         treeRegenerationDelay = cfg.getInt("Regeneration.TreeRegeneration.Delay");
         explosionRegenerationDelay = cfg.getInt("Regeneration.ExplosionRegeneration.Delay");
-        affectedBlocksInPlayerStats = cfg.getBoolean("Physics.AffectedBlocksInPlayerStatistic");
-        particleAnimationSpeed = cfg.getInt("Physics.ParticlesAnimationSpeedTicks");
+        affectedBlocksInPlayerStats = cfg.getBoolean("Tree.AffectedBlocksInPlayerBreakBlocksStatistic");
+        particleAnimationSpeed = cfg.getInt("Particle.Animation.SpeedInTicks");
+        gravityInAir = cfg.getBoolean("Tree.GravityIfInAir");
     }
 
     public void reload() {
@@ -164,6 +164,10 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setIfNot(String path, Object value) {
+        if(!cfg.isSet(path)) setValue(path, value);
     }
 
     public void setValue(String path, Object value) {

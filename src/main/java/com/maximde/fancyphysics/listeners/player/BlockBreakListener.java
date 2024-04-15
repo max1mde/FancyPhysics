@@ -51,6 +51,7 @@ public class BlockBreakListener implements Listener {
             } else {
                 tree = new Tree(event.getBlock().getRelative(BlockFace.UP), this.fancyPhysics);
                 if(!tree.isNatural()) return false;
+                if(!fancyPhysics.getPluginConfig().isGravityInAir()) return false;
                 tree.getStem().forEach(block -> replaceWithFallingBlock(block, tree.getOrigin()));
                 tree.getLeaves().forEach(block -> replaceWithFallingBlock(block, tree.getOrigin()));
                 replaceWithFallingBlock(tree.getOrigin(), tree.getOrigin());
