@@ -45,6 +45,7 @@ public class Config {
     private boolean affectedBlocksInPlayerStats;
     private int particleAnimationSpeed;
     private boolean gravityInAir;
+    private double particleEndSizeMultiplier;
     public Config() {
 
         /**
@@ -86,6 +87,7 @@ public class Config {
         setIfNot("Regeneration.ExplosionRegeneration.Delay", 10);
 
         setIfNot("Particle.Animation.SpeedInTicks", 40);
+        setIfNot("Particle.Animation.EndSizeMultiplier", 0.5D);
 
         setIfNot("Tree.ScanMaxStemSize", 200);
         setIfNot("Tree.ScanMaxLeavesSize", 260);
@@ -151,6 +153,7 @@ public class Config {
         affectedBlocksInPlayerStats = cfg.getBoolean("Tree.AffectedBlocksInPlayerBreakBlocksStatistic");
         particleAnimationSpeed = cfg.getInt("Particle.Animation.SpeedInTicks");
         gravityInAir = cfg.getBoolean("Tree.GravityIfInAir");
+        particleEndSizeMultiplier = cfg.getDouble("Particle.Animation.EndSizeMultiplier");
     }
 
     public void reload() {

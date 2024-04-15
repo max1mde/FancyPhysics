@@ -191,9 +191,14 @@ public class ParticleDisplay {
                 rotationRight = new Quaternionf(x * randomZ / 2, x * randomZ / 2, x * randomZ / 2, 0);
             }
 
+
             Vector3f scale = new Vector3f(1F / 20F * x,1F / 20F * x,1F / 20F * x);
 
-            if(secondBelow || firstBelow) scale = new Vector3f(0.9F,0.9F,0.9F);
+            if(secondBelow || firstBelow) scale = new Vector3f(this.startSize,this.startSize,this.startSize);
+
+            float multiplier = (float) fancyPhysics.getPluginConfig().getParticleEndSizeMultiplier();
+
+            scale.add(new Vector3f(multiplier, multiplier, multiplier));
 
             Transformation transformationMove = new Transformation(
                     translationMove,
