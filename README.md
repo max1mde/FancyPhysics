@@ -10,14 +10,17 @@
 <a href="https://jitpack.io/#max1mde/FancyPhysics"><img src="https://jitpack.io/v/max1mde/FancyPhysics.svg" alt="jitpack"></a>  
 </div>
 
-https://modrinth.com/plugin/fancy-physics
-
 <div align="center">
 <img src="https://github.com/max1mde/images/blob/main/323395728d1b2021a47c225be37ec656e13b1111_1.png?raw=true">
 </div>
 
 > [!NOTE]
 > Works **without** a resourcepack/mod!
+
+# Links:
+Modrinth: https://modrinth.com/plugin/fancy-physics
+SpigotMC: https://www.spigotmc.org/resources/110500
+
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233852.757.png?raw=true)
 - Block particles
