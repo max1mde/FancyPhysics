@@ -18,7 +18,7 @@
 > Works **without** a resourcepack/mod!
 
 # Links:
-Modrinth: https://modrinth.com/plugin/fancy-physics
+Modrinth: https://modrinth.com/plugin/fancy-physics  
 SpigotMC: https://www.spigotmc.org/resources/110500
 
 
