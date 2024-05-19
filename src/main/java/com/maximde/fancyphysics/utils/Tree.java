@@ -199,7 +199,7 @@ public class Tree {
      */
     private String getLeaveType(Material material) {
         return switch (material.name()) {
-            case "OAK_LOG", "STRIPPED_OAK_LOG", "OAK_FENCE" -> "OAK_LEAVES";
+            case "OAK_LOG", "MUD_BRICK_WALL", "STRIPPED_OAK_LOG", "OAK_FENCE" -> "OAK_LEAVES";
             case "DARK_OAK_LOG", "STRIPPED_DARK_OAK_LOG", "DARK_OAK_FENCE" -> "DARK_OAK_LEAVES";
             case "JUNGLE_LOG", "STRIPPED_JUNGLE_LOG", "JUNGLE_FENCE" -> "JUNGLE_LEAVES";
             case "ACACIA_LOG", "STRIPPED_ACACIA_LOG", "ACACIA_FENCE" -> "ACACIA_LEAVES";

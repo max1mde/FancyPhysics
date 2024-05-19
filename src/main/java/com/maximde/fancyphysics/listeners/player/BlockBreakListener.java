@@ -58,13 +58,19 @@ public class BlockBreakListener implements Listener {
                 return false;
             }
 
-            if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 4 && !event.getBlock().getType().name().contains("STRIPPED") && !event.getBlock().getType().name().contains("FENCE")) {
+            if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 4 && !event.getBlock().getType().name().contains("STRIPPED") && !event.getBlock().getType().name().contains("MUD_BRICK_WALL") && !event.getBlock().getType().name().contains("FENCE")) {
                 event.getBlock().setType(getStripedLog(event.getBlock().getType()));
                 event.setCancelled(true);
                 return false;
             }
 
             if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 8 && event.getBlock().getType().name().contains("STRIPPED")) {
+                event.getBlock().setType(Material.MUD_BRICK_WALL);
+                event.setCancelled(true);
+                return false;
+            }
+
+            if(fancyPhysics.getPluginConfig().isTreeChopDelay() && tree.isNatural() && tree.getStem().size() > 8 && event.getBlock().getType().name().contains("MUD_BRICK_WALL")) {
                 event.getBlock().setType(getFenceFromStrippedLog(event.getBlock().getType()));
                 event.getBlock().getLocation().getWorld().spawn(event.getBlock().getLocation(), BlockDisplay.class, blockDisplay -> {
                     blockDisplay.setBlock(event.getBlock().getType().createBlockData());
@@ -73,7 +79,7 @@ public class BlockBreakListener implements Listener {
                     blockDisplay.setTransformation(new Transformation(
                             new Vector3f(-1F,0,-1F),
                             new Quaternionf(0,0,0,1),
-                            new Vector3f(3F, 1F, 3F),
+                            new Vector3f(2F, 1F, 2F),
                             new Quaternionf(0,0,0,1)
                     ));
                     Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
@@ -173,7 +179,7 @@ public class BlockBreakListener implements Listener {
 
 
     private boolean isWood(Material pMaterial) {
-        return pMaterial.name().endsWith("LOG") || pMaterial.name().endsWith("STEM") ||pMaterial.name().endsWith("FENCE");
+        return pMaterial.name().endsWith("LOG") || pMaterial.name().endsWith("MUD_BRICK_WALL") || pMaterial.name().endsWith("STEM") ||pMaterial.name().endsWith("FENCE");
     }
 
 }

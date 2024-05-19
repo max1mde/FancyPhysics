@@ -46,7 +46,7 @@ public final class FancyPhysics extends JavaPlugin {
     @Override
     public void onEnable() {
         api = new API(this);
-        this.config = new Config();
+        this.config = new Config(getDataFolder());
         this.particleGenerator = new ParticleGenerator(this);
         new Metrics(this, 18833);
         registerListeners();

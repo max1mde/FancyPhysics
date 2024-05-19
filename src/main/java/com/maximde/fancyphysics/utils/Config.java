@@ -4,14 +4,16 @@ import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Getter
 public class Config {
-    private final File file = new File("plugins/FancyPhysics", "config.yml");
-    private YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+    private File file;
+    private YamlConfiguration cfg;
     private boolean realisticExplosion;
     private boolean entityDeathParticles;
     private boolean blockParticles;
@@ -46,11 +48,18 @@ public class Config {
     private int particleAnimationSpeed;
     private boolean gravityInAir;
     private double particleEndSizeMultiplier;
-    public Config() {
 
-        /**
-         * True values
-         */
+    private File dataFolder;
+
+    public Config(File dataFolder) {
+        this.dataFolder = dataFolder;
+        checkConfigs();
+        loadConfig();
+        initDefaults();
+        initValues();
+    }
+
+    private void initDefaults() {
         for(String s : new String[]{
                 "Sounds",
                 "Explosion.Physics",
@@ -97,7 +106,6 @@ public class Config {
         setIfNot("BlockParticleBlackList", getDefaultBlackList());
         setIfNot("DisabledWorldsList", new ArrayList<>(Arrays.asList("DisabledWorld", "AnotherDisabledWorld")));
         saveConfig();
-        initValues();
     }
 
     private List<String> getDefaultBlackList() {
@@ -118,6 +126,26 @@ public class Config {
         ));
     }
 
+    public boolean isConfigEmpty() {
+        return cfg.getKeys(false).isEmpty();
+    }
+
+    private void checkConfigs() {
+        File file = new File("plugins/FancyPhysics", "config.yml");
+        if (file.exists()) return;
+
+        file.getParentFile().mkdirs();
+        try (InputStream inputStream = getClass().getResourceAsStream("/" + "config.yml")) {
+            Files.copy(inputStream, file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadConfig() {
+        file = new File("plugins/FancyPhysics", "config.yml");
+        cfg = YamlConfiguration.loadConfiguration(file);
+    }
 
     private void initValues() {
         realisticExplosion = cfg.getBoolean("Explosion.Physics");
