@@ -56,39 +56,53 @@ Spawn your own particles or cancel/modify existing particles using events in you
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_100.png?raw=true)
 ```yml
+# Fancy Physics sounds like for block crack
 Sounds: true
 Explosion:
   Physics: true
   NaturalDrops: true
 EntityDeathParticles: true
+# Block break particles
 Particle:
   Enabled: true
   Animation:
+    # Rotate the particles
     Rotation: true
+    # Blocks will just fly up and get smaller when broken
     FlyUp: false
     SpeedInTicks: 40
     EndSizeMultiplier: 0.5
+  # How many particles can exist at once on the entire server
   MaxAmount: 4000
 DamageParticles: true
 PerformanceMode: true
 Tree:
   Physics: true
   DropSaplings: true
+  # This adds like multiple stages to the broken block to make it longer to fell a tree
   ChopDelay: true
+  # If true a tree will fall on the ground if a block was broken below it
   GravityIfInAir: true
+  # Adds all the broken blocks of a tree when fallen to the players stats
   AffectedBlocksInPlayerBreakBlocksStatistic: true
   AdvancedStemScan: false
   ScanMaxStemSize: 200
   ScanMaxLeavesSize: 260
   MaxInvalidScans: 2700
   MaxInvalidBlockDistance: 2
+# Displays the currently used items in a crafting table above the actual block (One player limit)
 VisualCrafting: true
+# Breaks all blocks when falling
 FallingBlockPhysics: true
+# Adds the particle animation to blocks which fall
 BlockCrackOnFall: true
+# Adds a small opening and closing animation to trapdoors.. Just use this for testing not on a production server
 TrapdoorPhysics: false
+# When sprinting against glass or a door it will break
 SprintBreak:
   Door: false
   Glass: false
+# Regenerate certain blocks or trees when destroyed after a specific delay
 Regeneration:
   TreeRegeneration:
     Enabled: false
@@ -96,14 +110,15 @@ Regeneration:
   ExplosionRegeneration:
     Enabled: false
     Delay: 10
+# There will be no particles for the following blocks when broken
 BlockParticleBlackList:
-- END_ROD
-- POINTED_DRIPSTONE
-- CANDLE
-- ........
+  - END_ROD
+  - POINTED_DRIPSTONE
+....
+# In these worlds no physics will be applied
 DisabledWorldsList:
-- DisabledWorld
-- AnotherDisabledWorld
+  - DisabledWorld
+  - AnotherDisabledWorld
 ```
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233717.092.png?raw=true)
