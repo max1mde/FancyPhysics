@@ -27,6 +27,13 @@ public class MoveListener implements Listener {
         if(!this.fancyPhysics.getPluginConfig().isSprintDoorBreak() && !this.fancyPhysics.getPluginConfig().isSprintGlassBreak()) return;
         Player player = event.getPlayer();
         if(!player.isSprinting()) return;
+        if(this.fancyPhysics.getPluginConfig().isEnableSpawnProtection()) {
+            if(this.fancyPhysics.getPluginConfig().getSpawn().getWorld() == event.getPlayer().getWorld()) {
+                if(this.fancyPhysics.getPluginConfig().getSpawn().distance(event.getPlayer().getLocation()) < this.fancyPhysics.getPluginConfig().getProtectionRadius()) {
+                    return;
+                }
+            }
+        }
         Block block = player.getTargetBlock(null, 1);
 
         if (isBreakable(block.getType()) || isBreakable(block.getRelative(BlockFace.UP).getType())) {

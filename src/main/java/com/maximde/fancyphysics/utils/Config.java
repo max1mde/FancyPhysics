@@ -1,6 +1,8 @@
 package com.maximde.fancyphysics.utils;
 
 import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +52,9 @@ public class Config {
     private double particleEndSizeMultiplier;
 
     private File dataFolder;
+    private Location spawn;
+    private int protectionRadius;
+    private boolean enableSpawnProtection;
 
     public Config(File dataFolder) {
         this.dataFolder = dataFolder;
@@ -182,6 +187,15 @@ public class Config {
         particleAnimationSpeed = cfg.getInt("Particle.Animation.SpeedInTicks");
         gravityInAir = cfg.getBoolean("Tree.GravityIfInAir");
         particleEndSizeMultiplier = cfg.getDouble("Particle.Animation.EndSizeMultiplier");
+
+        this.enableSpawnProtection = cfg.getBoolean("SpawnPhysicsProtection.Enabled");
+        this.protectionRadius = cfg.getInt("SpawnPhysicsProtection.RadiusInBlocks");
+        if(enableSpawnProtection) {
+            this.spawn = new Location(Bukkit.getWorld(cfg.getString("SpawnPhysicsProtection.Location.world")),
+                    cfg.getDouble("SpawnPhysicsProtection.Location.x"),
+                    cfg.getDouble("SpawnPhysicsProtection.Location.y"),
+                    cfg.getDouble("SpawnPhysicsProtection.Location.z"));
+        }
     }
 
     public void reload() {

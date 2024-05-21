@@ -31,6 +31,13 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if(event.isCancelled()) return;
         if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getPlayer().getLocation().getWorld().getName())) return;
+        if(this.fancyPhysics.getPluginConfig().isEnableSpawnProtection()) {
+            if(this.fancyPhysics.getPluginConfig().getSpawn().getWorld() == event.getPlayer().getWorld()) {
+                if(this.fancyPhysics.getPluginConfig().getSpawn().distance(event.getPlayer().getLocation()) < this.fancyPhysics.getPluginConfig().getProtectionRadius()) {
+                    return;
+                }
+            }
+        }
         boolean playParticles = manageTreePhysics(event);
         if(!playParticles) return;
         if(fancyPhysics.getPluginConfig().isFlyUpParticles()) {

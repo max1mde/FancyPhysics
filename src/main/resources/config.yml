@@ -1,5 +1,13 @@
 # Fancy Physics sounds like for block crack
 Sounds: true
+SpawnPhysicsProtection:
+  Enabled: false
+  RadiusInBlocks: 50
+  Location:
+    world: "world"
+    x: 1
+    y: 1
+    z: 1
 Explosion:
   Physics: true
   NaturalDrops: true
