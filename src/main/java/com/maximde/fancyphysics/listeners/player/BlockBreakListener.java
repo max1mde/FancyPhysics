@@ -14,11 +14,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.util.Transformation;
-import org.bukkit.util.Vector;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 public class BlockBreakListener implements Listener {
@@ -30,6 +28,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if(event.isCancelled()) return;
+
         if(this.fancyPhysics.getPluginConfig().getDisabledWorldsList().contains(event.getPlayer().getLocation().getWorld().getName())) return;
         if(this.fancyPhysics.getPluginConfig().isEnableSpawnProtection()) {
             if(this.fancyPhysics.getPluginConfig().getSpawn().getWorld() == event.getPlayer().getWorld()) {
@@ -40,6 +39,7 @@ public class BlockBreakListener implements Listener {
         }
         boolean playParticles = manageTreePhysics(event);
         if(!playParticles) return;
+        if(!this.fancyPhysics.getPluginConfig().isBlockBreakingParticles()) return;
         if(fancyPhysics.getPluginConfig().isFlyUpParticles()) {
             this.fancyPhysics.getParticleGenerator().simulateBigBlockParticle(event.getBlock().getLocation(), event.getBlock().getType());
         } else {

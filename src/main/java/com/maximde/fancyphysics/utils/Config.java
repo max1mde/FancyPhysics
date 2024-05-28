@@ -19,6 +19,7 @@ public class Config {
     private boolean realisticExplosion;
     private boolean entityDeathParticles;
     private boolean blockParticles;
+    private boolean blockBreakingParticles;
     private boolean trapdoorPhysics;
     private boolean damageParticles;
     private boolean particleRotation;
@@ -96,6 +97,7 @@ public class Config {
 
         setIfNot("Regeneration.TreeRegeneration.Enabled", false);
         setIfNot("Regeneration.ExplosionRegeneration.Enabled", false);
+        setIfNot("BlockBreakingParticlesByPlayer", true);
 
         setIfNot("Regeneration.TreeRegeneration.Delay", 10);
         setIfNot("Regeneration.ExplosionRegeneration.Delay", 10);
@@ -158,6 +160,7 @@ public class Config {
         blockParticles = cfg.getBoolean("Particle.Enabled");
         trapdoorPhysics = cfg.getBoolean("TrapdoorPhysics");
         damageParticles = cfg.getBoolean("DamageParticles");
+        blockBreakingParticles = cfg.getBoolean("BlockBreakingParticlesByPlayer");
         particleRotation = cfg.getBoolean("Particle.Animation.Rotation");
         maxParticleCount = cfg.getInt("Particle.MaxAmount");
         realisticTrees = cfg.getBoolean("Tree.Physics");

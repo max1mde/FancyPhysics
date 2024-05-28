@@ -12,7 +12,7 @@ Explosion:
   Physics: true
   NaturalDrops: true
 EntityDeathParticles: true
-# Block break particles
+BlockBreakingParticlesByPlayer: true
 Particle:
   Enabled: true
   Animation:
