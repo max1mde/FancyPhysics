@@ -117,3 +117,12 @@ BlockParticleBlackList:
 DisabledWorldsList:
   - DisabledWorld
   - AnotherDisabledWorld
+# If you are bridging and this option is enabled, at some point the blocks will fall down without support below
+BlockPhysics:
+  Enabled: false
+  Blocks:
+    DEFAULT:
+      # Max bridging lang till the blocks fall down
+      Limit: 10
+    STONE:
+      Limit : 12

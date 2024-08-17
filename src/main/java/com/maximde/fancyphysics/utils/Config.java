@@ -3,17 +3,17 @@ package com.maximde.fancyphysics.utils;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Getter
 public class Config {
+
     private File file;
     private YamlConfiguration cfg;
     private boolean realisticExplosion;
@@ -51,6 +51,9 @@ public class Config {
     private int particleAnimationSpeed;
     private boolean gravityInAir;
     private double particleEndSizeMultiplier;
+
+    private boolean blockPhysicsEnabled;
+    private Map<String, Integer> blockPhysicsLimits;
 
     private File dataFolder;
     private Location spawn;
@@ -112,6 +115,9 @@ public class Config {
         setIfNot("Particle.MaxAmount", 4000);
         setIfNot("BlockParticleBlackList", getDefaultBlackList());
         setIfNot("DisabledWorldsList", new ArrayList<>(Arrays.asList("DisabledWorld", "AnotherDisabledWorld")));
+        setIfNot("BlockPhysics.Enabled", false);
+        setIfNot("BlockPhysics.Blocks.DEFAULT.Limit", 10);
+        setIfNot("BlockPhysics.Blocks.STONE.Limit", 12);
         saveConfig();
     }
 
@@ -199,6 +205,21 @@ public class Config {
                     cfg.getDouble("SpawnPhysicsProtection.Location.y"),
                     cfg.getDouble("SpawnPhysicsProtection.Location.z"));
         }
+        blockPhysicsEnabled = cfg.getBoolean("BlockPhysics.Enabled");
+        blockPhysicsLimits = new HashMap<>();
+        if (cfg.isConfigurationSection("BlockPhysics.Blocks")) {
+            for (String key : cfg.getConfigurationSection("BlockPhysics.Blocks").getKeys(false)) {
+                blockPhysicsLimits.put(key, cfg.getInt("BlockPhysics.Blocks." + key + ".Limit"));
+            }
+        }
+    }
+
+    public int getMaxBridgingLength(Material material) {
+        String materialName = material.name();
+        if (blockPhysicsLimits.containsKey(materialName)) {
+            return blockPhysicsLimits.get(materialName);
+        }
+        return blockPhysicsLimits.getOrDefault("DEFAULT", 10);
     }
 
     public void reload() {
