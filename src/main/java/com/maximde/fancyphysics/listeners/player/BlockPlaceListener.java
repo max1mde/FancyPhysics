@@ -12,10 +12,8 @@ import org.bukkit.event.Listener;
 
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class BlockPlaceListener implements Listener {
@@ -84,7 +82,6 @@ public class BlockPlaceListener implements Listener {
                 }
             }
         }
-
         return null;
     }
 
@@ -96,6 +93,8 @@ public class BlockPlaceListener implements Listener {
         for (int i = 0; i < 15; i++) {
             current = current.getRelative(BlockFace.DOWN);
             Material type = current.getType();
+
+            if(i < 12 && !current.getType().isSolid()) return false;
 
             if (type.isSolid()) {
                 solidAmount++;
