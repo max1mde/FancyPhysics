@@ -119,6 +119,6 @@ public class BlockPlaceListener implements Listener {
             public void run() {
                 fallingBlock.setGravity(true);
             }
-        }.runTaskLater(fancyPhysics, (long) (int) (Math.random() * 10));
+        }.runTaskLater(fancyPhysics, (int) (Math.random() * 10));
     }
 }
