@@ -49,7 +49,7 @@ public class BlockPlaceListener implements Listener {
 
         Material mainMaterial = startBlock.getType();
         int maxDistance = fancyPhysics.getPluginConfig().getMaxBridgingLength(mainMaterial);
-
+        if(maxDistance < 0) return;
         Block nearestSupportedBlock = findNearestSupportedBlock(startBlock, maxBlocks);
         if (nearestSupportedBlock == null) {
             scheduleBlockFall(startBlock);
