@@ -119,6 +119,14 @@ BlockParticleBlackList:
 DisabledWorldsList:
   - DisabledWorld
   - AnotherDisabledWorld
+BlockPhysics:
+  Enabled: false
+  Blocks:
+    DEFAULT:
+     # Max bridging lang till the blocks fall down
+      Limit: 10
+    STONE:
+      Limit : 12
 ```
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233717.092.png?raw=true)
