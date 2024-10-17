@@ -30,6 +30,7 @@ public class Config {
     private boolean sprintGlassBreak;
     private boolean visualCrafting;
     private boolean naturalDropsOnExplode;
+    private boolean dropsOnExplode;
     private boolean fallingBlockPhysics;
     private boolean flyUpParticles;
     private boolean blockCrackOnFall;
@@ -82,6 +83,7 @@ public class Config {
                 "VisualCrafting",
                 "FallingBlockPhysics",
                 "Explosion.NaturalDrops",
+                "Explosion.Drops",
                 "BlockCrackOnFall",
                 "Tree.ChopDelay",
                 "Tree.GravityIfInAir",
@@ -176,6 +178,7 @@ public class Config {
         sprintGlassBreak = cfg.getBoolean("SprintBreak.Glass");
         visualCrafting = cfg.getBoolean("VisualCrafting");
         naturalDropsOnExplode = cfg.getBoolean("Explosion.NaturalDrops");
+        dropsOnExplode = cfg.getBoolean("Explosion.Drops");
         flyUpParticles = cfg.getBoolean("Particle.Animation.FlyUp");
         fallingBlockPhysics = cfg.getBoolean("FallingBlockPhysics");
         blockCrackOnFall = cfg.getBoolean("BlockCrackOnFall");

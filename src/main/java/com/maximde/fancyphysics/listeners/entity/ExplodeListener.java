@@ -34,6 +34,7 @@ public class ExplodeListener implements Listener {
         if(event.isCancelled()) return;
         if(fancyPhysics.getPluginConfig().isPerformanceMode() && event.getLocation().getChunk().getEntities().length > 2000) return;
         event.setYield(40);
+        if(event.getEntity().getName().toLowerCase().contains("wind charge")) return;
         final var entitysAmount = event.getLocation().getChunk().getEntities().length;
         final var oldBlockList = new HashMap<Location, Material>();
         for (Block block : event.blockList()) {
@@ -50,13 +51,14 @@ public class ExplodeListener implements Listener {
                 oldBlockList.put(block.getLocation(), block.getType());
             }
             if(fancyPhysics.getPluginConfig().isPerformanceMode() && entitysAmount> 500) {
-                block.getLocation().getWorld().dropItem(block.getLocation(), new ItemStack(block.getType()));
+                if(fancyPhysics.getPluginConfig().isDropsOnExplode()) block.getLocation().getWorld().dropItem(block.getLocation(), new ItemStack(block.getType()));
                 block.setType(Material.AIR);
                 continue;
             }
 
             var fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation().add(0,1,0), block.getType().createBlockData());
-            if(fancyPhysics.getPluginConfig().isNaturalDropsOnExplode()) fallingBlock.setDropItem(false);
+            if(fancyPhysics.getPluginConfig().isNaturalDropsOnExplode() || !fancyPhysics.getPluginConfig().isDropsOnExplode()) fallingBlock.setDropItem(false);
+            if(!fancyPhysics.getPluginConfig().isDropsOnExplode()) fallingBlock.addScoreboardTag("NoDrop");
             fallingBlock.setVelocity(new Vector(x, y, z));
             block.setType(Material.AIR);
         }

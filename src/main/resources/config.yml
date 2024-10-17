@@ -11,6 +11,7 @@ SpawnPhysicsProtection:
 Explosion:
   Physics: true
   NaturalDrops: true
+  Drops: true
 EntityDeathParticles: true
 BlockBreakingParticlesByPlayer: true
 Particle:

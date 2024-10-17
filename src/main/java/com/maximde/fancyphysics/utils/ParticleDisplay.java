@@ -13,7 +13,6 @@ import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import java.util.Random;
-import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ParticleDisplay {
