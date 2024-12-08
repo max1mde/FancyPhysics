@@ -50,7 +50,7 @@ fancyphysics.commands
 <br>
 Spawn your own particles or cancel/modify existing particles using events in your plugin
 <br>
-[Read the documentation](https://github.com/MaximFiedler/FancyPhysics/blob/master/API.md)
+[Read the documentation](https://github.com/max1mde/FancyPhysics/blob/master/API.md)
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_99.png?raw=true)
 - Download plugin
