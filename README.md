@@ -38,6 +38,7 @@ SpigotMC: https://www.spigotmc.org/resources/110500
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233623.864.png?raw=true)
 ```
 /fancyphysics reload
+/fancyphysics clear-particles
 ```
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233602.684.png?raw=true)
@@ -130,6 +131,11 @@ BlockPhysics:
       Limit: 10
     STONE:
       Limit : 12
+BlockParticleSettings:
+  Blocks:
+    DIAMOND_ORE:
+      ParticleMaterial: DIAMOND_BLOCK
+      CustomModelData: 0
 ```
 
 ![image](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233717.092.png?raw=true)
