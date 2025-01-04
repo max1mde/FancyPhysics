@@ -82,6 +82,7 @@ public class BlockBreakListener implements Listener {
                 event.getBlock().getLocation().getWorld().spawn(event.getBlock().getLocation(), BlockDisplay.class, blockDisplay -> {
                     blockDisplay.setBlock(event.getBlock().getType().createBlockData());
                     blockDisplay.setInterpolationDuration(0);
+                    blockDisplay.addScoreboardTag("fancyphysics_tree");
                     blockDisplay.setInterpolationDelay(-1);
                     blockDisplay.setTransformation(new Transformation(
                             new Vector3f(-1F,0,-1F),
@@ -123,6 +124,7 @@ public class BlockBreakListener implements Listener {
 
         block.getWorld().spawn(block.getLocation(), BlockDisplay.class, blockDisplay -> {
             blockDisplay.setBlock(blockData);
+            blockDisplay.addScoreboardTag("fancyphysics_tree");
             Bukkit.getScheduler().scheduleSyncDelayedTask(this.fancyPhysics, () -> {
 
                 Transformation transformation = new Transformation(

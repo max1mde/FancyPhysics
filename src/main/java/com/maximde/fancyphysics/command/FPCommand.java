@@ -6,6 +6,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Display;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.text.ParseException;
@@ -42,6 +44,18 @@ public class FPCommand implements CommandExecutor {
         if(args[0].equalsIgnoreCase("reload")) {
             fancyPhysics.getPluginConfig().reload();
             sender.sendMessage(fancyPhysics.green + "Config reloaded!");
+            return false;
+        }
+
+        if(args[0].equalsIgnoreCase("clear-particles")) {
+            fancyPhysics.getPluginConfig().reload();
+            this.fancyPhysics.displayList.forEach(Display::remove);
+            this.fancyPhysics.displayList.clear();
+            this.fancyPhysics.craftingTableMap.clear();
+            Bukkit.getWorlds().forEach(world -> {
+                world.getEntities().stream().filter(entity -> entity.getScoreboardTags().contains("fancyphysics")).forEach(Entity::remove);
+            });
+            sender.sendMessage(fancyPhysics.green + "Particles in all loaded chunks have been removed!");
             return false;
         }
 

@@ -23,6 +23,7 @@ public class ParticleDisplay {
     private final Material particleMaterial;
     private int lightLevel = -1;
     private float gravity = 0;
+    private int customModelData = 0;
 
     /**
      * Constructs a ParticleDisplay object with the given block, offsets, and FancyPhysics instance.
@@ -69,20 +70,22 @@ public class ParticleDisplay {
      * @param startSize         The starting size of the particle display.
      * @param speed             The speed of the particle display.
      */
-    public ParticleDisplay(Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed) {
+    public ParticleDisplay(Location location, Material particleMaterial, int modelData, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed) {
         this.fancyPhysics = fancyPhysics;
         this.speed = speed;
         this.startSize = startSize;
         this.particleMaterial = particleMaterial;
+        this.customModelData = modelData;
         spawnBlockDisplay(location, x, y, z);
     }
 
 
-    public ParticleDisplay(float gravity, Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed) {
+    public ParticleDisplay(float gravity, Location location, Material particleMaterial, int modelData, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed) {
         this.fancyPhysics = fancyPhysics;
         this.speed = speed;
         this.startSize = startSize;
         this.particleMaterial = particleMaterial;
+        this.customModelData = modelData;
         this.gravity = gravity;
         spawnBlockDisplay(location, x, y, z);
     }
@@ -99,11 +102,12 @@ public class ParticleDisplay {
      * @param speed             The speed of the particle display.
      * @param lightLevel        The light level of the particle display.
      */
-    public ParticleDisplay(Location location, Material particleMaterial, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed, int lightLevel) {
+    public ParticleDisplay(Location location, Material particleMaterial, int modelData, float x, float y, float z, FancyPhysics fancyPhysics, float startSize, float speed, int lightLevel) {
         this.fancyPhysics = fancyPhysics;
         this.speed = speed;
         this.startSize = startSize;
         this.particleMaterial = particleMaterial;
+        this.customModelData = modelData;
         this.lightLevel = lightLevel;
         spawnBlockDisplay(location, x, y, z);
     }
@@ -141,6 +145,7 @@ public class ParticleDisplay {
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
             blockDisplay.setViewRange(0);
+            blockDisplay.addScoreboardTag("fancyphysics_particle");
             if(this.lightLevel > -1) {
                 blockDisplay.setBrightness(new Display.Brightness(this.lightLevel, this.lightLevel));
             }

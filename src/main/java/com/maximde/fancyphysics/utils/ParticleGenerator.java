@@ -38,7 +38,7 @@ public class ParticleGenerator {
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
                 for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
-                    var display = new ParticleDisplay(location, material, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 10.0F / 42, 1.3F, lightLevel);
+                    var display = new ParticleDisplay(location, material, 0, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 10.0F / 42, 1.3F, lightLevel);
                     displayList.add(display.getBlockDisplay());
                 }
             }
@@ -70,7 +70,7 @@ public class ParticleGenerator {
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
                 for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
-                    var display = new ParticleDisplay(location, material, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 1.0F / 5F, 2F, lightLevel);
+                    var display = new ParticleDisplay(location, material, 0, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, 1.0F / 5F, 2F, lightLevel);
                     displayList.add(display.getBlockDisplay());
                 }
             }
@@ -112,7 +112,8 @@ public class ParticleGenerator {
         for(float y = 0.333F; y <= 0.999F; y = y + 0.333F) {
             for(float x = 0.333F; x <= 0.999F; x = x + 0.333F) {
                 for(float z = 0.333F; z <= 0.999F; z = z + 0.333F) {
-                    var display = new ParticleDisplay(location, getParticleMaterial(material), x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, startSize, speed);
+                    ParticleMaterialData particleMaterialData = getParticleMaterial(material);
+                    var display = new ParticleDisplay(location, particleMaterialData.material, particleMaterialData.customModelData, x - 0.25F, y - 0.25F, z - 0.25F, this.fancyPhysics, startSize, speed);
                     displayList.add(display.getBlockDisplay());
                 }
             }
@@ -124,22 +125,31 @@ public class ParticleGenerator {
         if(!fancyPhysics.getPluginConfig().isBlockParticles()) return;
         if(fancyPhysics.getPluginConfig().getBlockParticleBlackList().contains(material.name())) return;
         List<BlockDisplay> displayList = new ArrayList<>();
-        var display = new ParticleDisplay(8.0F, location, getParticleMaterial(material), 0F, 0F, 0F, this.fancyPhysics, 1F, 0F);
+        ParticleMaterialData particleMaterialData = getParticleMaterial(material);
+        var display = new ParticleDisplay(8.0F, location, particleMaterialData.material, particleMaterialData.customModelData, 0F, 0F, 0F, this.fancyPhysics, 1F, 0F);
         displayList.add(display.getBlockDisplay());
         manageParticleEffectEvent(location, displayList);
     }
 
+    public record ParticleMaterialData(Material material, int customModelData) {}
+
+
     /**
      * Returns a better particle material for the given type because some particles are looking weird with specific materials
      *
-     * @param type  The type of the particle.
-     * @return      The particle material.
      */
-    public Material getParticleMaterial(Material type) {
+    public ParticleMaterialData getParticleMaterial(Material type) {
+
+        if (this.fancyPhysics.getPluginConfig().getBlockParticleSettings().containsKey(type)) {
+            Config.ParticleSettings settings = this.fancyPhysics.getPluginConfig().getBlockParticleSettings().get(type);
+            return new ParticleMaterialData(settings.getParticleMaterial(), settings.getCustomModelData());
+        }
+
+
         return switch (type) {
-            case GRASS_BLOCK -> Material.DIRT;
-            case VINE, FIRE -> Material.AIR;
-            default -> type;
+            case GRASS_BLOCK -> new ParticleMaterialData(Material.DIRT, 0);
+            case VINE, FIRE -> new ParticleMaterialData(Material.AIR, 0);
+            default -> new ParticleMaterialData(type, 0);
         };
     }
 

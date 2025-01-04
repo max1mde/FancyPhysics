@@ -48,7 +48,7 @@ public class HitGroundListener implements Listener {
         }
         final var loc = event.getBlock().getLocation();
         if(fancyPhysics.getPluginConfig().isSounds()) loc.getWorld().playSound(loc, fallingBlock.getBlockData().getSoundGroup().getBreakSound(), 1.0f, 1.0f);
-        this.fancyPhysics.getParticleGenerator().simulateBlockParticles(loc, this.fancyPhysics.getParticleGenerator().getParticleMaterial(material));
+        this.fancyPhysics.getParticleGenerator().simulateBlockParticles(loc, this.fancyPhysics.getParticleGenerator().getParticleMaterial(material).material());
     }
 
 

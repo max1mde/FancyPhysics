@@ -61,7 +61,7 @@ public final class FancyPhysics extends JavaPlugin {
         this.displayList.clear();
         this.craftingTableMap.clear();
         Bukkit.getWorlds().forEach(world -> {
-            world.getEntities().stream().filter(entity -> entity.getScoreboardTags().contains("fancyphysics_crafting")).forEach(Entity::remove);
+            world.getEntities().stream().filter(entity -> entity.getScoreboardTags().contains("fancyphysics")).forEach(Entity::remove);
         });
     }
 

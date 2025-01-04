@@ -62,6 +62,7 @@ public class InteractListener implements Listener {
 
         clickedBlock.getLocation().getWorld().spawn(clickedBlock.getLocation(), BlockDisplay.class, blockDisplay -> {
             blockDisplay.setInvulnerable(true);
+            blockDisplay.addScoreboardTag("fancyphysics_trapdoor");
             blockDisplay.setPersistent(true);
             blockDisplay.setBlock(blockData);
             runTrapdoorAnimation(blockDisplay, blockData, clickedBlock);

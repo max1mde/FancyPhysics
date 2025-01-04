@@ -89,6 +89,7 @@ public class Tree {
         location.getWorld().spawn(location, BlockDisplay.class, blockDisplay -> {
             this.fancyPhysics.displayList.add(blockDisplay);
             blockDisplay.setBlock(blockData);
+            blockDisplay.addScoreboardTag("fancyphysics_tree");
             if(block != origin) block.setType(Material.AIR);
 
             var transformationY = - 1 + (this.origin.getY() - (block.getY()));

@@ -1,9 +1,11 @@
 package com.maximde.fancyphysics.utils;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +62,7 @@ public class Config {
     private Location spawn;
     private int protectionRadius;
     private boolean enableSpawnProtection;
+    private Map<Material, ParticleSettings> blockParticleSettings;
 
     public Config(File dataFolder) {
         this.dataFolder = dataFolder;
@@ -67,6 +70,17 @@ public class Config {
         loadConfig();
         initDefaults();
         initValues();
+    }
+
+    @Getter @Setter
+    public static class ParticleSettings {
+        private Material particleMaterial;
+        private int customModelData;
+
+        public ParticleSettings(Material particleMaterial, int customModelData) {
+            this.particleMaterial = particleMaterial;
+            this.customModelData = customModelData;
+        }
     }
 
     private void initDefaults() {
@@ -120,6 +134,9 @@ public class Config {
         setIfNot("BlockPhysics.Enabled", false);
         setIfNot("BlockPhysics.Blocks.DEFAULT.Limit", 10);
         setIfNot("BlockPhysics.Blocks.STONE.Limit", 12);
+
+        setIfNot("BlockParticleSettings.Blocks.DIAMOND_ORE.ParticleMaterial", "DIAMOND_BLOCK");
+        setIfNot("BlockParticleSettings.Blocks.DIAMOND_ORE.CustomModelData", 0);
         saveConfig();
     }
 
@@ -213,6 +230,19 @@ public class Config {
         if (cfg.isConfigurationSection("BlockPhysics.Blocks")) {
             for (String key : cfg.getConfigurationSection("BlockPhysics.Blocks").getKeys(false)) {
                 blockPhysicsLimits.put(key, cfg.getInt("BlockPhysics.Blocks." + key + ".Limit"));
+            }
+        }
+
+        blockParticleSettings = new HashMap<>();
+        if (cfg.isConfigurationSection("BlockParticleSettings.Blocks")) {
+            ConfigurationSection blocks = cfg.getConfigurationSection("BlockParticleSettings.Blocks");
+            for (String blockKey : blocks.getKeys(false)) {
+                Material blockType = Material.valueOf(blockKey);
+                String particleItemName = blocks.getString(blockKey + ".ParticleMaterial");
+                int customModelData = blocks.getInt(blockKey + ".CustomModelData");
+
+                Material particleItem = Material.valueOf(particleItemName);
+                blockParticleSettings.put(blockType, new ParticleSettings(particleItem, customModelData));
             }
         }
     }

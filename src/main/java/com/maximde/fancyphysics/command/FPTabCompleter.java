@@ -36,6 +36,7 @@ public class FPTabCompleter implements TabCompleter {
 
         if (args.length == 1) {
             commands.add("reload");
+            commands.add("clear-particles");
             //commands.add("settings");
             StringUtil.copyPartialMatches(args[0], commands, completions);
         }
