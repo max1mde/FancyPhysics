@@ -147,3 +147,13 @@ BlockParticleSettings:
 <a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833">
   <img src="https://bstats.org/signatures/bukkit/Fancy%20Physics.svg" alt="bStats" width="500">
 </a>
+
+
+<div align="center">
+  <sub>Used by 200+ servers | 25,000+ downloads across platforms</sub><br>
+  <a href="https://www.spigotmc.org/resources/110500/">SpigotMC</a> •
+  <a href="https://github.com/max1mde/FancyPhysics">GitHub</a> •
+  <a href="https://modrinth.com/plugin/fancy-physics">Modrinth</a> •
+  <a href="https://discord.gg/2UTkYj26B4">Support</a><br>
+  <sub>License: GPL-3.0 | © 2025 <a href="https://github.com/max1mde/">Maxim</a></sub>
+</div>
