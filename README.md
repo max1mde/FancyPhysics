@@ -142,12 +142,11 @@ BlockParticleSettings:
 
 ![image](https://imgur.com/5eyNF1F.gif)
 
-![stats](https://github.com/max1mde/images/blob/main/Neues_Projekt_-_2023-06-15T233852.757_3.png?raw=true)
-
 <a href="https://bstats.org/plugin/bukkit/Fancy%20Physics/18833">
-  <img src="https://bstats.org/signatures/bukkit/Fancy%20Physics.svg" alt="bStats" width="500">
+  <img src="https://bstats.org/signatures/bukkit/Fancy%20Physics.svg" alt="bStats">
 </a>
 
+---
 
 <div align="center">
   <sub>Used by 200+ servers | 25,000+ downloads across platforms</sub><br>
